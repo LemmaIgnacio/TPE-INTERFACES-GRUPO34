@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Games - Create Account</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Dragon Games</div>
+        <div class="user-icon">👤</div>
+    </header>
+
+    <div class="container">
+        <div class="form-card">
+            <h1>Create account</h1>
+            <p class="signin-text">Do you already have an account? <a href="#">Sign in</a></p>
+
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><span class="required">*</span> Name</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Lastname</label>
+                        <input type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nickname</label>
+                        <input type="text">
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Age</label>
+                        <input type="number" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label><span class="required">*</span> Email</label>
+                    <input type="email" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><span class="required">*</span> Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('password')">👁️</button>
+                        </div>
+                        <div class="password-requirements">Required: 1 capital letter, 1 number, 1 symbol</div>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="required">*</span> Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm-password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirm-password')">👁️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recaptcha-wrapper">
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                </div>
+
+                <button type="submit" class="submit-btn">Sign Up</button>
+
+                <div class="divider"></div>
+
+                <div class="social-buttons">
+                    <button type="button" class="social-btn facebook-btn">
+                        <span>f</span> Register with Facebook
+                    </button>
+                    <button type="button" class="social-btn google-btn">
+                        <span>G</span> Register with Google
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
