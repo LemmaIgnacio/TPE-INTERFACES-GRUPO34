@@ -3,85 +3,107 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dragon Games - Create Account</title>
         <link rel="stylesheet" href="../style/style.css">
+        <title>Dragon Games</title>
     </head>
     <body>
-        <header>
-            <div class="logo">Dragon Games</div>
-            <div class="user-icon">👤</div>
+        <header class="header">
+            <div class="left-header-section">
+                <button class="hamburger-menu" id="hamburgerBtn">
+                    <img src="#" alt="Menu">
+                </button>
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <img src="#" alt="Logo">                        
+                    </div>
+                    <span class="logo-text">Dragon Games</span>
+                </a>
+            </div>
+
+            <div class="center-header-section">
+                <div class="search-container">
+                    <img src="#" alt="Search">
+                    <input type="text" class="search-input" placeholder="Search">
+                </div>
+            </div>
+
+            <div class="right-header-section">
+                <button class="icon-btn">
+                    <img src="#" alt="Notifications">
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="profile-avatar">
+                    <img src="#" alt="Profile">
+                </div>
+            </div>
         </header>
 
-        <div class="container">
-            <div class="form-card">
-                <h1>Create account</h1>
-                <p class="signin-text">Do you already have an account? <a href="#">Sign in</a></p>
+        <!-- Sidebar Menu -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#"><img src="#" alt="RecentGames"> Recent Games</a></li>
+                <li><a href="#"><img src="#" alt="AdventureGames"> Aventura</a></li>
+                <li><a href="#"><img src="#" alt="BoardGames"> Juegos de Mesa</a></li>
+                <li><a href="#"><img src="#" alt="BeautyGames"> Beauty</a></li>
+                <li><a href="#"><img src="#" alt="CombatGames"> Combate</a></li>
+                <li><a href="#"><img src="#" alt="ShootingGames"> Disparos</a></li>
+            </ul>
+        </nav>
+        <!-- Main Content -->
+        <main id="Game">
+            <nav class="game-address-navbar">
+               <li class="breadcrumb"><a href="#">Home</a></li>
+                    <!-- Resto de breadcrumbs -->
+            </nav>
+            
+            <section id="GameContainer">
+                <div id="GameWindow">
+                    <!-- Acá se cargará el juego dinámicamente -->
+                </div>
+            </section>
 
-                <form>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label><span class="required">*</span> Name</label>
-                            <input type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label><span class="required">*</span> Lastname</label>
-                            <input type="text" required>
-                        </div>
-                    </div>
+            <section id="GameDetails">
+                <div id="GameTitle">
+                    <h1><!-- Variable API --></h1>
+                </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Nickname</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-group">
-                            <label><span class="required">*</span> Age</label>
-                            <input type="number" required>
-                        </div>
-                    </div>
+                <div id="GameInformation">
+                    <p id="GameRating"><!-- Variable API --></p>
+                    <p id="GameDeveloper"><!-- Variable API --></p>
+                    <p id="GamePublisher"><!-- Variable API --></p>
+                </div>
 
-                    <div class="form-group full-width">
-                        <label><span class="required">*</span> Email</label>
-                        <input type="email" required>
-                    </div>
+                <div id="GameDescription">
+                    <p><!-- Variable API --></p>
+                    <button class="button">Compartir</button>
+                </div>
+            </section>
+            
+            <section id="GameHowtoPlay">
+                <!-- TODO: Hacerlo de acuerdo al figma -->
+                <h2>How to Play</h2>
+                <div>
+                    <div><!-- Template HTML --></div>
+                    <div id="GameHowtoPlayMedia"><!-- Template HTML con imágenes --></div>
+                </div>
+                <a href="#"></a>
+            </section>
+            
+            <section id="CommentsSection">
+                <h2>Comments</h2>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label><span class="required">*</span> Password</label>
-                            <div class="password-wrapper">
-                                <input type="password" id="password" required>
-                                <button type="button" class="toggle-password" onclick="togglePassword('password')">👁️</button>
-                            </div>
-                            <div class="password-requirements">Required: 1 capital letter, 1 number, 1 symbol</div>
-                        </div>
-                        <div class="form-group">
-                            <label><span class="required">*</span> Confirm Password</label>
-                            <div class="password-wrapper">
-                                <input type="password" id="confirm-password" required>
-                                <button type="button" class="toggle-password" onclick="togglePassword('confirm-password')">👁️</button>
-                            </div>
-                        </div>
-                    </div>
+                <div id="AddCommentSection">
+                    <form id="AddCommentForm">
+                        <textarea id="CommentText" placeholder="Write your comment here..." required></textarea>
+                        <button type="submit"><img href="#" alt="SendComment"></button>
+                    </form>
+                </div>
 
-                    <div class="recaptcha-wrapper">
-                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Sign Up</button>
-
-                    <div class="divider"></div>
-
-                    <div class="social-buttons">
-                        <button type="button" class="social-btn facebook-btn">
-                            <span>f</span> Register with Facebook
-                        </button>
-                        <button type="button" class="social-btn google-btn">
-                            <span>G</span> Register with Google
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                <div id="CommentsContainer">
+                    <!-- Acá se añadirán comentarios dinámicamente -->
+                </div>
+            </section>
+        </main>
 
         <!-- Footer -->
         <footer class="footer">
@@ -228,6 +250,6 @@
             </div>
         </footer>
         <script src="../app.js/main.js"></script>
-        <script src="../app.js/signUp.js"></script>
+        <script src="../app.js/game.js"></script>
     </body>
 </html>
