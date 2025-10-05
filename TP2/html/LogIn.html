@@ -1,42 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/style.css">
-    <title>Login</title>
-</head>
-<body>
-    <div class="login-container">
-        <form class="login-form" id="loginForm">
-            <h2>Sign In</h2>
-            <div class="form-control">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Enter your username" required>
-            </div>
-            <div class="form-control password-field">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
-                <img src="placeholder-eye.png" alt="Toggle Password Visibility" id="togglePassword" class="toggle-password">
-            </div>
-            <a href="#" class="forgot-password">Forgot Password?</a>
-            <div class="recaptcha-container">
-                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
-            </div>
-            <button type="submit" class="btn">Sign in</button>
-            <div class="social-login">
-                <p>Login with social accounts</p>
-                <div class="social-icons">
-                    <img src="google-icon.png" alt="Google">
-                    <img src="facebook-icon.png" alt="Facebook">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style/style.css">
+        <title>Login</title>
+    </head>
+    <body>
+        <header>
+            <div class="logo">Dragon Games</div>
+            <div class="user-icon">👤</div>
+        </header>
+        
+        <div class="login-container">
+            <form class="login-form" id="loginForm">
+                <h2>Sign In</h2>
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
                 </div>
-            </div>
-            <p class="signup-text">Don’t have an account? <a href="#">Sign up</a></p>
-        </form>
-    </div>
+                <div class="form-control password-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <img src="placeholder-eye.png" alt="Toggle Password Visibility" id="togglePassword" class="toggle-password">
+                </div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                <div class="recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+                </div>
+                <button type="submit" class="btn">Sign in</button>
+                <div class="social-login">
+                    <p>Login with social accounts</p>
+                    <div class="social-icons">
+                        <img src="google-icon.png" alt="Google">
+                        <img src="facebook-icon.png" alt="Facebook">
+                    </div>
+                </div>
+                <p class="signup-text">Don’t have an account? <a href="#">Sign up</a></p>
+            </form>
+        </div>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="app.js/LogIn.js"></script>
-</body>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <section class="footer-top">
+                    <section class="footer-left">
+                        <div class="mobile-download">
+                            <h3>Download in Mobile</h3>
+                            <div class="store-icons">
+                                <a href="#" class="store-icon">
+                                    <img src="#" alt="GooglePlay">                                </a>
+                                <a href="#" class="store-icon">
+                                    <img src="#" alt="AppStore">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="footer-logo">
+                            <div class="logo-icon">
+                                <img src="#" alt="Logo">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="footer-center">
+                        <div class="newsletter">
+                            <h3>Subscribe to Our Newsletter</h3>
+                            <div class="newsletter-form">
+                                <input type="email" placeholder="Enter your email address" class="email-input">
+                                <button type="submit" class="subscribe-btn">Suscribe</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="footer-right">
+                        <div class="social-media">
+                            <h3>Social Media</h3>
+                            <div class="discord-section">
+                                <div class="discord-info">
+                                    <img src="#" alt="DiscordLogo">
+                                    <div>
+                                        <span class="discord-title">Discord</span>
+                                        <span class="discord-subtitle">Join community</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon twitter">
+                                    <img src="#" alt="TwitterLogo">
+                                </a>
+                                <a href="#" class="social-icon facebook">
+                                    <img src="#" alt="FacebookLogo">
+                                </a>
+                                <a href="#" class="social-icon google">
+                                    <img src="#" alt="GooglePlusLogo">
+                                </a>
+                                <a href="#" class="social-icon instagram">
+                                    <img src="#" alt="InstagramLogo">
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="footer-link-sections">
+                    <div class="footer-link-sections-section">
+                        <h3>Games</h3>
+                        <ul>
+                            <li><a href="#">Popular <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">New <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Recommended <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Most Played <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Categories <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Upcoming <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">eSports <img src="#" alt="site-link"></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-link-sections-section">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">Help <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">FAQ <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Report Bug <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Server Status <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Contact <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Live Chat <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Updates <img src="#" alt="site-link"></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-link-sections-section">
+                        <h3>Donations</h3>
+                        <ul>
+                            <li><a href="#">Why Donate? <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">How to Contribute <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Transparency Report <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Community Dev <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Hall of Fame <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Sponsor a Dev <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Dev Interviews <img src="#" alt="site-link"></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-link-sections-section">
+                        <h3>Community</h3>
+                        <ul>
+                            <li><a href="#">Forums <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Ranking <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Events <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Guides <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Discord <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Reddit <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">User Reviews <img src="#" alt="site-link"></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-link-sections-section">
+                        <h3>For Our Users</h3>
+                        <ul>
+                            <li><a href="#">About us <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Cookies <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Legal <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Work with us <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Privacy Policy <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Contact Us <img src="#" alt="site-link"></a></li>
+                            <li><a href="#">Patch Note... <img src="#" alt="site-link"></a></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="footer-bottom">
+                    <p class="copyright">© 2025 Dragon Games. All rights reserved.</p>
+                    <p class="legal-text">
+                        This website and all content available on it, including video games, graphics, sounds, text, source code, and other materials, are protected by copyright laws. Any unauthorized reproduction, distribution, modification, or use without the prior written consent of the copyright holder is prohibited.
+                    </p>
+                    <p class="legal-text">
+                        The video games offered on this platform are free for personal use. Any commercial use, redistribution, or modification is subject to the terms established in our usage policies.
+                    </p>
+                    <p class="contact-info">
+                        For more information, contact us at: <a href="mailto:games.lopez@gmail.com">games.lopez@gmail.com</a>.
+                    </p>
+                </section>
+            </div>
+        </footer>
+        <script src="../app.js/main.js"></script>
+        <script src="../app.js/logIn.js"></script>
+    </body>
 </html>
