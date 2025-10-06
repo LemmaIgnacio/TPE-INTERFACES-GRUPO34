@@ -4,6 +4,32 @@ const GAME_GENRES = ['Puzzle', 'Adventure', 'RPG', 'Shooter'];
 const API_URL = 'https://vj.interfaces.jima.com.ar/api/v2';
 const BACKUP_DATA_LOCATION = '../js/gameData.json';
 
+
+// 3.Al cargar la Home se debe ejecutar siempre un loading simulado de 5 segundos, 
+// el cual NO puede ser un GIF. El mismo debe mostrar un % de avance 
+// y una animación de carga (cuadrado, círculo, spinner)
+document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("loader-overlay");
+    const percent = document.getElementById("loader-percent");
+    let progress = 0;
+    const duration = 5000; // 5 seconds
+    const interval = 50;
+    const step = 100 / (duration / interval);
+
+    loader.style.display = "flex";
+    percent.textContent = "0%";
+
+    const timer = setInterval(() => {
+        progress += step;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(timer);
+            loader.style.display = "none";
+        }
+        percent.textContent = `${Math.floor(progress)}%`;
+    }, interval);
+});
+
 document.addEventListener('DOMContentLoaded', function() {	
     // Cargar los datos de la API y luego cargar los carruseles y la sección de juegos recientemente jugados.
     (async () => {
