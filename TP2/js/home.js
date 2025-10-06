@@ -1,29 +1,75 @@
 "use strict";
 
+const GAME_GENRES = ['Puzzle', 'Adventure', 'RPG', 'Shooter'];
 const API_URL = 'https://vj.interfaces.jima.com.ar/api/v2';
 const BACKUP_DATA_LOCATION = '../js/gameData.json';
 
-// Función para cargar el carrusel y los cards de videojuego en la sección de carruseles
-document.addEventListener('DOMContentLoaded', function() {
-	(async () => {
+document.addEventListener('DOMContentLoaded', function() {	
+    // Cargar los datos de la API y luego cargar los carruseles y la sección de juegos recientemente jugados.
+    (async () => {
 		const gameCarouselsSection = document.getElementById('GameCarousels');
 		if (!gameCarouselsSection) return;
 
 		const gameList = await getApiData();
-		console.log(gameList);
 
-		for (let i = 0; i < gameList.length; i++) {
+        // Cargar los juegos recientemente jugados
+        for (let i = 0; i < GAME_GENRES.length; i++) {
+            if(!gameList.find(g => g.genre === GAME_GENRES[i])) continue;
+            loadRecentGame(gameList[i].games);
+        }
+
+		// Cargar los carruseles de juegos por género.
+        for (let i = 0; i < gameList.length; i++) {
+            if(!GAME_GENRES.includes(gameList[i].genre)) continue;
 			loadCarousel(gameList[i], gameCarouselsSection);
-		}	
+		}
+        
 	})();
 });
 
-// TODO: Completar la función loadCarousel para que cargue los datos en el HTML.
-function loadCarousel(gameData, gameCarouselsSection) {
-	const carouselHtml = localStorage.getItem('../html/home/gameCarousel.html');
-	const cardHtml = localStorage.getItem('../html/home/gameCard.html');
+async function loadRecentGame(gameList) {
+    try {
+        const recentGameHtml = await fetch('../html/home/recentGameCard.html').then(res => res.text());
+        const recentGameSection = document.getElementById('RecentGames');
+        if (!recentGameSection) return;
+        const recentGame = createElementFromString(recentGameHtml);
+        recentGame.querySelector('.recent-game-card__image').src = gameList[1].image;
+        recentGameSection.appendChild(recentGame);
+    }   catch (error) {
+        console.error('Error cargando la plantilla de juego reciente:', error);
+    }
+}
 
+async function loadCarousel(gameData, gameCarouselsSection) {
+    try {
+        const carouselHtml = await fetch('../html/home/gameCarousel.html').then(res => res.text());
+        const cardHtml = await fetch('../html/home/gameCard.html').then(res => res.text());
 
+        // Crear el carrusel y agregarlo a la sección
+        const carousel = createElementFromString(carouselHtml);
+        carousel.querySelector('.carousel-title').textContent = gameData.genre;
+
+        // Añadir una card de Peg Solitaire si el género es Puzzle
+        if (gameData.genre === 'Puzzle') {
+            const card = createElementFromString(cardHtml);
+            card.querySelector('.game-card__title').textContent = "Dragon Peg Solitaire";
+            card.querySelector('.game-card__image').src = "../media/PegSolitaire 1.png";
+            card.querySelector('a').href = "../html/game.html";
+            carousel.querySelector('.carousel-track').innerHTML += card.outerHTML;
+        }
+
+        // Agregar las cards de juegos al carrusel
+        for (let i = 0; i < gameData.games.length; i++) {
+            const card = createElementFromString(cardHtml);
+            card.querySelector('.game-card__title').textContent = gameData.games[i].title;
+            card.querySelector('.game-card__image').src = gameData.games[i].image;
+            carousel.querySelector('.carousel-track').innerHTML += card.outerHTML;
+        }
+        gameCarouselsSection.appendChild(carousel);
+
+    } catch (error) {
+        console.error('Error cargando las plantillas:', error);
+    }
 }
 
 async function getApiData() {
@@ -72,4 +118,14 @@ function saveBackupData(data) {
 function loadBackupData() {
     const gameData = localStorage.getItem(BACKUP_DATA_LOCATION);
     return datos ? JSON.parse(gameData) : null;
+}
+
+// Crear un elemento DOM a partir de una cadena HTML.
+function createElementFromString(htmlString) {
+    // Create a temporary container
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlString.trim(); // Trim to avoid unwanted whitespace
+
+    // Return the first child element
+    return tempDiv.firstElementChild;
 }
