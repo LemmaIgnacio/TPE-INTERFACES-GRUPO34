@@ -15,17 +15,17 @@
         <div class="container">
             <div class="form-card">
                 <h1>Create account</h1>
-                <p class="signin-text">Do you already have an account? <a href="#">Sign in</a></p>
+                <p class="signin-text">Do you already have an account? <a href="#" id="signin-link">Sign in</a></p>
 
                 <form>
                     <div class="form-row">
                         <div class="form-group">
                             <label><span class="required">*</span> Name</label>
-                            <input type="text" required>
+                            <input type="text" id="name" required>
                         </div>
                         <div class="form-group">
                             <label><span class="required">*</span> Lastname</label>
-                            <input type="text" required>
+                            <input type="text" id="lastname" required>
                         </div>
                     </div>
 
@@ -36,13 +36,13 @@
                         </div>
                         <div class="form-group">
                             <label><span class="required">*</span> Age</label>
-                            <input type="number" required>
+                            <input type="number" id="age" required>
                         </div>
                     </div>
 
                     <div class="form-group full-width">
                         <label><span class="required">*</span> Email</label>
-                        <input type="email" required>
+                        <input type="email" id="email" required>
                     </div>
 
                     <div class="form-row">
@@ -67,7 +67,7 @@
                         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                     </div>
 
-                    <button type="submit" class="submit-btn">Sign Up</button>
+                    <button type="submit" class="submit-btn" id="submit">Sign Up</button>
 
                     <div class="divider"></div>
 
@@ -228,6 +228,6 @@
             </div>
         </footer>
         <script src="../app.js/main.js"></script>
-        <script src="../app.js/signUp.js"></script>
+        <script src="../js/signUp.js"></script>
     </body>
 </html>
