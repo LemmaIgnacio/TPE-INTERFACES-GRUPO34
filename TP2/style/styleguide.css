@@ -1,3 +1,4 @@
+/*Acá se encuentran todas las variables que hemos utilizado*/
 :root {
   --h1-font-family: "Poppins", Helvetica;
   --h1-font-weight: 800;
@@ -52,3 +53,4 @@
   --colecci-n-variable-background-color-dark: rgba(18, 14, 38, 1);
   --colecci-n-variable-background-color-blueish: rgba(29, 23, 64, 1);
 }
+
