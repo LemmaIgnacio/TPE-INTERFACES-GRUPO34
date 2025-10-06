@@ -1,0 +1,111 @@
+/* CSS General */
+
+/* Variables de color y texto */
+:root {
+    --N-Light-Gray: #F5F5F5;
+    --N-Gray: #9E9E9E;
+    --Background-Color-Blueish: #1D1740;
+    --Background-Color-Dark: #120E26;
+    --Primary-Color: #84E9DD;
+    --Primary-Color-Light: #CCF8F2;
+    --Primary-Color-Dark: #2D8A81;
+    --Secondary-Color-Purple: #9C6ADE;
+    --Secondary-Color-Purple-Dark: #6E41A5;
+    --Third-Color: #FF6F61;
+    
+    --Default-Font: 'Poppins', sans-serif;
+    --Font-Size-Paragraph: 14px;
+    --Font-Size-H4: 16px;
+    --Font-Size-H3: 24px;
+    --Font-Size-H2: 28px;
+    --Font-Size-H1: 36px;
+}
+
+/* Elimina estilos por defecto del navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1D1740;
+    font-family: var(--Default-Font);
+    color: var(--N-Light-Gray);
+    display: grid;
+    grid-template-areas: "header header"
+                         "sidebar main"
+                         "footer footer";
+}
+
+header, footer {
+    background-color: #120E26;
+}
+
+header {
+    grid-area: header;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .footer-top, .footer-link-sections, .footer-bottom {
+        flex-direction: row;
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
+    } 
+
+}
+
+.footer-left, .footer-center, .footer-right, .footer-link-sections-section {
+    width: 16%;
+    flex-direction: row;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* CSS Específico */
+
+/* home */
+
+#sidebar {
+    grid-area: sidebar;
+    background-color: #120E26;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    top: 60px;
+}
+
+#RecentGames, .carousel-track {
+    display: flex;
+    max-width: 80%;
+}
+
+/* game */
+
+/* logIn */
+
+/* signUp */
+
+
+
