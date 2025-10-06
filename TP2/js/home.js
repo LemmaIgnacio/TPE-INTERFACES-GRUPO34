@@ -4,6 +4,10 @@ const GAME_GENRES = ['Puzzle', 'Adventure', 'RPG', 'Shooter'];
 const API_URL = 'https://vj.interfaces.jima.com.ar/api/v2';
 const BACKUP_DATA_LOCATION = '../js/gameData.json';
 
+
+// 3.Al cargar la Home se debe ejecutar siempre un loading simulado de 5 segundos, 
+// el cual NO puede ser un GIF. El mismo debe mostrar un % de avance 
+// y una animación de carga (cuadrado, círculo, spinner)
 document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader-overlay");
     const percent = document.getElementById("loader-percent");
