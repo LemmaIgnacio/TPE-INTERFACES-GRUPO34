@@ -9,16 +9,26 @@ html {
 }
 
 body {
-    background-color: var(--colecci-n-variable-background-color-blueish);
+    background-color: var(--colecci-n-variable-background-color-dark);
     color: var(--colecci-n-variable-n-light-gray);
     min-height: auto;
     min-width: auto;
     display: grid;
-    grid-template-columns: auto 1fr auto; /*Va a ser tan gramde como necesite*/
+    grid-template-columns: auto 1fr; /*Va a ser tan gramde como necesite*/
+    grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
+    grid-template-areas:
+        "sidebar main"
+        "sidebar main"
+        "sidebar footer"; /*El sidebar va a ocupar las 3 filas*/
 }
 
 main {
-    padding: min(4vw, 20px);
+    padding: 0px;;
+
+}
+
+main .container-main{
+    background-color: var(--colecci-n-variable-background-color-blueish);
 }
 
 main p {
@@ -32,11 +42,23 @@ main p {
     width: min(20vw, 250px);
     background-color: var(--colecci-n-variable-background-color-dark);
     padding: min(1vw, 5px);
-    border-right: 1px solid var(--colecci-n-variable-PC-light-2);
+    
 
     position: sticky;
     top: 0;
     align-self: start; /*para mantener la sidebar estática al costado*/
+}
+
+#topbar {
+    box-sizing:border-box;
+    height: min(20vw, 250px);
+    width: 100vh;
+    background-color: var(--colecci-n-variable-background-color-dark);
+    padding: min(1vw, 5px);
+    display: flex;
+    position: sticky;
+    top: 0;
+    align-self: start;
 }
 
 #sidebar ul {
@@ -62,7 +84,7 @@ main p {
     }
 }
 
-#sidebar a, #sidebar .logo {
+#sidebar a, #sidebar .logo, #topbar button.dropdown-btn {
     border-radius: .5em;
     padding: .85em;
     text-decoration: none;
@@ -75,18 +97,18 @@ main p {
     padding: .20em;
 }
 
-#sidebar svg {
+#sidebar svg, #topbar svg {
     flex-shrink: 0;
     fill: var(--colecci-n-variable-n-light-gray);
 }
 
-#sidebar a span, #sidebar .logo span {
+#sidebar a span, #sidebar .logo span, #topbar button.dropdown-btn{
     flex-grow: 1;
 }
 
-#sidebar a:hover{
+#sidebar a:hover, #topbar a:hover{
     background-color: var(--colecci-n-variable-SC-ligh2);
-    
+
 }
 
 
@@ -94,16 +116,8 @@ main p {
 
 
 /*Header using dropdown*/
-header {
-    background-color: var(--colecci-n-variable-background-color-dark);
-    border-bottom: 1px solid var(--colecci-n-variable-PC-light-2);
-    padding: min(4vw, 20px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.dropdown-btn {
+#topbar button.dropdown-btn {
     width: auto;
     text-align: left;
     background-color: var(--colecci-n-variable-background-color-dark);
