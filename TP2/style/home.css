@@ -1,0 +1,129 @@
+/*Global*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: var(--font-family-base);
+}
+
+body {
+    background-color: var(--colecci-n-variable-background-color-blueish);
+    color: var(--colecci-n-variable-n-light-gray);
+    min-height: auto;
+    min-width: auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto; /*Va a ser tan gramde como necesite*/
+}
+
+main {
+    padding: min(4vw, 20px);
+}
+
+main p {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+#sidebar {
+    box-sizing: border-box;
+    height: 100vh;
+    width: min(20vw, 250px);
+    background-color: var(--colecci-n-variable-background-color-dark);
+    padding: min(1vw, 5px);
+    border-right: 1px solid var(--colecci-n-variable-PC-light-2);
+
+    position: sticky;
+    top: 0;
+    align-self: start; /*para mantener la sidebar estática al costado*/
+}
+
+#sidebar ul {
+    list-style: none;
+    width: 100%;
+}
+
+#sidebar > ul > li:first-child {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    .logo{
+        font-weight: var(--h2-font-weight);
+        gap: 1px;
+    }
+
+}
+
+#sidebar ul li.active a{
+    background-color: var(--colecci-n-variable-SC-ligh1);
+    svg {
+        fill: var(--colecci-n-variable-SC-dark2);
+    }
+}
+
+#sidebar a, #sidebar .logo {
+    border-radius: .5em;
+    padding: .85em;
+    text-decoration: none;
+    color: var(--colecci-n-variable-n-light-gray);
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+#sidebar .logo{
+    padding: .20em;
+}
+
+#sidebar svg {
+    flex-shrink: 0;
+    fill: var(--colecci-n-variable-n-light-gray);
+}
+
+#sidebar a span, #sidebar .logo span {
+    flex-grow: 1;
+}
+
+#sidebar a:hover{
+    background-color: var(--colecci-n-variable-SC-ligh2);
+    
+}
+
+
+
+
+
+/*Header using dropdown*/
+header {
+    background-color: var(--colecci-n-variable-background-color-dark);
+    border-bottom: 1px solid var(--colecci-n-variable-PC-light-2);
+    padding: min(4vw, 20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-btn {
+    width: auto;
+    text-align: left;
+    background-color: var(--colecci-n-variable-background-color-dark);
+    border: none;
+    font: inherit;
+    cursor: pointer;/*changes the cursor to hand icon*/
+
+    span{
+        flex-grow: 1;
+    }
+}
+
+
+.container {
+    border: 1px solid var(--colecci-n-variable-PC-light-1);
+    border-radius: 1em;
+    margin-bottom: 20px;
+    padding: min(4vw, 20px);
+
+    h2, p { 
+        margin-top: 1em;
+    }
+}
