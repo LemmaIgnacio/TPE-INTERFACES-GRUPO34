@@ -1,57 +1,30 @@
-/* Loader overlay styles */
-#loader-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(20, 20, 40, 0.95);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* global */
+:root{
+    --primary-color: #84E9DD;
+    --primary-color-light-1: #B3F2EB;
+    --primary-color-light-2: #ccf8f2;
+    --primary-color-dark-1: #4EBBAF;
+    --primary-color-dark-2: #2d8a81;
+
+    --secondary-color: #9C6ADE;
+    --secondary-color-light-1: #BFA0E8;
+    --secondary-color-light-2: #D6C3F5;
+    --secondary-color-dark-1: #6E41A5;
+    --secondary-color-dark-2: #4A2C73;
+
+    --color-accent: #FF6F61;
+    --color-accent-light-1: #FFA094;
+    --color-accent-light-2: #FFB3AA;
+    --color-accent-dark-1: #D94A3D;
+    --color-accent-dark-2: #A83226;
+
+    --background-color: #;
+    --background-color-dark: #;
+    --background-color-blueish: #;
+    --color-text:: #f5f5f5;
+
+     
+
+    --font-family: 'Poppins', sans-serif;
 }
 
-.loader-content {
-    text-align: center;
-}
-
-.spinner {
-    width: 60px;
-    height: 60px;
-    border: 8px solid #aaf6f2;
-    border-top: 8px solid #1abc9c;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 18px auto;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
-}
-
-#loader-percent {
-    font-size: 1.5rem;
-    color: #aaf6f2;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.loader-text {
-    color: #fff;
-    font-size: 1.1rem;
-}
-
-
-/* spinner mobile login */
-@media (max-width: 600px) {
-    .spinner {
-        width: 40px;
-        height: 40px;
-        border-width: 6px;
-    }
-    #loader-percent {
-        font-size: 1.1rem;
-    }
-    .loader-text {
-        font-size: 1rem;
-    }
-}
