@@ -19,7 +19,7 @@ body {
     grid-template-areas:
         "sidebar main"
         "sidebar main"
-        "sidebar footer"; /*El sidebar va a ocupar las 3 filas*/
+        "footer footer"; /*El sidebar va a ocupar las 3 filas*/
 }
 
 main {
@@ -36,6 +36,17 @@ main p {
     margin-bottom: 15px;
 }
 
+footer {
+    grid-area: footer;
+    background-color: var(--colecci-n-variable-background-color-dark);
+    color: var(--colecci-n-variable-n-gray);
+    text-align: center;
+    padding: min(1vw, 10px);
+    font-size: min(1.5vw, 12px);
+}
+
+
+/*Sidebar*/
 #sidebar {
     box-sizing: border-box;
     height: 100vh;
@@ -52,7 +63,7 @@ main p {
 #topbar {
     box-sizing:border-box;
     height: min(20vw, 250px);
-    width: 100vh;
+    width: 100%;
     background-color: var(--colecci-n-variable-background-color-dark);
     padding: min(1vw, 5px);
     display: flex;
@@ -61,8 +72,8 @@ main p {
     align-self: start;
 }
 
-#sidebar ul {
-    list-style: none;
+#sidebar ul, #topbar ul {
+    list-style: none; /*Saca los puntos de las listas*/
     width: 100%;
 }
 
@@ -73,6 +84,7 @@ main p {
     .logo{
         font-weight: var(--h2-font-weight);
         gap: 1px;
+        background-color: transparent;
     }
 
 }
@@ -80,6 +92,7 @@ main p {
 #sidebar ul li.active a{
     background-color: var(--colecci-n-variable-SC-ligh1);
     svg {
+        background-color: transparent;
         fill: var(--colecci-n-variable-SC-dark2);
     }
 }
@@ -93,14 +106,17 @@ main p {
     align-items: center;
     gap: 1em;
 }
+
 #sidebar .logo{
     padding: .20em;
 }
 
 #sidebar svg, #topbar svg {
     flex-shrink: 0;
+    background-color: transparent;
     fill: var(--colecci-n-variable-n-light-gray);
 }
+
 
 #sidebar a span, #sidebar .logo span, #topbar button.dropdown-btn{
     flex-grow: 1;
@@ -112,11 +128,16 @@ main p {
 }
 
 
+#topbar .mobile-menu-btn {
+    display: none; /*Esconder el botón del menú en pantallas grandes*/
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
 
 
-
-/*Header using dropdown*/
-
+/*nav using dropdown*/
 #topbar button.dropdown-btn {
     width: auto;
     text-align: left;
@@ -139,5 +160,72 @@ main p {
 
     h2, p { 
         margin-top: 1em;
+    }
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr; /*Una sola columna*/
+        grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
+        grid-template-areas:
+            "topbar"
+            "main"
+            "footer"; /*El sidebar va a ocupar las 3 filas*/
+    }
+
+    #topbar .mobile-menu-btn {
+        display: block; /*Mostrar el botón del menú en pantallas pequeñas*/
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    #sidebar {
+        display: none; /*Esconder la sidebar en pantallas pequeñas*/
+    }
+
+    .show-sidebar {
+        display: block; /*Mostrar la sidebar cuando se haga clic en el botón del menú*/
+        position: fixed;
+        width: 100%;
+        background-color: var(--colecci-n-variable-background-color-dark);
+    }
+
+    #topbar {
+        height: auto;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    
+
+    .serch-bar {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background-color: var(--colecci-n-variable-n-dark-gray);
+        border-radius: 0.5em;
+        padding: 5px;
+    }
+
+    .serch-bar input {
+        background-color: transparent;
+        border: none;
+        color: var(--colecci-n-variable-n-light-gray);
+        outline: none; /*Quita el borde azul al hacer click*/
+        width: 100px;
+    }
+
+    .serch-bar button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
     }
 }
