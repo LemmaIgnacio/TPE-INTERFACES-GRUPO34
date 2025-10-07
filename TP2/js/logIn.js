@@ -7,7 +7,10 @@ document.addEventListener("click", (e) => {
     if (e.target === $submit) {
         if ($username.value !== "" && $password.value !== "") {
             e.preventDefault();
-            window.location.href = "home.html";
+            document.querySelector('.login-form').classList.add('success-animate');
+            setTimeout(() => {
+                window.location.href = '../html/home.html';
+            }, 800);
         }
     }
 
