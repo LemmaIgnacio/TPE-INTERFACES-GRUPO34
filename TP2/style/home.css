@@ -8,6 +8,39 @@ html {
     font-family: var(--font-family-base);
 }
 
+h1 {
+    font-family: var(--h1-font-family);
+    font-weight: var(--h1-font-weight);
+    font-size: var(--h1-font-size);
+    letter-spacing: var(--h1-letter-spacing);
+    line-height: var(--h1-line-height);
+    font-style: var(--h1-font-style);
+}
+h2 {
+    font-family: var(--h2-font-family);
+    font-weight: var(--h2-font-weight);
+    font-size: var(--h2-font-size);
+    letter-spacing: var(--h2-letter-spacing);
+    line-height: var(--h2-line-height);
+    font-style: var(--h2-font-style);
+}
+h3 {
+    font-family: var(--h3-font-family);
+    font-weight: var(--h3-font-weight);
+    font-size: var(--h3-font-size);
+    letter-spacing: var(--h3-letter-spacing);
+    line-height: var(--h3-line-height);
+    font-style: var(--h3-font-style);
+}
+p {
+    font-family: var(--paragraph-font-family);
+    font-weight: var(--paragraph-font-weight);
+    font-size: var(--paragraph-font-size);
+    letter-spacing: var(--paragraph-letter-spacing);
+    line-height: var(--paragraph-line-height);
+    font-style: var(--paragraph-font-style);
+}
+
 body {
     background-color: var(--colecci-n-variable-background-color-dark);
     color: var(--colecci-n-variable-n-light-gray);
@@ -62,7 +95,9 @@ footer {
 
 #topbar {
     box-sizing:border-box;
-    height: min(20vw, 250px);
+    justify-content: space-between;
+    align-items: center;
+    height: min(20vw, 200px);
     width: 100%;
     background-color: var(--colecci-n-variable-background-color-dark);
     padding: min(1vw, 5px);
@@ -79,25 +114,28 @@ footer {
 
 #sidebar > ul > li:first-child {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-bottom: 15px;
-    .logo{
-        font-weight: var(--h2-font-weight);
-        gap: 1px;
-        background-color: transparent;
-    }
 
+}
+
+#sidebar > ul > li > button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 
 #sidebar ul li.active a{
     background-color: var(--colecci-n-variable-SC-ligh1);
+    color: var(--colecci-n-variable-SC-dark2);
     svg {
         background-color: transparent;
         fill: var(--colecci-n-variable-SC-dark2);
     }
 }
 
-#sidebar a, #sidebar .logo, #topbar button.dropdown-btn {
+#sidebar a, #sidebar .logo, #topbar .dropdown-btn {
     border-radius: .5em;
     padding: .85em;
     text-decoration: none;
@@ -118,17 +156,20 @@ footer {
 }
 
 
-#sidebar a span, #sidebar .logo span, #topbar button.dropdown-btn{
+#sidebar a span, #sidebar .logo span{
     flex-grow: 1;
 }
 
-#sidebar a:hover, #topbar a:hover{
+/*Hover effect*/
+#sidebar a:hover, #topbar a:hover, #sidebar button:hover, #topbar button > .only-mobile:hover{
     background-color: var(--colecci-n-variable-SC-ligh2);
-
+}
+#topbar button:hover{
+    border-bottom: 1px solid var(--colecci-n-variable-SC-ligh2);
 }
 
-
-#topbar .mobile-menu-btn {
+/*Mobile menu button*/
+#topbar .only-mobile {
     display: none; /*Esconder el botón del menú en pantallas grandes*/
     background-color: transparent;
     border: none;
@@ -136,9 +177,14 @@ footer {
     padding: 0;
 }
 
+#topbar .logo-and-title{
+    display: flex;
+    gap: 1px;
+        background-color: transparent;
+}
 
 /*nav using dropdown*/
-#topbar button.dropdown-btn {
+#topbar .dropdown-btn {
     width: auto;
     text-align: left;
     background-color: var(--colecci-n-variable-background-color-dark);
@@ -151,6 +197,13 @@ footer {
     }
 }
 
+#topbar .serch-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 0.5em;
+    padding: 5px;
+}
 
 .container {
     border: 1px solid var(--colecci-n-variable-PC-light-1);
@@ -177,11 +230,15 @@ footer {
             "footer"; /*El sidebar va a ocupar las 3 filas*/
     }
 
-    #topbar .mobile-menu-btn {
+    #topbar .only-mobile {
         display: block; /*Mostrar el botón del menú en pantallas pequeñas*/
         border: none;
         cursor: pointer;
         padding: 0;
+    }
+
+    #topbar .logo-and-title > h1 {
+        display: none; /*Esconder el título en pantallas pequeñas*/
     }
 
     #sidebar {
@@ -199,7 +256,7 @@ footer {
         height: auto;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content:space-between;
         align-items: center;
     }
 
