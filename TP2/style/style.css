@@ -51,6 +51,16 @@ header {
     gap: 10px;
 }
 
+.left-header-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    .logo {
+        display: flex;
+    }
+}
+
 main {
     grid-area: main;
 }
@@ -63,12 +73,24 @@ footer {
     align-items: center;
     justify-content: center;
     
-    .footer-top, .footer-link-sections, .footer-bottom {
+    .footer-top, .footer-link-sections{
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 10px 0;
     } 
+
+    .footer-bottom {
+        display: flex;
+        flex-direction: row;
+        .legal {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+
+        }
+     }
 
     .footer-link-sections {
         display: flex;
@@ -95,6 +117,7 @@ a {
 /* home */
 
 #sidebar {
+    width: 70px;
     grid-area: sidebar;
     background-color: #120E26;
     padding: 20px;
@@ -105,21 +128,76 @@ a {
     top: 60px;
 }
 
+#Games {
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
 #RecentGames {
     display: flex;
+    max-width: 800px;
+
+    button {
+        background-color: var(--Background-Color-Dark);
+        width: 262px;
+        height: 160px;
+        flex-shrink: 0;
+        min-width: 262px;
+        min-height: 160px;
+    }
+}
+
+.recent-game-cards {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.recent-game-card 
+    img {
+    width: 185px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
 }
 
 .carousel-container {
     display: flex;
+    overflow: hidden;
 }
 
+.game-carousel {
+    max-width: 1700px;
+}
+
+.carousel-button-left, .carousel-button-right {
+    background-color: var(--Background-Color-Blueish);
+    width: 125px;
+    height: 250px;
+    flex-shrink: 0; /* Evita que se achiquen */
+    min-width: 125px; /* Asegura el ancho mínimo */
+    min-height: 250px; /* Asegura la altura mínima */
+}
+
+
 .carousel-track {
-    display: inherit;
+    display: flex;
     overflow: hidden;
-    .game-card {
-        position: relative;
-        overflow-x: hidden;
-    }
+}
+
+
+.game-card {
+    position: relative;
+    margin-right: 20px;
+}
+
+
+.game-card img {
+    width: 250px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 /* game */

@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadRecentGame(gameList) {
     try {
         const recentGameHtml = await fetch('../html/home/recentGameCard.html').then(res => res.text());
-        const recentGameSection = document.getElementById('RecentGames');
-        if (!recentGameSection) return;
+        const recentGameCards = document.querySelector('.recent-game-cards');
+        if (!recentGameCards) return;
         const recentGame = createElementFromString(recentGameHtml);
         recentGame.querySelector('.recent-game-card__image').src = gameList[1].image;
-        recentGameSection.appendChild(recentGame);
+        recentGameCards.appendChild(recentGame);
     }   catch (error) {
         console.error('Error cargando la plantilla de juego reciente:', error);
     }
