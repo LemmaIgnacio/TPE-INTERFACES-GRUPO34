@@ -116,7 +116,6 @@ footer {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 15px;
-
 }
 
 #sidebar > ul > li > button {
@@ -144,18 +143,19 @@ footer {
     align-items: center;
     gap: 1em;
 }
-
 #sidebar .logo{
     padding: .20em;
 }
-
 #sidebar svg, #topbar svg {
     flex-shrink: 0;
     background-color: transparent;
     fill: var(--colecci-n-variable-n-light-gray);
+
+    #sidebar .logo svg, #topbar .logo svg {
+        width: min(10vw, 40px);
+        height: auto;
+    }
 }
-
-
 #sidebar a span, #sidebar .logo span{
     flex-grow: 1;
 }
@@ -177,6 +177,7 @@ footer {
     padding: 0;
 }
 
+
 #topbar .logo-and-title{
     display: flex;
     gap: 1px;
@@ -184,6 +185,8 @@ footer {
 }
 
 /*nav using dropdown*/
+
+
 #topbar .dropdown-btn {
     width: auto;
     text-align: left;
