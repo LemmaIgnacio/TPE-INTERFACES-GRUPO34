@@ -172,6 +172,8 @@ a {
 }
 
 .carousel-button-left, .carousel-button-right {
+    border: none;
+    border-radius: 20px;
     background-color: var(--Background-Color-Blueish);
     width: 125px;
     height: 250px;
@@ -180,10 +182,22 @@ a {
     min-height: 250px; /* Asegura la altura mínima */
 }
 
+.carousel-button-left:hover, .carousel-button-right:hover {
+    background-color: var(--Background-Color-Dark);
+}
 
 .carousel-track {
     display: flex;
     overflow: hidden;
+    scroll-behavior: smooth;
+    transition: transform 0.25s cubic-bezier(1, 0.2, 0.2, 0.4);
+}
+
+.carousel-track.skew-right {
+    transform: skewX(10deg);
+}
+.carousel-track.skew-left {
+    transform: skewX(-10deg);
 }
 
 

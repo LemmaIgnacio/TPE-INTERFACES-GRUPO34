@@ -93,6 +93,57 @@ async function loadCarousel(gameData, gameCarouselsSection) {
         }
         gameCarouselsSection.appendChild(carousel);
 
+            // Animación onclick para los botones del carrusel
+            const btnLeft = carousel.querySelector('.carousel-button-left');
+            const btnRight = carousel.querySelector('.carousel-button-right');
+            const carouselTrack = carousel.querySelector('.carousel-track');
+            const scrollStep = 1350; // ancho aproximado de una card + margen
+
+            function updateButtonsVisibility() {
+                // Oculta el botón izquierdo si está al inicio
+                if (btnLeft) {
+                    btnLeft.style.display = carouselTrack.scrollLeft <= 0 ? 'none' : 'block';
+                }
+                // Oculta el botón derecho si está al final
+                if (btnRight) {
+                    const maxScroll = carouselTrack.scrollWidth - carouselTrack.clientWidth;
+                    btnRight.style.display = carouselTrack.scrollLeft >= maxScroll - 1 ? 'none' : 'block';
+                }
+            }
+
+            if (btnLeft && carouselTrack) {
+                btnLeft.addEventListener('click', () => {
+                    carouselTrack.classList.add('skew-left');
+                    carouselTrack.scrollBy({
+                        left: -scrollStep,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(() => {
+                        carouselTrack.classList.remove('skew-left');
+                        updateButtonsVisibility();
+                    }, 200);
+                });
+            }
+            if (btnRight && carouselTrack) {
+                btnRight.addEventListener('click', () => {
+                    carouselTrack.classList.add('skew-right');
+                    carouselTrack.scrollBy({
+                        left: scrollStep,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(() => {
+                        carouselTrack.classList.remove('skew-right');
+                        updateButtonsVisibility();
+                    }, 200);
+                });
+            }
+
+            // Actualizar visibilidad al cargar y al hacer scroll manual
+            if (carouselTrack) {
+                carouselTrack.addEventListener('scroll', updateButtonsVisibility);
+                setTimeout(updateButtonsVisibility, 100); // Esperar a que se renderice
+            }
+
     } catch (error) {
         console.error('Error cargando las plantillas:', error);
     }
@@ -155,3 +206,4 @@ function createElementFromString(htmlString) {
     // Return the first child element
     return tempDiv.firstElementChild;
 }
+
