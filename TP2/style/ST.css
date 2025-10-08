@@ -235,14 +235,7 @@ svg {
         background-color: var(--colecci-n-variable-background-color-blueish);
     }
 
-/*Mobile menu button*/
-    #topbar .only-mobile {
-        display: none; /*Esconder el botón del menú en pantallas grandes*/
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
+
 
 
     #topbar .logo-and-title{
@@ -279,7 +272,7 @@ svg {
         border: none;
         color: var(--colecci-n-variable-n-light-gray);
         outline: none; /*Quita el borde azul al hacer click*/
-        width: 100px;
+        width: 40vh;
     }
     .serch-bar button {
         background-color: transparent;
