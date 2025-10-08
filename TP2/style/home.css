@@ -87,7 +87,7 @@ svg {
     #sidebar {
         box-sizing: border-box;
         height: 100vh;
-        width: min(20vw, 250px);
+        width: min(20vw, 300px);
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 5px);
         
@@ -95,13 +95,22 @@ svg {
         position: sticky;
         top: 0;
         align-self: start; /*para mantener la sidebar estática al costado*/
+    
+        transition: 300ms ease-in-out;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    #sidebar.close{
+        padding: 5px;
+        width: 60px;
+
     }
 
 #topbar {
     box-sizing:border-box;
     justify-content: space-between;
-    height: 70px;
-    width: 100%;
+    height: auto;
+    width: auto;
     background-color: var(--colecci-n-variable-background-color-dark);
     padding: min(1vw, 5px);
     
@@ -120,8 +129,7 @@ svg {
 }
 
 #sidebar > ul > li:first-child {
-    display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-bottom: 15px;
 }
 
@@ -159,7 +167,7 @@ svg {
     }
 
 /*Hover effect Side and Top Bars*/
-    #sidebar a:hover, #topbar a:hover, #sidebar button:hover, #topbar .dropdown-btn:hover {
+    #sidebar a:hover, #topbar a:hover, #topbar .dropdown-btn:hover {
         background-color: var(--colecci-n-variable-SC-ligh2);
         color: var(--colecci-n-variable-SC-dark2);
         svg {
@@ -171,6 +179,7 @@ svg {
     /*nav using dropdown*/
     .dropdown {
         align-self: center;
+        
     }
     .dropdown-btn{
         background-color: var(--colecci-n-variable-background-color-dark);
@@ -179,29 +188,51 @@ svg {
         text-align: left;
         background: none;
         border: none;
-        font: inherit;
+        font: inherit;        
         cursor: pointer;/*changes the cursor to hand icon*/
     }
-    .sub-menu li {
-        display: block;
-    }
+   
 
-    #topbar .sub-menu {
+    #topbar .sub-menu { 
+        display: grid;
+        grid-template-rows: 0fr;
         background-color: var(--colecci-n-variable-background-color-dark);
-        overflow: hidden;
-        max-height: 0;
-        opacity: 0;
-        transition: max-height 0.3s ease, opacity 0.3s ease;
-        min-width: 1em;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-        z-index: 1;/*Make sure it appears above other content*/
+        transition: 300ms ease-in-out;
         position: absolute; /*Position it relative to the nearest positioned ancestor (the dropdown)*/
-        display: none; /*Esconder el submenú por defecto*/
+        
+        > div {
+            overflow: hidden;
+        }
     }
     #topbar .sub-menu.show {
-        margin: 5px 0;
-        max-height: 500px; /* Large enough for content */
-        opacity: 1;
+        padding: 1em;
+        width: auto;
+        grid-template-rows: 1fr;
+        z-index: 1;/*Make sure it appears above other content*/
+    }
+    .dropdown-btn svg{
+        transition: 200ms ease;
+    }
+    .rotate svg:last-child{
+        rotate: 180deg;
+    }
+
+/*SideBar Collapsable*/
+    #toggle-btn{
+        margin-left: auto;
+        padding: 1em;
+        border: none;
+        border-radius: .5em;
+        background: none;
+        cursor: pointer;
+
+        svg{
+            transition: rotate 150ms ease;
+        }
+    }
+
+    #toggle-btn:hover{
+        background-color: var(--colecci-n-variable-background-color-blueish);
     }
 
 /*Mobile menu button*/
@@ -280,58 +311,3 @@ svg {
 
 
 
-/* Responsive Design */
-@media (max-width: 600px) {
-    body {
-        display: grid;
-        grid-template-columns: 1fr; /*Una sola columna*/
-        grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
-        grid-template-areas:
-            "topbar"
-            "main"
-            "footer"; /*El sidebar va a ocupar las 3 filas*/
-    }
-
-
-    #topbar .logo-and-title > h1 {
-        display: none; /*Esconder el título en pantallas pequeñas*/
-    }
-
-    #sidebar {
-        display: none; /*Esconder la sidebar en pantallas pequeñas*/
-    }
-
-    .show-sidebar {
-        display: block; /*Mostrar la sidebar cuando se haga clic en el botón del menú*/
-        position: fixed;
-        width: 100%;
-        background-color: var(--colecci-n-variable-background-color-dark);
-    }
-
-    #topbar {
-        max-height: 70px;
-        width: 100%;
-        display: flex;
-        justify-content:space-between;
-        align-items: normal;
-    }
-    
-    /*Searchbar*/
-        .serch-bar {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background-color: #32276D;
-            border-radius: 0.5em;
-            padding: 5px;
-        }
-        .serch-bar input {
-            display: none;
-        }
-        .serch-bar button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-}
