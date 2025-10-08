@@ -38,18 +38,11 @@ body {
                          "footer footer";
 }
 
-header, footer {
+footer {
     background-color: #120E26;
 }
 
-header {
-    grid-area: header;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
+
 
 .left-header-section {
     display: flex;
@@ -94,7 +87,8 @@ footer {
 
     .footer-link-sections {
         display: flex;
-        gap: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
         margin-bottom: 50px
     }
 
@@ -114,12 +108,12 @@ a {
 
 /* CSS Específico */
 
-/* home */
+/* home y games */
 
 #sidebar {
     width: 70px;
     grid-area: sidebar;
-    background-color: #120E26;
+    background-color: var(--Background-Color-Dark);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -127,6 +121,24 @@ a {
     height: auto;
     top: 60px;
 }
+
+
+#hamburgerBtn {
+    background: none;
+    background-image: url('../media/hamburger.svg');
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 48px;
+    height: 42px;
+}
+
+#hamburgerBtn.active {
+    background-image: url('../media/hamburgerActive.svg');
+}
+
+/* home */
 
 #Games {
     padding-right: 10px;
@@ -180,6 +192,21 @@ a {
     flex-shrink: 0; /* Evita que se achiquen */
     min-width: 125px; /* Asegura el ancho mínimo */
     min-height: 250px; /* Asegura la altura mínima */
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.carousel-button-left:hover, .carousel-button-right:hover {
+    background-color: var(--Background-Color-Dark);
+    animation: floating 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-16px);
+    }
 }
 
 .carousel-button-left:hover, .carousel-button-right:hover {
@@ -212,6 +239,7 @@ a {
     height: 210px;
     object-fit: cover;
     border-radius: 8px;
+    overflow:scroll;
 }
 
 /* game */

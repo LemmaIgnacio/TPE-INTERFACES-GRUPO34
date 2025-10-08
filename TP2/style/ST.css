@@ -1,0 +1,306 @@
+/*Global*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: var(--font-family-base);
+}
+
+h1 {
+    font-family: var(--h1-font-family);
+    font-weight: var(--h1-font-weight);
+    font-size: var(--h1-font-size);
+    letter-spacing: var(--h1-letter-spacing);
+    line-height: var(--h1-line-height);
+    font-style: var(--h1-font-style);
+}
+h2 {
+    font-family: var(--h2-font-family);
+    font-weight: var(--h2-font-weight);
+    font-size: var(--h2-font-size);
+    letter-spacing: var(--h2-letter-spacing);
+    line-height: var(--h2-line-height);
+    font-style: var(--h2-font-style);
+}
+h3 {
+    font-family: var(--h3-font-family);
+    font-weight: var(--h3-font-weight);
+    font-size: var(--h3-font-size);
+    letter-spacing: var(--h3-letter-spacing);
+    line-height: var(--h3-line-height);
+    font-style: var(--h3-font-style);
+}
+p {
+    font-family: var(--paragraph-font-family);
+    font-weight: var(--paragraph-font-weight);
+    font-size: var(--paragraph-font-size);
+    letter-spacing: var(--paragraph-letter-spacing);
+    line-height: var(--paragraph-line-height);
+    font-style: var(--paragraph-font-style);
+}
+
+body {
+    background-color: var(--colecci-n-variable-background-color-dark);
+    color: var(--colecci-n-variable-n-light-gray);
+    min-height: auto;
+    min-width: auto;
+    display: grid;
+    grid-template-columns: auto 1fr; /*Va a ser tan gramde como necesite*/
+    grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
+    grid-template-areas:
+        "sidebar main"
+        "sidebar main"
+        "footer footer"; /*El sidebar va a ocupar las 3 filas*/
+}
+
+main {
+    padding: 0px;;
+
+}
+
+main .container-main{
+    background-color: var(--colecci-n-variable-background-color-blueish);
+}
+
+main p {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+footer {
+    grid-area: footer;
+    background-color: var(--colecci-n-variable-background-color-dark);
+    color: var(--colecci-n-variable-n-gray);
+    text-align: center;
+    padding: min(1vw, 10px);
+    font-size: min(1.5vw, 12px);
+}
+
+svg {
+    background-color: transparent;
+}
+
+
+/*Sidebar*/
+    #sidebar {
+        box-sizing: border-box;
+        height: 100vh;
+        width: min(15vw, 300px);
+        background-color: var(--colecci-n-variable-background-color-dark);
+        padding: min(1vw, 5px);
+        
+
+        position: sticky;
+        top: 0;
+        align-self: start; /*para mantener la sidebar estática al costado*/
+    
+        transition: 300ms ease-in-out;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    #sidebar.close{
+        padding: 5px;
+        width: 60px;
+
+    }
+
+#topbar {
+    box-sizing:border-box;
+    justify-content: space-between;
+    height: auto;
+    width: auto;
+    background-color: var(--colecci-n-variable-background-color-dark);
+    padding: min(1vw, 5px);
+    
+    display: flex;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    align-items: normal;
+
+    
+}
+
+#sidebar ul, #topbar ul {
+    list-style: none; /*Saca los puntos de las listas*/
+    width: 100%;
+}
+
+#sidebar > ul > li:first-child {
+    justify-content: flex-start;
+    margin-bottom: 15px;
+}
+
+
+#sidebar ul li.active a{ /*En la nevegación dice dónde estamos*/
+    color: var(--colecci-n-variable-accent-color-magenta);
+    svg {
+        fill: var(--colecci-n-variable-accent-color-magenta);
+    }
+}
+
+#sidebar a, #sidebar .logo, #topbar .dropdown-btn {
+    border-radius: .5em;
+    padding: .85em;
+    text-decoration: none;
+    color: var(--colecci-n-variable-n-light-gray);
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+#sidebar .logo{
+    padding: .20em;
+}
+
+#sidebar svg, #topbar svg {
+    flex-shrink: 0; /*Evita que el ícono se achique*/
+    background-color: transparent;
+    fill: var(--colecci-n-variable-n-light-gray);
+}
+
+/*Span*/
+    #sidebar a span, #sidebar .logo span, #topbar .logo span, #topbar .dropdown-btn span {
+        flex-grow: 1;/*Hace que el texto ocupe todo el espacio disponible*/
+    }
+
+/*Hover effect Side and Top Bars*/
+    #sidebar a:hover, #topbar a:hover, #topbar .dropdown-btn:hover {
+        background-color: var(--colecci-n-variable-SC-ligh2);
+        color: var(--colecci-n-variable-SC-dark2);
+        svg {
+            fill: var(--colecci-n-variable-SC-dark2);
+        }
+    }
+
+/*TopBar  Sub-menu DROPDOWN*/
+    /*nav using dropdown*/
+    .dropdown {
+        align-self: center;
+        
+    }
+    .dropdown-btn{
+        background-color: var(--colecci-n-variable-background-color-dark);
+        width: 100%;
+        align-self: center;
+        text-align: left;
+        background: none;
+        border: none;
+        font: inherit;        
+        cursor: pointer;/*changes the cursor to hand icon*/
+    }
+   
+
+    #topbar .sub-menu { 
+        display: grid;
+        grid-template-rows: 0fr;
+        background-color: var(--colecci-n-variable-background-color-dark);
+        transition: 300ms ease-in-out;
+        position: absolute; /*Position it relative to the nearest positioned ancestor (the dropdown)*/
+        
+        > div {
+            overflow: hidden;
+        }
+    }
+    #topbar .sub-menu.show {
+        padding: 1em;
+        width: auto;
+        grid-template-rows: 1fr;
+        z-index: 1;/*Make sure it appears above other content*/
+    }
+    .dropdown-btn svg{
+        transition: 200ms ease;
+    }
+    .rotate svg:last-child{
+        rotate: 180deg;
+    }
+
+/*SideBar Collapsable*/
+    #toggle-btn{
+        margin-left: auto;
+        padding: 1em;
+        border: none;
+        border-radius: .5em;
+        background: none;
+        cursor: pointer;
+
+        svg{
+            transition: rotate 150ms ease;
+        }
+    }
+
+    #toggle-btn:hover{
+        background-color: var(--colecci-n-variable-background-color-blueish);
+    }
+
+
+
+
+    #topbar .logo-and-title{
+        display: flex;
+        gap: 1px;
+        background-color: transparent;
+    }
+
+
+.container {
+    border: 1px solid var(--colecci-n-variable-PC-light-1);
+    border-radius: 1em;
+    margin-bottom: 20px;
+    padding: min(4vw, 20px);
+
+    h2, p { 
+        margin-top: 1em;
+    }
+}
+
+/*Searchbar*/
+    .serch-bar {
+        display: flex;
+        align-items: center;
+        align-self: center;
+        gap: 5px;
+        background-color: #32276D;
+        border-radius: 0.5em;
+        padding: 5px;
+        max-height: 50px;
+    }
+    .serch-bar input {
+        background-color: transparent;
+        border: none;
+        color: var(--colecci-n-variable-n-light-gray);
+        outline: none; /*Quita el borde azul al hacer click*/
+        width: 40vh;
+    }
+    .serch-bar button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
