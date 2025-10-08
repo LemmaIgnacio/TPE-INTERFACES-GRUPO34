@@ -87,7 +87,7 @@ svg {
     #sidebar {
         box-sizing: border-box;
         height: 100vh;
-        width: min(15vw, 300px);
+        width: min(12vw, 300px);
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 5px);
         
@@ -100,7 +100,7 @@ svg {
         overflow: hidden;
         text-wrap: nowrap;
     }
-    #sidebar.close{
+    #sidebar.close {
         padding: 5px;
         width: 60px;
 
