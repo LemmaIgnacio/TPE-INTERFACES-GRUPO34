@@ -38,18 +38,11 @@ body {
                          "footer footer";
 }
 
-header, footer {
+footer {
     background-color: #120E26;
 }
 
-header {
-    grid-area: header;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
+
 
 .left-header-section {
     display: flex;
@@ -129,14 +122,6 @@ a {
     top: 60px;
 }
 
-#sidebar {
-    width: 70px;
-    transition: width 0.3s cubic-bezier(0.7,0,0.3,1);
-}
-
-#sidebar.expanded {
-    width: 160px;
-}
 
 #hamburgerBtn {
     background: none;
@@ -254,6 +239,7 @@ a {
     height: 210px;
     object-fit: cover;
     border-radius: 8px;
+    overflow:scroll;
 }
 
 /* game */
