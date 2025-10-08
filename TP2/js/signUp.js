@@ -1,4 +1,4 @@
-const $submit = document.getElementById("submit");
+const $form = document.querySelector('.form-card form');
 const $name = document.getElementById("name");
 const $lastname = document.getElementById("lastname");
 const $age = document.getElementById("age");
@@ -7,22 +7,28 @@ const $password = document.getElementById("password");
 const $confirmPassword = document.getElementById("confirm-password");
 const $signinLink = document.getElementById("signin-link");
 
-document.addEventListener("click", (e) => {
-    if (e.target === $submit) {
+// Animación y validación en el submit del formulario
+if ($form) {
+    $form.addEventListener("submit", (e) => {
+        e.preventDefault();
         if ($name.value !== "" && $lastname.value !== "" 
             && $age.value !== "" && $email.value !== "" 
             && $password.value !== "" 
-            && $confirmPassword.value !== "" 
             && $confirmPassword.value !== "") {
 
-            e.preventDefault();
-            window.location.href = "home.html";
+                document.querySelector('.form-card').classList.add('success-animate');
+                setTimeout(() => {
+                    window.location.href = '../html/home.html';
+                }, 800);
         }
-    }
+    });
+}
 
-    if (e.target === $signinLink) {
+// Redirección al login
+if ($signinLink) {
+    $signinLink.addEventListener("click", (e) => {
         e.preventDefault();
         window.location.href = "LogIn.html";
-    }
-});
+    });
+}
 
