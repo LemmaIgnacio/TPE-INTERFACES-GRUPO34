@@ -6,6 +6,10 @@ function toggleSidebar(params) {
     toggleBtn.classList.toggle('rotate')
 }
 
+function toggleSidebarMobil(params) {
+    sidebar.classList.toggle('show-sidebar-mobile')
+}
+
 function toggleSubMenu(button) {
     const menu = button.nextElementSibling;
     if (!menu || !menu.classList.contains('sub-menu')) return;

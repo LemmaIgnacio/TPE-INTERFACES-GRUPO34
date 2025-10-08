@@ -101,7 +101,7 @@ svg {
     #sidebar {
         box-sizing: border-box;
         height: 100vh;
-        width: min(14vw, 300px);
+        width: min(13vw, 300px);
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 5px);
         
@@ -308,9 +308,66 @@ svg {
         }
     }
 
+/*Hidden*/
+    #topbar > li:first-child {
+        display: none;
+    }
 
 
 
+@media screen and (max-width: 800px){
+    body {
+        display: grid;
+        grid-template-columns: 1fr; /*Una sola columna*/ 
+    }
+
+    /*Hidden*/
+        #topbar .logo-and-title > h1 {
+            display: none; /*Esconder el título en pantallas pequeñas*/
+        }
+
+        #sidebar {
+            position: fixed;
+            width: 300px;
+            display: none; /*Esconder la sidebar en pantallas pequeñas*/
+        }
+    
+    /*Shown*/    
+        #sidebar .show-sidebar-mobile{
+            display:block;
+        }
+        #topbar > li:first-child {
+            display: block;
+        }
+
+    #topbar {
+        max-height: 70px;
+        width: 100%;
+        display: flex;
+        justify-content:space-between;
+        align-items: normal;
+    }
+
+
+
+        /*Searchbar*/
+        .serch-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 10em;
+            padding: 10px;
+        }
+        .serch-bar input {
+            display: none;
+        }
+        .serch-bar button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+}
 
 
 
