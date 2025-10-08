@@ -67,5 +67,8 @@
     /* Background Colors */
     --colecci-n-variable-background-color-dark: rgba(18, 14, 38, 1);
     --colecci-n-variable-background-color-blueish: rgba(29, 23, 64, 1);
+    /*Accents*/
+    --colecci-n-variable-accent-color-yellow: rgba(255, 213, 79, 1);
+    --colecci-n-variable-accent-color-magenta: #FD3DB5;
 }
 

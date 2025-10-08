@@ -100,15 +100,18 @@ svg {
 #topbar {
     box-sizing:border-box;
     justify-content: space-between;
-    align-items: center;
-    height: min(20vw, 200px);
+    height: 70px;
     width: 100%;
     background-color: var(--colecci-n-variable-background-color-dark);
     padding: min(1vw, 5px);
+    
     display: flex;
     position: sticky;
     top: 0;
     align-self: start;
+    align-items: normal;
+
+    
 }
 
 #sidebar ul, #topbar ul {
@@ -118,22 +121,15 @@ svg {
 
 #sidebar > ul > li:first-child {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     margin-bottom: 15px;
 }
 
-#sidebar > ul > li > button, #sidebar > ul > li > button:hover {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-}
 
-#sidebar ul li.active a{
-    background-color: var(--colecci-n-variable-SC-ligh1);
-    color: var(--colecci-n-variable-SC-dark2);
+#sidebar ul li.active a{ /*En la nevegación dice dónde estamos*/
+    color: var(--colecci-n-variable-accent-color-magenta);
     svg {
-        fill: var(--colecci-n-variable-SC-dark2);
+        fill: var(--colecci-n-variable-accent-color-magenta);
     }
 }
 
@@ -146,25 +142,24 @@ svg {
     align-items: center;
     gap: 1em;
 }
+
 #sidebar .logo{
     padding: .20em;
 }
+
 #sidebar svg, #topbar svg {
-    flex-shrink: 0;
+    flex-shrink: 0; /*Evita que el ícono se achique*/
     background-color: transparent;
     fill: var(--colecci-n-variable-n-light-gray);
+}
 
-    #sidebar .logo svg, #topbar .logo svg {
-        width: min(10vw, 40px);
-        height: auto;
+/*Span*/
+    #sidebar a span, #sidebar .logo span, #topbar .logo span, #topbar .dropdown-btn span {
+        flex-grow: 1;/*Hace que el texto ocupe todo el espacio disponible*/
     }
-}
-#sidebar a span, #sidebar .logo span{
-    flex-grow: 1;
-}
 
-/*Hover effect*/
-    #sidebar a:hover, #topbar a:hover, #sidebar button:hover{
+/*Hover effect Side and Top Bars*/
+    #sidebar a:hover, #topbar a:hover, #sidebar button:hover, #topbar .dropdown-btn:hover {
         background-color: var(--colecci-n-variable-SC-ligh2);
         color: var(--colecci-n-variable-SC-dark2);
         svg {
@@ -172,8 +167,41 @@ svg {
         }
     }
 
-    #topbar button:hover {
-        border-bottom: 1px solid var(--colecci-n-variable-SC-ligh2);
+/*TopBar  Sub-menu DROPDOWN*/
+    /*nav using dropdown*/
+    .dropdown {
+        align-self: center;
+    }
+    .dropdown-btn{
+        background-color: var(--colecci-n-variable-background-color-dark);
+        width: 100%;
+        align-self: center;
+        text-align: left;
+        background: none;
+        border: none;
+        font: inherit;
+        cursor: pointer;/*changes the cursor to hand icon*/
+    }
+    .sub-menu li {
+        display: block;
+    }
+
+    #topbar .sub-menu {
+        background-color: var(--colecci-n-variable-background-color-dark);
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        min-width: 1em;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        z-index: 1;/*Make sure it appears above other content*/
+        position: absolute; /*Position it relative to the nearest positioned ancestor (the dropdown)*/
+        display: none; /*Esconder el submenú por defecto*/
+    }
+    #topbar .sub-menu.show {
+        margin: 5px 0;
+        max-height: 500px; /* Large enough for content */
+        opacity: 1;
     }
 
 /*Mobile menu button*/
@@ -192,29 +220,6 @@ svg {
         background-color: transparent;
     }
 
-/*nav using dropdown*/
-
-
-#topbar .dropdown-btn {
-    width: auto;
-    text-align: left;
-    background-color: var(--colecci-n-variable-background-color-dark);
-    border: none;
-    font: inherit;
-    cursor: pointer;/*changes the cursor to hand icon*/
-
-    span{
-        flex-grow: 1;
-    }
-}
-
-#topbar .serch-bar {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    border-radius: 0.5em;
-    padding: 5px;
-}
 
 .container {
     border: 1px solid var(--colecci-n-variable-PC-light-1);
@@ -231,10 +236,12 @@ svg {
     .serch-bar {
         display: flex;
         align-items: center;
+        align-self: center;
         gap: 5px;
         background-color: #32276D;
         border-radius: 0.5em;
         padding: 5px;
+        max-height: 50px;
     }
     .serch-bar input {
         background-color: transparent;
@@ -285,13 +292,6 @@ svg {
             "footer"; /*El sidebar va a ocupar las 3 filas*/
     }
 
-    #topbar .only-mobile {
-        display: block; /*Mostrar el botón del menú en pantallas pequeñas*/
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        background-color: transparent;
-    }
 
     #topbar .logo-and-title > h1 {
         display: none; /*Esconder el título en pantallas pequeñas*/
@@ -309,20 +309,12 @@ svg {
     }
 
     #topbar {
-        height: auto;
+        max-height: 70px;
         width: 100%;
         display: flex;
         justify-content:space-between;
-        align-items: center;
+        align-items: normal;
     }
-
-    /*Menu hamburguesa*/
-        #topbar > ul > li > button, #topbar > ul > li > button:hover {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
     
     /*Searchbar*/
         .serch-bar {
@@ -334,11 +326,7 @@ svg {
             padding: 5px;
         }
         .serch-bar input {
-            background-color: transparent;
-            border: none;
-            color: var(--colecci-n-variable-n-light-gray);
-            outline: none; /*Quita el borde azul al hacer click*/
-            width: 100px;
+            display: none;
         }
         .serch-bar button {
             background-color: transparent;
