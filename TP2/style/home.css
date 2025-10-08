@@ -87,7 +87,7 @@ svg {
     #sidebar {
         box-sizing: border-box;
         height: 100vh;
-        width: min(20vw, 300px);
+        width: min(15vw, 300px);
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 5px);
         
