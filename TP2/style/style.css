@@ -21,13 +21,6 @@
     --Font-Size-H1: 36px;
 }
 
-/* Elimina estilos por defecto del navegador */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     background-color: #1D1740;
     font-family: var(--Default-Font);
@@ -37,12 +30,6 @@ body {
                          "sidebar main"
                          "footer footer";
 }
-
-footer {
-    background-color: #120E26;
-}
-
-
 
 .left-header-section {
     display: flex;
@@ -54,11 +41,8 @@ footer {
     }
 }
 
-main {
-    grid-area: main;
-}
-
 footer {
+    background-color: #120E26;
     grid-area: footer;
     height: auto;
     display: flex;
@@ -101,9 +85,9 @@ footer {
     }
 }
 
-a {
+main a {
     text-decoration: none;
-    color: inherit;
+    color: var(--colecci-n-variable-accent-color-yellow);
 }
 
 /* CSS Específico */

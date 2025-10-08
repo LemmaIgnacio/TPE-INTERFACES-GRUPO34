@@ -6,7 +6,6 @@ function toggleSidebar(params) {
     toggleBtn.classList.toggle('rotate')
 }
 
-
 function toggleSubMenu(button) {
     const menu = button.nextElementSibling;
     if (!menu || !menu.classList.contains('sub-menu')) return;
