@@ -138,6 +138,7 @@ body {
     cursor: pointer;
     margin-top: 8px;
     transition: background 0.2s, color 0.2s;
+    /* Elimina la transición de box-shadow para que la animación sea visible */
     box-shadow: 0 2px 8px rgba(132,233,221,0.15);
     width: 100%;
     display: block;
@@ -148,6 +149,7 @@ body {
 .submit-btn:hover {
     background: var(--Secondary-Color-Purple, #7C4DFF);
     color: var(--N-Light-Gray, #ccc);
+    animation: glow-loop 2.5s infinite;
 }
 
 .divider {
@@ -236,5 +238,38 @@ body {
     100% {
         opacity: 0;
         transform: scale(1.1);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1);}
+    50% { transform: scale(1.08);}
+    100% { transform: scale(1);}
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple, #7C4DFF);
+    }
+    70% {
+        box-shadow: 0 0 16px 2px var(--Secondary-Color-Purple, #7C4DFF);
+    }
+    100% {
+        box-shadow: 0 0 8px 1px var(--Secondary-Color-Purple, #7C4DFF);
+    }
+}
+
+@keyframes glow-loop {
+    0% {
+        box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple, #7C4DFF);
+    }
+    40% {
+        box-shadow: 0 0 18px 4px var(--Secondary-Color-Purple, #7C4DFF);
+    }
+    60% {
+        box-shadow: 0 0 8px 1px var(--Secondary-Color-Purple, #7C4DFF);
+    }
+    100% {
+        box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple, #7C4DFF);
     }
 }
