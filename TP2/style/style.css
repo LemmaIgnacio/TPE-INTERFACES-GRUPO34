@@ -180,6 +180,21 @@ a {
     flex-shrink: 0; /* Evita que se achiquen */
     min-width: 125px; /* Asegura el ancho mínimo */
     min-height: 250px; /* Asegura la altura mínima */
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.carousel-button-left:hover, .carousel-button-right:hover {
+    background-color: var(--Background-Color-Dark);
+    animation: floating 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-16px);
+    }
 }
 
 .carousel-button-left:hover, .carousel-button-right:hover {
