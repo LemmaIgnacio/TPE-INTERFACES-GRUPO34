@@ -68,10 +68,11 @@ body {
     h2, p { 
         margin-top: 1em;
     }
-}
+    }
     main .container-main{
         padding: 20px;
         background-color: var(--colecci-n-variable-background-color-blueish);
+        
     }
     main p {
         margin-top: 5px;
@@ -101,7 +102,7 @@ svg {
     #sidebar {
         box-sizing: border-box;
         height: 100vh;
-        width: min(13vw, 300px);
+        width: min(25vw, 250px);
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 5px);
         
@@ -138,6 +139,9 @@ svg {
     }
     .logo-and-title, .serch-bar .dropdown{
         align-items: center;
+    }
+    .logo-and-title h1{
+        font-size: clamp(1rem, 3vw, 2.25rem);
     }
 
 #sidebar ul, #topbar ul {
@@ -287,13 +291,19 @@ svg {
         border-radius: 10em;
         padding: 10px;
         max-height: 50px;
+        width: min(40vh, 50%);
     }
     .serch-bar input {
         background-color: transparent;
         border: none;
         color: var(--colecci-n-variable-background-color-dark);
         outline: none; /*Quita el borde azul al hacer click*/
-        width: 40vh;
+        width: 100%;
+         
+    }
+    .serch-bar input::placeholder {
+        color: var(--colecci-n-variable-background-color-dark);
+        font-style: var(--paragraph-font-style);
     }
     .serch-bar button {
         background-color: transparent;
@@ -303,7 +313,7 @@ svg {
         
     }
     .serch-bar button:hover {
-        svg{
+        svg:hover{
             fill: var(--colecci-n-variable-background-color-dark);
         }
     }
@@ -350,13 +360,14 @@ svg {
 
 
 
-        /*Searchbar*/
+    /*Searchbar*/
         .serch-bar {
             display: flex;
             align-items: center;
             gap: 5px;
             border-radius: 10em;
             padding: 10px;
+            width: auto;
         }
         .serch-bar input {
             display: none;
