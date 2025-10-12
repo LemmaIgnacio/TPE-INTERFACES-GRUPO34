@@ -296,10 +296,8 @@ svg {
     .search-bar input {
         background-color: transparent;
         border: none;
-        color: var(--colecci-n-variable-background-color-dark);
         outline: none; /*Quita el borde azul al hacer click*/
-        width: 100%;
-         
+        width: 100%;   
     }
     .search-bar input::placeholder {
         color: var(--colecci-n-variable-n-gray);
@@ -331,6 +329,10 @@ svg {
         grid-template-columns: 1fr; /*Una sola columna*/ 
     }
 
+    main.less-opacity { /*Cuando se abre la Sidebar se crea profundidad*/
+        opacity: 0.5;
+    }
+
     /*Hidden*/
         #topbar .logo-and-title > h1 {
             display: none; /*Esconder el título en pantallas pequeñas*/
@@ -359,20 +361,31 @@ svg {
             display: block;
             z-index: 1;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-            animation: slideIn 300ms forwards;
+            animation: slideIn 200ms forwards;
         }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+
         #sidebar > ul > li:first-child {
             margin-top: 0;
         }
 
 
-
-    #topbar {
-        max-height: 70px;
-        width: 100%;
-        display: flex;
-        align-items: normal;
-    }
+    /*Topbar*/
+        #topbar {
+            max-height: 70px;
+            width: 100%;
+            display: flex;
+            align-items: normal;
+            justify-content: left;
+        }
 
 
 
