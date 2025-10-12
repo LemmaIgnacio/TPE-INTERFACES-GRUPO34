@@ -9,6 +9,10 @@ const main = document.querySelector('main')
         sidebar.classList.toggle('close')
         toggleBtn.classList.toggle('rotate')
     }
+    function closeSidebar(params) {
+        sidebar.classList.add('close')
+        toggleBtn.classList.remove('rotate')
+    }
 
     // Toggle sidebar for Mobile
     function toggleSidebarMobil(params) {
@@ -48,10 +52,23 @@ const main = document.querySelector('main')
             closeAllSubMenus();
         }
 
-        // Close sidebar when clicking outside on mobile
-        if (!e.target.closest('.show-sidebar-mobile') && !e.target.closest('#toggle-btn')) {
-            closeSidebarMobile()
-        } else if (sidebar.classList.contains('close')) {
-            closeSidebarMobile()
-        }
+        // Close sidebar when clicking outside on Mobile
+            //Si el sidebar esta abierto y hago click fuera del sidebar y fuera del boton
+            if (!e.target.closest('.show-sidebar-mobile') && !e.target.closest('#toggle-btn')) { 
+                closeSidebarMobile()
+            }
+            //Si el sidebar esta cerrado y hago click en el sidebar 
+            else if (sidebar.classList.contains('close')) { 
+                closeSidebarMobile()
+            }
+
+        // Close sidebar when clicking outside on Desktop
+            //Si hago click fuera del sidebar y fuera del boton
+            if (!e.target.closest('#sidebar') && !e.target.closest('#toggle-btn')) {
+                closeSidebar()
+            }
+            //Arreglar bug que no rota el boton si se abre el sidebar haciendo click en el boton y luego haciendo click en el sidebar 
+            else if (!sidebar.classList.contains('close') && !toggleBtn.classList.contains('rotate')) { 
+                toggleBtn.classList.add('rotate')
+            } 
     });
