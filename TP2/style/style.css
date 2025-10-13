@@ -234,21 +234,128 @@ main a {
 }
 
 /* game */
+
+#Game {
+    background-color: var(--Background-Color-Blueish);
+}
+
 .game-address-navbar {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin: 20px 0 20px 20px;
 
     .breadcrumb {
         list-style: none;
         font-size: var(--Font-Size-H4);
         color: var(--Primary-Color-Light);
-        
+
         a {
             text-decoration: none;
             color: var(--Primary-Color-Light);
         }
+    }
+}
+
+#GameContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+#GameWindow {
+    width: 1000px;
+    height: 600px;
+    background-image: url("../media/ChatGPT Image 16 sept 2025, 10_05_29 p.m..png");
+    background-size: cover;
+}
+
+#GameDetails, #GameHowtoPlay {
+    background-color: var(--Background-Color-Dark);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.detail-title {
+    font-family: var(--Default-Font);
+    font-weight: var(--h2-font-weight);
+    font-size: var(--Font-Size-H2);
+    align-items: start;
+}
+
+#GameInformation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.detail-info {
+    font-family: var(--Default-Font);
+    font-weight: var(--h3-font-weight);
+    font-size: var(--Font-Size-H3);
+}
+
+#GameDescription {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.share-button {
+    /* Estructura y tamaño */
+    padding: 5px 14px;
+    
+    /* Colores */
+    background-color: var(--Background-Color-Dark);
+    color: #c8b6ff;
+    
+    /* Borde */
+    border: 3px solid #c8b6ff;
+    border-radius: 15px;
+    
+    /* Tipografía */
+    font-family: var(--Default-Font);
+    font-size: var(--Font-Size-H3);
+    font-weight: var(--h3-font-weight);
+    text-transform: lowercase;
+    letter-spacing: -1px;
+    
+    /* Interacción */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.detail-description {
+    font-family: var(--Default-Font);
+    font-weight: var(--h4-font-weight);
+    font-size: var(--Font-Size-H4);
+}
+
+.how-to-play-descriptors {
+    font-family: var(--Default-Font);
+    font-weight: var(--h3-font-weight);
+    font-size: var(--Font-Size-H3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.how-to-play-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+        width: 386px;
+        height: 240px;
+        background-size: cover;
     }
 }
 
