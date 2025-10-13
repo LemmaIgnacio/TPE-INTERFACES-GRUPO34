@@ -52,7 +52,7 @@ body {
     grid-template-areas:
         "sidebar main"
         "sidebar main"
-        "footer footer"; /*El sidebar va a ocupar las 3 filas*/
+        "sidebar footer"; /*El sidebar va a ocupar las 3 filas*/
     
 }
 
