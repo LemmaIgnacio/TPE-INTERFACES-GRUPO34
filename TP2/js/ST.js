@@ -45,7 +45,7 @@ const main = document.querySelector('main')
     }
 
 
-//Event listener to close submenus when clicking outside
+//Event listener to close submenus or sidebar when clicking outside
     document.addEventListener('click', (e) => {
         // if the click is not inside a .dropdown, close all
         if (!e.target.closest('.dropdown')) {
@@ -72,3 +72,4 @@ const main = document.querySelector('main')
                 toggleBtn.classList.add('rotate')
             } 
     });
+ 

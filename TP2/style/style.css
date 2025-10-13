@@ -22,14 +22,20 @@
 }
 
 body {
-    background-color: #1D1740;
-    font-family: var(--Default-Font);
-    color: var(--N-Light-Gray);
+    background-color: var(--colecci-n-variable-background-color-dark);
+    color: var(--colecci-n-variable-n-light-gray);
+    min-height: auto;
+    min-width: auto;
     display: grid;
-    grid-template-areas: "header header"
-                         "sidebar main"
-                         "footer footer";
+    grid-template-columns: auto 1fr; /*Va a ser tan gramde como necesite*/
+    grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
+    grid-template-areas:
+        "sidebar main"
+        "sidebar main"
+        "footer footer"; /*El sidebar va a ocupar las 3 filas*/
+    
 }
+
 
 .left-header-section {
     display: flex;
@@ -41,49 +47,80 @@ body {
     }
 }
 
-footer {
-    background-color: #120E26;
-    grid-area: footer;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    .footer-top, .footer-link-sections{
+/*Footer*/
+    footer {
+        grid-area: footer;
+        background-color: var(--colecci-n-variable-background-color-dark);
+        color: var(--colecci-n-variable-n-light-gray);
+        text-align: center;
+        padding: min(10vw, 50px);
+        font-size: min(1.5vw, 12px);
+        z-index: 1;
+        height: auto;
+    }
+    footer a {
+        color: var(--colecci-n-variable-n-light-gray);
+        text-decoration: none;
+        font-size: var(--paragraph-font-size);
+    }
+    footer a:hover{
+        color: var(--colecci-n-variable-PC-light-1);
+    }
+
+    .footer-top, .footer-link-sections, .footer-bottom {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        padding: 10px 0;
-    } 
-
+        align-items: start;
+        padding: 10px;
+    }
     .footer-bottom {
-        display: flex;
-        flex-direction: row;
-        .legal {
-            display: flex;
-            flex-direction: column;
-            align-items: left;
-            justify-content: left;
-
+        align-items: center;
+    }
+        /*Footer-top*/
+        .newsletter-form {
+            justify-self: center;
         }
-     }
 
-    .footer-link-sections {
-        display: flex;
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-bottom: 50px
-    }
+        /*Footer-link-sections*/
+        .footer-link-sections {
+            gap: min(6vw, 15px);
+            margin-top: 20px;  
+        }
+            .footer-link-sections-section ul {
+                list-style: none;
+                margin-left: 2em;
+            }
+            .footer-link-sections-section{
+                text-align: left;
+            }
+            /*Section Title button*/
+                .footer-link-sections-section .collapsible-btn {
+                    background: none;
+                    border: none;
+                    color: var(--colecci-n-variable-n-light-gray);
+                    font-size: var(--Font-Size-H3);
+                    font-weight: var(--h3-font-weight);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    cursor: pointer;
+                    padding: .5em;
+                    border-radius: .5em;
+                }
+                .footer-link-sections-section .collapsible-btn:hover {
+                    background-color: var(--colecci-n-variable-PC-dark-1);
+                }
+                    /*Hidden svg*/
+                    .footer-link-sections-section .collapsible-btn svg {
+                        display: none;
+                    }
 
-}
 
-.footer-left, .footer-center, .footer-right {
-    flex-direction: row;
-    .footer-link-sections-section {
-        width: fit-content;
-    }
-}
+
+
+
+
 
 main a {
     text-decoration: none;
@@ -93,36 +130,6 @@ main a {
 /* CSS Específico */
 
 /* home y games */
-
-#sidebar {
-    width: 70px;
-    grid-area: sidebar;
-    background-color: var(--Background-Color-Dark);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: auto;
-    top: 60px;
-}
-
-
-#hamburgerBtn {
-    background: none;
-    background-image: url('../media/hamburger.svg');
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    width: 48px;
-    height: 42px;
-}
-
-#hamburgerBtn.active {
-    background-image: url('../media/hamburgerActive.svg');
-}
-
-/* home */
 
 #Games {
     padding-right: 10px;
@@ -233,4 +240,88 @@ main a {
 /* signUp */
 
 
+/*BUTTONS*/
+    /*Primary Button --> blur glow effect*/
+        .btn-primary {
+        background: var(--Primary-Color);
+        color: var(--Background-Color-Blueish);
+        font-size: var(--Font-Size-H3);
+        font-weight: var(--h3-font-weight);
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 6px;
+        transition: background 0.2s, color 0.2s;
+        box-shadow: 0 2px 8px rgba(132,233,221,0.15);
+        }
+        .btn-primary:hover {
+            background: var(--Secondary-Color-Purple);
+            color: var(--N-Light-Gray);
+            animation: glow-loop 2.5s infinite;
+        }
+            @keyframes glow-loop {
+                0% {
+                    box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple);
+                }
+                40% {
+                    box-shadow: 0 0 18px 4px var(--Secondary-Color-Purple);
+                }
+                60% {
+                    box-shadow: 0 0 8px 1px var(--Secondary-Color-Purple);
+                }
+                100% {
+                    box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple);
+                }
+            }
 
+
+
+@media screen and (max-width: 800px) {
+    /*Footer*/
+    footer {
+        z-index: 0;
+
+    }
+    .footer-top, .footer-link-sections, .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 50px;
+    }
+
+    /*Collapsible Menu*/
+        .footer-link-sections-section .collapsible-btn svg {
+            display: block;
+        }
+        .collapsible-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding-left: 0;
+            margin: 0;
+        }
+        .collapsible-menu.open {
+            max-height: 500px; /* Ajusta según el contenido */
+        }
+        .collapsible-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            padding: 10px 0;
+        }
+        .collapsible-btn h3 {
+            margin: 0;
+        }
+        .collapsible-btn svg {
+            transition: transform 0.3s ease;
+        }
+        .collapsible-btn.active svg {
+            transform: rotate(180deg);
+        }
+
+}

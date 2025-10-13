@@ -32,7 +32,7 @@ h3 {
     line-height: var(--h3-line-height);
     font-style: var(--h3-font-style);
 }
-p {
+p, a, li, input {
     font-family: var(--paragraph-font-family);
     font-weight: var(--paragraph-font-weight);
     font-size: var(--paragraph-font-size);
@@ -83,15 +83,6 @@ body {
         color: var(--colecci-n-variable-accent-color-yellow);
     }
 
-/*Footer*/
-footer {
-    grid-area: footer;
-    background-color: var(--colecci-n-variable-background-color-dark);
-    color: var(--colecci-n-variable-n-gray);
-    text-align: center;
-    padding: min(1vw, 10px);
-    font-size: min(1.5vw, 12px);
-}
 
 svg {
     background-color: transparent;
@@ -120,6 +111,9 @@ svg {
         padding: 5px;
         width: 70px;
 
+    }
+    #sidebar a, #topbar .dropdown-btn span {
+        font-size: var(--Font-Size-H4);
     }
 
 /*Topbar*/
@@ -178,7 +172,7 @@ svg {
 
 
 #sidebar.close a{ 
-    gap: 2em; /*Para que solo se vean los iconos*/
+    gap: 3em; /*Para que solo se vean los iconos*/
 }
 
 #sidebar .logo{
@@ -210,8 +204,7 @@ svg {
 /*TopBar  Sub-menu DROPDOWN*/
     /*nav using dropdown*/
     .dropdown {
-        align-self: center;
-        
+        align-self: center;  
     }
     .dropdown-btn{
         background-color: var(--colecci-n-variable-background-color-dark);
@@ -279,7 +272,7 @@ svg {
 
 
 /*Searchbar*/
-    .search-bar {
+    .search-bar, .newsletter-form {
         display: flex;
         align-items: center;
         align-self: center;
@@ -293,15 +286,18 @@ svg {
         max-height: 50px;
         width: min(40vh, 50%);
     }
-    .search-bar input {
+        /*Input en el Footer*/
+        .newsletter-form {
+            width: min(40vh, 70%);
+        }
+    .search-bar input, .newsletter-form input {
         background-color: transparent;
         border: none;
         outline: none; /*Quita el borde azul al hacer click*/
         width: 100%;   
     }
-    .search-bar input::placeholder {
+    .search-bar input::placeholder, .newsletter-form input::placeholder {
         color: var(--colecci-n-variable-n-gray);
-        font-style: var(--paragraph-font-style);
     }
     .search-bar button {
         background-color: transparent;
@@ -405,6 +401,7 @@ svg {
             padding: 0;
         }
 }
+
 
 
 
