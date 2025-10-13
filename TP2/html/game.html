@@ -125,8 +125,10 @@
 
             <nav class="game-address-navbar">
                 <li class="breadcrumb start"><a href="home.html">Home</a></li>
-                <li class="breadcrumb"><img src="../assets/icon/purpleChevron.svg"><a href="#">Board Games</a></li>
-                <li class="breadcrumb end"><img src="../assets/icon/purpleChevron.svg"><a href="#">Dragon Peg Solitaire</a></li>
+                <img src="../assets/icon/purpleChevron.svg">
+                <li class="breadcrumb"><a href="#">Board Games</a></li>
+                <img src="../assets/icon/purpleChevron.svg">
+                <li class="breadcrumb end"><a href="#">Dragon Peg Solitaire</a></li>
                 <!-- Resto de breadcrumbs -->
             </nav>
             
@@ -138,27 +140,55 @@
 
             <section id="GameDetails">
                 <div id="GameTitle">
-                    <h1><!-- Variable API --></h1>
+                    <span class="detail-title">Dragon Peg Solitaire</span>
                 </div>
 
                 <div id="GameInformation">
-                    <p id="GameRating"><!-- Variable API --></p>
-                    <p id="GameDeveloper"><!-- Variable API --></p>
-                    <p id="GamePublisher"><!-- Variable API --></p>
+                    <span class="detail-info">Rating: ⭐⭐⭐⭐⭐</span>
+                    <span class="detail-info">Author: Dragon Games</span>
+                    <span class="detail-info">Published: 16/07/25</span>
                 </div>
 
                 <div id="GameDescription">
-                    <p><!-- Variable API --></p>
-                    <button class="button">Compartir</button>
+                    <span class="detail-description">
+                        Immerse yourself in a mystical world where logic becomes legend! 
+                        Dragon Peg Solitaire is an online game that reinvents the classic peg solitaire with epic aesthetics and strategic challenges.
+                    </span>
+                    <button class="share-button">Share</button>
                 </div>
             </section>
             
             <section id="GameHowtoPlay">
                 <!-- TODO: Hacerlo de acuerdo al figma -->
-                <h2>How to Play</h2>
-                <div>
-                    <div><!-- Template HTML --></div>
-                    <div id="GameHowtoPlayMedia"><!-- Template HTML con imágenes --></div>
+                <div class="how-to-play-descriptors">
+                    <span>How to Play</span><span>Media</span>
+                </div>
+                <div class="how-to-play-content">
+                    <div>
+                        <span>Make your first move</span>
+                        <ul>
+                            <li>Click on a peg to select it.</li>
+                            <li>Then click on an empty space that you can jump to (there must be a peg in between).</li>
+                            <li>The jumped peg is automatically removed.</li>
+                        </ul>
+
+                        <span>Plan your moves</span>
+                        <ul>
+                            <li>Avoid leaving isolated pegs.</li>
+                            <li>Work from the edges to the center.</li>
+                            <li>Use features like undo if you make a mistake.</li>
+                        </ul>
+                            
+                        <span>Win the game</span>
+                        <ul>
+                            <li>The game ends when you can't make any more moves.</li>
+                            <li>If only one peg remains in the center, you win!</li>
+                        </ul>
+                    </div>
+                    <div id="GameHowtoPlayMedia">
+                        <img src="../media/PegSolitaire 1.png">
+                        <img src="../media/image.webp">
+                    </div>
                 </div>
                 <a href="#"></a>
             </section>
@@ -174,7 +204,69 @@
                 </div>
 
                 <div id="CommentsContainer">
-                    <!-- Acá se añadirán comentarios dinámicamente -->
+                    <article class="comment">
+                        <div class="comment__info">
+                            <div class="comment__content">
+                                <div class="comment__header">
+                                    <img src="#" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username"><!-- Variable en JSON de comentarios --></h3>
+                                    <span class="comment__timestamp"><!-- Variable en JSON de comentarios --></span>
+                                    <div class="comment__actions">
+                                        <button class="comment__like-button" aria-label="Like">
+                                            <img src="#" alt="LikeIcon">
+                                            <span class="comment__like-count"><!-- Variable en JSON de comentarios --></span>
+                                        </button>
+                                        <button class="comment__flag-button" aria-label="Flag">
+                                            <img src="#" alt="FlagIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="comment__text"><!-- Variable en JSON de usuarios --></p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <div class="comment__info">
+                            <div class="comment__content">
+                                <div class="comment__header">
+                                    <img src="#" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username"><!-- Variable en JSON de comentarios --></h3>
+                                    <span class="comment__timestamp"><!-- Variable en JSON de comentarios --></span>
+                                    <div class="comment__actions">
+                                        <button class="comment__like-button" aria-label="Like">
+                                            <img src="#" alt="LikeIcon">
+                                            <span class="comment__like-count"><!-- Variable en JSON de comentarios --></span>
+                                        </button>
+                                        <button class="comment__flag-button" aria-label="Flag">
+                                            <img src="#" alt="FlagIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="comment__text"><!-- Variable en JSON de usuarios --></p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <div class="comment__info">
+                            <div class="comment__content">
+                                <div class="comment__header">
+                                    <img src="#" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username"><!-- Variable en JSON de comentarios --></h3>
+                                    <span class="comment__timestamp"><!-- Variable en JSON de comentarios --></span>
+                                    <div class="comment__actions">
+                                        <button class="comment__like-button" aria-label="Like">
+                                            <img src="#" alt="LikeIcon">
+                                            <span class="comment__like-count"><!-- Variable en JSON de comentarios --></span>
+                                        </button>
+                                        <button class="comment__flag-button" aria-label="Flag">
+                                            <img src="#" alt="FlagIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="comment__text"><!-- Variable en JSON de usuarios --></p>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </section>
         </main>
