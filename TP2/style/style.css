@@ -83,7 +83,7 @@ body {
 
         /*Footer-link-sections*/
         .footer-link-sections {
-            gap: 50px;
+            gap: min(6vw, 15px);
             margin-top: 20px;  
         }
             .footer-link-sections-section ul {
