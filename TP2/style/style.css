@@ -111,40 +111,12 @@ body {
                 .footer-link-sections-section .collapsible-btn:hover {
                     background-color: var(--colecci-n-variable-PC-dark-1);
                 }
-                .collapsible-menu {
-                    max-height: 0;
-                    overflow: hidden;
-                    transition: max-height 0.4s ease-out;
-                    padding-left: 0;
-                    margin: 0;
-                }
+                    /*Hidden svg*/
+                    .footer-link-sections-section .collapsible-btn svg {
+                        display: none;
+                    }
 
-                .collapsible-menu.open {
-                    max-height: 500px; /* Adjust based on content height */
-                }
 
-                .collapsible-btn {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    width: 100%;
-                    padding: 10px 0;
-                }
-
-                .collapsible-btn h3 {
-                    margin: 0;
-                }
-
-                .footer-link-sections-section svg {
-                    transition: transform 0.3s ease;
-                }
-
-                .collapsible-btn.active svg {
-                    transform: rotate(180deg);
-                }
 
 
 
@@ -317,5 +289,39 @@ main a {
         text-align: center;
         gap: 50px;
     }
+
+    /*Collapsible Menu*/
+        .footer-link-sections-section .collapsible-btn svg {
+            display: block;
+        }
+        .collapsible-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding-left: 0;
+            margin: 0;
+        }
+        .collapsible-menu.open {
+            max-height: 500px; /* Ajusta según el contenido */
+        }
+        .collapsible-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            padding: 10px 0;
+        }
+        .collapsible-btn h3 {
+            margin: 0;
+        }
+        .collapsible-btn svg {
+            transition: transform 0.3s ease;
+        }
+        .collapsible-btn.active svg {
+            transform: rotate(180deg);
+        }
 
 }

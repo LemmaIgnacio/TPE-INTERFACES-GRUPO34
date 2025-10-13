@@ -19,12 +19,9 @@
   customElements.define('footer-arrow-links', FooterArrowLinks);
 
 // JavaScript for collapsible sections in the footer
-  document.addEventListener("DOMContentLoaded", function () {
-    const collapsibleBtn = document.querySelector(".collapsible-btn");
-    const collapsibleMenu = document.querySelector(".collapsible-menu");
+    function toggleCollapsible(button) {
+    const menu = button.nextElementSibling;
+    menu.classList.toggle("open");
+    button.classList.toggle("active");
+  }
 
-    collapsibleBtn.addEventListener("click", function () {
-      collapsibleMenu.classList.toggle("open");
-      collapsibleBtn.classList.toggle("active");
-    });
-  });
