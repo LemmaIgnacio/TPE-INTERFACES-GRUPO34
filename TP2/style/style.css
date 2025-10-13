@@ -234,6 +234,23 @@ main a {
 }
 
 /* game */
+.game-address-navbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .breadcrumb {
+        list-style: none;
+        font-size: var(--Font-Size-H4);
+        color: var(--Primary-Color-Light);
+        
+        a {
+            text-decoration: none;
+            color: var(--Primary-Color-Light);
+        }
+    }
+}
 
 /* logIn */
 
