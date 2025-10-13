@@ -112,6 +112,9 @@ svg {
         width: 70px;
 
     }
+    #sidebar a, #topbar .dropdown-btn span {
+        font-size: var(--Font-Size-H4);
+    }
 
 /*Topbar*/
     #topbar {
