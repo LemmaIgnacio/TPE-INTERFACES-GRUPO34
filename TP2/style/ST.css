@@ -201,8 +201,7 @@ svg {
 /*TopBar  Sub-menu DROPDOWN*/
     /*nav using dropdown*/
     .dropdown {
-        align-self: center;
-        
+        align-self: center;  
     }
     .dropdown-btn{
         background-color: var(--colecci-n-variable-background-color-dark);

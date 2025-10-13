@@ -22,14 +22,20 @@
 }
 
 body {
-    background-color: #1D1740;
-    font-family: var(--Default-Font);
-    color: var(--N-Light-Gray);
+    background-color: var(--colecci-n-variable-background-color-dark);
+    color: var(--colecci-n-variable-n-light-gray);
+    min-height: auto;
+    min-width: auto;
     display: grid;
-    grid-template-areas: "header header"
-                         "sidebar main"
-                         "footer footer";
+    grid-template-columns: auto 1fr; /*Va a ser tan gramde como necesite*/
+    grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
+    grid-template-areas:
+        "sidebar main"
+        "sidebar main"
+        "footer footer"; /*El sidebar va a ocupar las 3 filas*/
+    
 }
+
 
 .left-header-section {
     display: flex;
@@ -50,6 +56,7 @@ body {
         padding: min(10vw, 50px);
         font-size: min(1.5vw, 12px);
         z-index: 1;
+        height: auto;
     }
     footer a {
         color: var(--colecci-n-variable-n-light-gray);
@@ -57,7 +64,7 @@ body {
         font-size: var(--paragraph-font-size);
     }
     footer a:hover{
-        color: var(--colecci-n-variable-accent-color-yellow);
+        color: var(--colecci-n-variable-PC-light-1);
     }
 
     .footer-top, .footer-link-sections, .footer-bottom {
@@ -81,10 +88,64 @@ body {
         }
             .footer-link-sections-section ul {
                 list-style: none;
+                margin-left: 2em;
             }
             .footer-link-sections-section{
                 text-align: left;
             }
+            /*Section Title button*/
+                .footer-link-sections-section .collapsible-btn {
+                    background: none;
+                    border: none;
+                    color: var(--colecci-n-variable-n-light-gray);
+                    font-size: var(--Font-Size-H3);
+                    font-weight: var(--h3-font-weight);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    cursor: pointer;
+                    padding: .5em;
+                    border-radius: .5em;
+                }
+                .footer-link-sections-section .collapsible-btn:hover {
+                    background-color: var(--colecci-n-variable-PC-dark-1);
+                }
+                .collapsible-menu {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.4s ease-out;
+                    padding-left: 0;
+                    margin: 0;
+                }
+
+                .collapsible-menu.open {
+                    max-height: 500px; /* Adjust based on content height */
+                }
+
+                .collapsible-btn {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    width: 100%;
+                    padding: 10px 0;
+                }
+
+                .collapsible-btn h3 {
+                    margin: 0;
+                }
+
+                .footer-link-sections-section svg {
+                    transition: transform 0.3s ease;
+                }
+
+                .collapsible-btn.active svg {
+                    transform: rotate(180deg);
+                }
+
 
 
 
@@ -241,3 +302,20 @@ main a {
                     box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple);
                 }
             }
+
+
+
+@media screen and (max-width: 800px) {
+    /*Footer*/
+    footer {
+        z-index: 0;
+
+    }
+    .footer-top, .footer-link-sections, .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 50px;
+    }
+
+}
