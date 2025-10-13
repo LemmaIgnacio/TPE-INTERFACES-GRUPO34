@@ -32,7 +32,7 @@ h3 {
     line-height: var(--h3-line-height);
     font-style: var(--h3-font-style);
 }
-p {
+p, a, li, input {
     font-family: var(--paragraph-font-family);
     font-weight: var(--paragraph-font-weight);
     font-size: var(--paragraph-font-size);
@@ -83,15 +83,6 @@ body {
         color: var(--colecci-n-variable-accent-color-yellow);
     }
 
-/*Footer*/
-footer {
-    grid-area: footer;
-    background-color: var(--colecci-n-variable-background-color-dark);
-    color: var(--colecci-n-variable-n-gray);
-    text-align: center;
-    padding: min(1vw, 10px);
-    font-size: min(1.5vw, 12px);
-}
 
 svg {
     background-color: transparent;
@@ -178,7 +169,7 @@ svg {
 
 
 #sidebar.close a{ 
-    gap: 2em; /*Para que solo se vean los iconos*/
+    gap: 3em; /*Para que solo se vean los iconos*/
 }
 
 #sidebar .logo{
@@ -279,7 +270,7 @@ svg {
 
 
 /*Searchbar*/
-    .search-bar {
+    .search-bar, .newsletter-form {
         display: flex;
         align-items: center;
         align-self: center;
@@ -293,7 +284,7 @@ svg {
         max-height: 50px;
         width: min(40vh, 50%);
     }
-    .search-bar input {
+    .search-bar input, .newsletter-form input {
         background-color: transparent;
         border: none;
         outline: none; /*Quita el borde azul al hacer click*/
