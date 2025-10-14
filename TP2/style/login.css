@@ -4,6 +4,8 @@ body {
     background-attachment: local;
 }
 
+
+
 .login-container {
     display: flex;
     justify-content: center;
@@ -154,7 +156,7 @@ body {
     margin-bottom: 4px;
 }
 
-.social-icons img {
+.social-icons svg {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -165,7 +167,7 @@ body {
     transition: background 0.2s;
 }
 
-.social-icons img:hover {
+.social-icons svg:hover {
     background: var(--Primary-Color-Light);
 }
 
@@ -184,7 +186,7 @@ body {
     font-size: 13px;
 }
 
-header {
+#topbar {
     background: var(--Background-Color-Dark);
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
     position: relative;
@@ -244,5 +246,11 @@ footer {
         margin-bottom: 10px;
         align-items: center;
         padding: 0;
+    }
+    #topbar .dropdown{
+        display: block;
+    }
+    #topbar .logo-and-title > h1 {
+        display: block; /*Mostrar el título en pantallas pequeñas*/
     }
 }

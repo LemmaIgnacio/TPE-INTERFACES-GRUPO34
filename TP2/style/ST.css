@@ -58,16 +58,14 @@ body {
 
 /*Main*/
     main {
-        padding: 0px;;
+        padding: 0px;
     }
     .container {
-    border: 1px solid var(--colecci-n-variable-PC-light-1);
-    border-radius: 1em;
-    padding: min(4vw, 20px);
+        padding: min(4vw, 20px);
 
-    h2, p { 
-        margin-top: 1em;
-    }
+        h2, p { 
+            margin-top: 1em;
+        }
     }
     main .container-main{
         padding: 20px;
@@ -121,7 +119,7 @@ svg {
         box-sizing:border-box;
         justify-content: space-between;
         height: auto;
-        width: auto;
+        width: 100%;
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 10px);
         
