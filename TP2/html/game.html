@@ -52,14 +52,17 @@
                 <a href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-80q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm0-80q66 0 113-47t47-113q0-66-47-113t-113-47q-66 0-113 47t-47 113q0 66 47 113t113 47Zm0-80q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Z"/></svg>
                     <span>Shooter</span>
-                </a> <!-- Placeholder for future link. It takes you to the actegories -->
+                </a> <!-- Placeholder for future link. It takes you to the categories -->
             </li>
         </ul>
         </aside>
 
         <!-- Main Content -->
         <main id="Game">
+<<<<<<< HEAD
             <!-- Top Navigation Bar -->
+=======
+>>>>>>> 59a96b9917cf6e49f4ca9943f9105b074ae61e5d
             <nav id="topbar">
                 <li>
                     <button onclick="toggleSidebarMobil(this)" id="toggle-btn">
@@ -123,10 +126,18 @@
                     </ul>
                 </div>
             </nav>
+<<<<<<< HEAD
             <!-- Game Content -->
+=======
+
+>>>>>>> 59a96b9917cf6e49f4ca9943f9105b074ae61e5d
             <nav class="game-address-navbar">
-               <li class="breadcrumb"><a href="#">Home</a></li>
-                    <!-- Resto de breadcrumbs -->
+                <li class="breadcrumb start"><a href="home.html">Home</a></li>
+                <img src="../assets/icon/purpleChevron.svg">
+                <li class="breadcrumb"><a href="#">Board Games</a></li>
+                <img src="../assets/icon/purpleChevron.svg">
+                <li class="breadcrumb end"><a href="#">Dragon Peg Solitaire</a></li>
+                <!-- Resto de breadcrumbs -->
             </nav>
             
             <section id="GameContainer">
@@ -137,29 +148,63 @@
 
             <section id="GameDetails">
                 <div id="GameTitle">
-                    <h1><!-- Variable API --></h1>
+                    <span class="detail-title">Dragon Peg Solitaire</span>
                 </div>
 
                 <div id="GameInformation">
-                    <p id="GameRating"><!-- Variable API --></p>
-                    <p id="GameDeveloper"><!-- Variable API --></p>
-                    <p id="GamePublisher"><!-- Variable API --></p>
+                    <span class="detail-info">Rating: ⭐⭐⭐⭐⭐</span>
+                    <span class="detail-info">Author: Dragon Games</span>
+                    <span class="detail-info">Published: 16/07/25</span>
                 </div>
 
                 <div id="GameDescription">
-                    <p><!-- Variable API --></p>
-                    <button class="button">Compartir</button>
+                    <span class="detail-description">
+                        Immerse yourself in a mystical world where logic becomes legend! 
+                        Dragon Peg Solitaire is an online game that reinvents the classic peg solitaire with epic aesthetics and strategic challenges.
+                    </span>
+                    <button class="share-button">Share</button>
                 </div>
             </section>
             
             <section id="GameHowtoPlay">
-                <!-- TODO: Hacerlo de acuerdo al figma -->
-                <h2>How to Play</h2>
-                <div>
-                    <div><!-- Template HTML --></div>
-                    <div id="GameHowtoPlayMedia"><!-- Template HTML con imágenes --></div>
+                <div class="how-to-play-content">
+                    <div class="how-to-play-content-text">
+                        <div>
+                            <span>How to Play</span>
+                        </div>
+
+                        <span>Make your first move</span>
+                        <ul>
+                            <li>Click on a peg to select it.</li>
+                            <li>Then click on an empty space that you can jump to (there must be a peg in between).</li>
+                            <li>The jumped peg is automatically removed.</li>
+                        </ul>
+
+                        <span>Plan your moves</span>
+                        <ul>
+                            <li>Avoid leaving isolated pegs.</li>
+                            <li>Work from the edges to the center.</li>
+                            <li>Use features like undo if you make a mistake.</li>
+                        </ul>
+                            
+                        <span>Win the game</span>
+                        <ul>
+                            <li>The game ends when you can't make any more moves.</li>
+                            <li>If only one peg remains in the center, you win!</li>
+                        </ul>
+                        <a href="#">Wiki</a>
+                    </div>
+
+                    <div class="how-to-play-content-media">
+                        <div>
+                            <span>Media</span>
+                        </div>
+                        <div>
+                            <img src="../media/PegSolitaire 1.png">
+                            <img src="../media/image.webp">
+                        </div>
+                    </div>
                 </div>
-                <a href="#"></a>
             </section>
             
             <section id="CommentsSection">
@@ -168,12 +213,75 @@
                 <div id="AddCommentSection">
                     <form id="AddCommentForm">
                         <textarea id="CommentText" placeholder="Write your comment here..." required></textarea>
-                        <button type="submit"><img href="#" alt="SendComment"></button>
+                        <span id="CharacterCount">0/255 Characters</span>
+                        <button type="submit"><img src="../assets/icon/send_comment.svg" alt="SendComment"></button>
                     </form>
                 </div>
 
                 <div id="CommentsContainer">
-                    <!-- Acá se añadirán comentarios dinámicamente -->
+                    <article class="comment">
+                        <div class="comment__info">
+                            <div class="comment__content">
+                                <div class="comment__header">
+                                    <img src="../assets/icon/face_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username">Random666</h3>
+                                    <span class="comment__timestamp">15/09/2025</span>
+                                    <div class="comment__actions">
+                                        <button class="comment__like-button" aria-label="Like">
+                                            <img src="../assets/icon/like.svg" alt="LikeIcon">
+                                            <span class="comment__like-count">25</span>
+                                        </button>
+                                        <button class="comment__flag-button" aria-label="Flag">
+                                            <img src="../assets/icon/flag.svg" alt="FlagIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="comment__text">Peg Solitaire is one of those games that seems simple at first glance, but hides surprising strategic depth. I love how each move forces you to think several steps ahead, almost like a minimalist chess game.</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <div class="comment__info">
+                            <div class="comment__content">
+                                <div class="comment__header">
+                                    <img src="../assets/icon/face_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username">i_love_saying_a</h3>
+                                    <span class="comment__timestamp">15/09/2025</span>
+                                    <div class="comment__actions">
+                                        <button class="comment__like-button" aria-label="Like">
+                                            <img src="../assets/icon/like.svg" alt="LikeIcon">
+                                            <span class="comment__like-count">170K</span>
+                                        </button>
+                                        <button class="comment__flag-button" aria-label="Flag">
+                                            <img src="../assets/icon/flag.svg" alt="FlagIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="comment__text">a</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <div class="comment__info">
+                            <div class="comment__content">
+                                <div class="comment__header">
+                                    <img src="../assets/icon/face_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username">GamerCasual</h3>
+                                    <span class="comment__timestamp">11/09/2025</span>
+                                    <div class="comment__actions">
+                                        <button class="comment__like-button" aria-label="Like">
+                                            <img src="../assets/icon/like.svg" alt="LikeIcon">
+                                            <span class="comment__like-count"></span>
+                                        </button>
+                                        <button class="comment__flag-button" aria-label="Flag">
+                                            <img src="../assets/icon/flag.svg" alt="FlagIcon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="comment__text">I think it's a good game. A bit repetitive, though.</p>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </section>
         </main>
