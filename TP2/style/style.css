@@ -331,16 +331,16 @@ h3 {
 
 @media screen and (max-width: 800px) {
     /*Footer*/
-    footer {
-        z-index: 0;
+        footer {
+            z-index: 0;
 
-    }
-    .footer-top, .footer-link-sections, .footer-bottom {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 50px;
-    }
+        }
+        .footer-top, .footer-link-sections, .footer-bottom {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 50px;
+        }
 
     /*Collapsible Menu*/
         .footer-link-sections-section .collapsible-btn svg {
