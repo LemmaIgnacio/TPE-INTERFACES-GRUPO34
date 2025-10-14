@@ -274,17 +274,17 @@ h3 {
 /*BUTTONS*/
     /*Primary Button --> blur glow effect*/
         .btn-primary {
-        background: var(--Primary-Color);
-        color: var(--Background-Color-Blueish);
-        font-size: var(--Font-Size-H3);
-        font-weight: var(--h3-font-weight);
-        border: none;
-        border-radius: 10px;
-        padding: 10px;
-        cursor: pointer;
-        margin-top: 6px;
-        transition: background 0.2s, color 0.2s;
-        box-shadow: 0 2px 8px rgba(132,233,221,0.15);
+            background: var(--Primary-Color);
+            color: var(--Background-Color-Blueish);
+            font-size: var(--Font-Size-H3);
+            font-weight: var(--h3-font-weight);
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px rgba(132,233,221,0.15);
         }
         .btn-primary:hover {
             background: var(--Secondary-Color-Purple);
@@ -326,8 +326,20 @@ h3 {
         .btn-third:hover {
             border-color: var(--Third-Color);
             color: var(--Third-Color);
-            animation: glow-loop 2.5s infinite;
+            box-shadow: 10px 15px 15px var(--colecci-n-variable-black);
+            animation: float-tilt 2s ease-in-out infinite alternate;
         }
+            @keyframes float-tilt {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-8px) rotate(3deg);
+                }
+                100% {
+                    transform: translateY(0) rotate(0deg);
+                }
+            }
 
 @media screen and (max-width: 800px) {
     /*Footer*/
