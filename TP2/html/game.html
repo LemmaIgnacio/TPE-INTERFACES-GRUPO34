@@ -159,12 +159,12 @@
             </section>
             
             <section id="GameHowtoPlay">
-                <!-- TODO: Hacerlo de acuerdo al figma -->
-                <div class="how-to-play-descriptors">
-                    <span>How to Play</span><span>Media</span>
-                </div>
                 <div class="how-to-play-content">
-                    <div>
+                    <div class="how-to-play-content-text">
+                        <div>
+                            <span>How to Play</span>
+                        </div>
+
                         <span>Make your first move</span>
                         <ul>
                             <li>Click on a peg to select it.</li>
@@ -184,13 +184,19 @@
                             <li>The game ends when you can't make any more moves.</li>
                             <li>If only one peg remains in the center, you win!</li>
                         </ul>
+                        <a href="#">Wiki</a>
                     </div>
-                    <div id="GameHowtoPlayMedia">
-                        <img src="../media/PegSolitaire 1.png">
-                        <img src="../media/image.webp">
+
+                    <div class="how-to-play-content-media">
+                        <div>
+                            <span>Media</span>
+                        </div>
+                        <div>
+                            <img src="../media/PegSolitaire 1.png">
+                            <img src="../media/image.webp">
+                        </div>
                     </div>
                 </div>
-                <a href="#"></a>
             </section>
             
             <section id="CommentsSection">
@@ -199,7 +205,8 @@
                 <div id="AddCommentSection">
                     <form id="AddCommentForm">
                         <textarea id="CommentText" placeholder="Write your comment here..." required></textarea>
-                        <button type="submit"><img href="#" alt="SendComment"></button>
+                        <span id="CharacterCount">0/255 Characters</span>
+                        <button type="submit"><img src="../assets/icon/send_comment.svg" alt="SendComment"></button>
                     </form>
                 </div>
 
@@ -208,20 +215,20 @@
                         <div class="comment__info">
                             <div class="comment__content">
                                 <div class="comment__header">
-                                    <img src="#" alt="User avatar" class="comment__avatar">
-                                    <h3 class="comment__username"><!-- Variable en JSON de comentarios --></h3>
-                                    <span class="comment__timestamp"><!-- Variable en JSON de comentarios --></span>
+                                    <img src="../assets/icon/face_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username">Random666</h3>
+                                    <span class="comment__timestamp">15/09/2025</span>
                                     <div class="comment__actions">
                                         <button class="comment__like-button" aria-label="Like">
-                                            <img src="#" alt="LikeIcon">
-                                            <span class="comment__like-count"><!-- Variable en JSON de comentarios --></span>
+                                            <img src="../assets/icon/like.svg" alt="LikeIcon">
+                                            <span class="comment__like-count">25</span>
                                         </button>
                                         <button class="comment__flag-button" aria-label="Flag">
-                                            <img src="#" alt="FlagIcon">
+                                            <img src="../assets/icon/flag.svg" alt="FlagIcon">
                                         </button>
                                     </div>
                                 </div>
-                                <p class="comment__text"><!-- Variable en JSON de usuarios --></p>
+                                <p class="comment__text">Peg Solitaire is one of those games that seems simple at first glance, but hides surprising strategic depth. I love how each move forces you to think several steps ahead, almost like a minimalist chess game.</p>
                             </div>
                         </div>
                     </article>
@@ -229,20 +236,20 @@
                         <div class="comment__info">
                             <div class="comment__content">
                                 <div class="comment__header">
-                                    <img src="#" alt="User avatar" class="comment__avatar">
-                                    <h3 class="comment__username"><!-- Variable en JSON de comentarios --></h3>
-                                    <span class="comment__timestamp"><!-- Variable en JSON de comentarios --></span>
+                                    <img src="../assets/icon/face_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username">i_love_saying_a</h3>
+                                    <span class="comment__timestamp">15/09/2025</span>
                                     <div class="comment__actions">
                                         <button class="comment__like-button" aria-label="Like">
-                                            <img src="#" alt="LikeIcon">
-                                            <span class="comment__like-count"><!-- Variable en JSON de comentarios --></span>
+                                            <img src="../assets/icon/like.svg" alt="LikeIcon">
+                                            <span class="comment__like-count">170K</span>
                                         </button>
                                         <button class="comment__flag-button" aria-label="Flag">
-                                            <img src="#" alt="FlagIcon">
+                                            <img src="../assets/icon/flag.svg" alt="FlagIcon">
                                         </button>
                                     </div>
                                 </div>
-                                <p class="comment__text"><!-- Variable en JSON de usuarios --></p>
+                                <p class="comment__text">a</p>
                             </div>
                         </div>
                     </article>
@@ -250,20 +257,20 @@
                         <div class="comment__info">
                             <div class="comment__content">
                                 <div class="comment__header">
-                                    <img src="#" alt="User avatar" class="comment__avatar">
-                                    <h3 class="comment__username"><!-- Variable en JSON de comentarios --></h3>
-                                    <span class="comment__timestamp"><!-- Variable en JSON de comentarios --></span>
+                                    <img src="../assets/icon/face_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="User avatar" class="comment__avatar">
+                                    <h3 class="comment__username">GamerCasual</h3>
+                                    <span class="comment__timestamp">11/09/2025</span>
                                     <div class="comment__actions">
                                         <button class="comment__like-button" aria-label="Like">
-                                            <img src="#" alt="LikeIcon">
-                                            <span class="comment__like-count"><!-- Variable en JSON de comentarios --></span>
+                                            <img src="../assets/icon/like.svg" alt="LikeIcon">
+                                            <span class="comment__like-count"></span>
                                         </button>
                                         <button class="comment__flag-button" aria-label="Flag">
-                                            <img src="#" alt="FlagIcon">
+                                            <img src="../assets/icon/flag.svg" alt="FlagIcon">
                                         </button>
                                     </div>
                                 </div>
-                                <p class="comment__text"><!-- Variable en JSON de usuarios --></p>
+                                <p class="comment__text">I think it's a good game. A bit repetitive, though.</p>
                             </div>
                         </div>
                     </article>
