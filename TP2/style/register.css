@@ -206,10 +206,10 @@ body {
     margin-right: 2px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .form-card {
         width: 95vw;
-        padding: 16px 4px;
+        padding: 16px;
         gap: 10px;
     }
     .container {

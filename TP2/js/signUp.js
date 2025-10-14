@@ -12,7 +12,7 @@ if ($form) {
     $form.addEventListener("submit", (e) => {
         e.preventDefault();
         if ($name.value !== "" && $lastname.value !== "" 
-            && $age.value !== "" && $email.value !== "" 
+            && ($age.value !== "" && $age.value > 0) && $email.value !== "" 
             && $password.value !== "" 
             && $confirmPassword.value !== "") {
 

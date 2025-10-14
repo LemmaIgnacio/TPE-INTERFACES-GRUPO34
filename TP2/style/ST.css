@@ -58,7 +58,7 @@ body {
 
 /*Main*/
     main {
-        padding: 0px;;
+        padding: 0px;
     }
     .container {
         padding: min(4vw, 20px);
@@ -119,7 +119,7 @@ svg {
         box-sizing:border-box;
         justify-content: space-between;
         height: auto;
-        width: auto;
+        width: 100%;
         background-color: var(--colecci-n-variable-background-color-dark);
         padding: min(1vw, 10px);
         
