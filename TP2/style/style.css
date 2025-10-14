@@ -305,6 +305,44 @@ h3 {
                     box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple);
                 }
             }
+    /*Secondary Button --> */
+        .btn-secondary, .btn-secondary a {
+            padding: 5px 5px;
+            font-size: 18px;
+            color: var(--N-Light-Gray);
+            background-color: var(--colecci-n-variable-accent-color-magenta);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            font-size: var(--Font-Size-H3);
+            font-weight: var(--h3-font-weight);
+        
+        }
+        .btn-secondary:hover {
+            animation: quiver 0.3s linear infinite;
+        }
+        .btn-secondary:active {
+            transform: scale(0.95);
+        }
+            @keyframes quiver {
+                0% { 
+                    transform: translateX(0);
+                }
+                25% { 
+                    transform: translateX(-2px); 
+                }
+                50% { 
+                    transform: translateX(2px); 
+                }
+                75% { 
+                    transform: translateX(-2px); 
+                }
+                100% { 
+                    transform: translateX(0); 
+                }
+            }
+            
 
     /*Third Button --> border with icon, transparent background*/
         .btn-third {
