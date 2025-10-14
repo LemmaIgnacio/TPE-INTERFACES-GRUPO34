@@ -35,16 +35,29 @@ body {
         "footer footer"; /*El sidebar va a ocupar las 3 filas*/
     
 }
-
-
-.left-header-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: 20px;
-    .logo {
-        display: flex;
-    }
+h1 {
+    font-family: var(--h1-font-family);
+    font-weight: var(--h1-font-weight);
+    font-size: var(--h1-font-size);
+    letter-spacing: var(--h1-letter-spacing);
+    line-height: var(--h1-line-height);
+    font-style: var(--h1-font-style);
+}
+h2 {
+    font-family: var(--h2-font-family);
+    font-weight: var(--h2-font-weight);
+    font-size: var(--h2-font-size);
+    letter-spacing: var(--h2-letter-spacing);
+    line-height: var(--h2-line-height);
+    font-style: var(--h2-font-style);
+}
+h3 {
+    font-family: var(--h3-font-family);
+    font-weight: var(--h3-font-weight);
+    font-size: var(--h3-font-size);
+    letter-spacing: var(--h3-letter-spacing);
+    line-height: var(--h3-line-height);
+    font-style: var(--h3-font-style);
 }
 
 /*Footer*/
@@ -108,24 +121,45 @@ body {
                     padding: .5em;
                     border-radius: .5em;
                 }
-                .footer-link-sections-section .collapsible-btn:hover {
-                    background-color: var(--colecci-n-variable-PC-dark-1);
-                }
                     /*Hidden svg*/
                     .footer-link-sections-section .collapsible-btn svg {
                         display: none;
                     }
 
 
+/*Main*/
+    main a {
+        text-decoration: none;
+        color: var(--colecci-n-variable-accent-color-yellow);
+    }
+    main p {
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    /*Container*/
+    .container {
+        padding: min(4vw, 20px);
+
+        h2, p { 
+            margin-top: 1em;
+        }
+    }
+    .container-main{
+        padding: 20px;
+        background-color: var(--colecci-n-variable-background-color-blueish);
+        
+    }
+    .container-centered {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 
 
 
-
-
-main a {
-    text-decoration: none;
-    color: var(--colecci-n-variable-accent-color-yellow);
-}
 
 /* CSS Específico */
 
@@ -275,7 +309,28 @@ main a {
                 }
             }
 
+    /*Third Button --> border with icon, transparent background*/
+        .btn-third {
+            background: transparent;
+            border: 2px solid var(--N-Light-Gray);
+            color: var(--N-Light-Gray);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: color 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
 
+            font-size: var(--h3-font-size);
+            font-weight: var(--h3-font-weight);
+        }
+        .btn-third:hover {
+            border-color: var(--Third-Color);
+            color: var(--Third-Color);
+            animation: glow-loop 2.5s infinite;
+        }
 
 @media screen and (max-width: 800px) {
     /*Footer*/
@@ -289,6 +344,7 @@ main a {
         text-align: center;
         gap: 50px;
     }
+
 
     /*Collapsible Menu*/
         .footer-link-sections-section .collapsible-btn svg {
@@ -322,6 +378,9 @@ main a {
         }
         .collapsible-btn.active svg {
             transform: rotate(180deg);
+        }
+        .footer-link-sections-section .collapsible-btn:hover {
+            border-bottom: 1px solid var(--colecci-n-variable-PC-dark-1);
         }
 
 }
