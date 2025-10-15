@@ -321,6 +321,11 @@ svg {
 @media screen and (max-width: 800px){
     body {
         display: grid;
+        grid-template-areas:
+            "header"
+            "main"
+            "footer"
+        ;
         grid-template-columns: 1fr; /*Una sola columna*/ 
     }
 
