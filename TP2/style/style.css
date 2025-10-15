@@ -32,7 +32,7 @@ body {
     grid-template-areas:
         "sidebar main"
         "sidebar main"
-        "footer footer"; /*El sidebar va a ocupar las 3 filas*/
+        "sidebar footer"; /*El sidebar va a ocupar las 3 filas*/
     
 }
 h1 {
@@ -61,71 +61,78 @@ h3 {
 }
 
 /*Footer*/
-    footer {
-        grid-area: footer;
-        background-color: var(--colecci-n-variable-background-color-dark);
-        color: var(--colecci-n-variable-n-light-gray);
-        text-align: center;
-        padding: min(10vw, 50px);
-        font-size: min(1.5vw, 12px);
-        z-index: 1;
-        height: auto;
-        width: 100wv;
-    }
-    footer a {
-        color: var(--colecci-n-variable-n-light-gray);
-        text-decoration: none;
-        font-size: var(--paragraph-font-size);
-    }
-    footer a:hover{
-        color: var(--colecci-n-variable-PC-light-1);
+footer {
+    grid-area: footer;
+    background-color: var(--colecci-n-variable-background-color-dark);
+    color: var(--colecci-n-variable-n-light-gray);
+    text-align: center;
+    padding: min(10vw, 50px);
+    font-size: min(1.5vw, 12px);
+    z-index: 1;
+    height: auto;
+    width: 100wv;
+}
+
+footer a {
+    color: var(--colecci-n-variable-n-light-gray);
+    text-decoration: none;
+    font-size: var(--paragraph-font-size);
+}
+
+footer a:hover{
+    color: var(--colecci-n-variable-PC-light-1);
+}
+
+.footer-top, .footer-link-sections, .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 10px;
+}
+
+.footer-bottom {
+    align-items: center;
+}
+
+/*Footer-top*/
+.newsletter-form {
+justify-self: center;
+}
+
+/*Footer-link-sections*/
+.footer-link-sections {
+    gap: min(6vw, 15px);
+    margin-top: 20px;  
+}
+
+.footer-link-sections-section ul {
+    list-style: none;
+    margin-left: 2em;
+}
+
+.footer-link-sections-section{
+    text-align: left;
+}
+/*Section Title button*/
+.footer-link-sections-section .collapsible-btn {
+    background: none;
+    border: none;
+    color: var(--colecci-n-variable-n-light-gray);
+    font-size: var(--Font-Size-H3);
+    font-weight: var(--h3-font-weight);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding: .5em;
+    border-radius: .5em;
+}
+    /*Hidden svg*/
+    .footer-link-sections-section .collapsible-btn svg {
+        display: none;
     }
 
-    .footer-top, .footer-link-sections, .footer-bottom {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        padding: 10px;
-    }
-    .footer-bottom {
-        align-items: center;
-    }
-        /*Footer-top*/
-        .newsletter-form {
-            justify-self: center;
-        }
-
-        /*Footer-link-sections*/
-        .footer-link-sections {
-            gap: min(6vw, 15px);
-            margin-top: 20px;  
-        }
-            .footer-link-sections-section ul {
-                list-style: none;
-                margin-left: 2em;
-            }
-            .footer-link-sections-section{
-                text-align: left;
-            }
-            /*Section Title button*/
-                .footer-link-sections-section .collapsible-btn {
-                    background: none;
-                    border: none;
-                    color: var(--colecci-n-variable-n-light-gray);
-                    font-size: var(--Font-Size-H3);
-                    font-weight: var(--h3-font-weight);
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    width: 100%;
-                    cursor: pointer;
-                    padding: .5em;
-                    border-radius: .5em;
-                }
-                    /*Hidden svg*/
-                    .footer-link-sections-section .collapsible-btn svg {
-                        display: none;
-                    }
 
 
 /*Main*/
@@ -183,6 +190,10 @@ h3 {
         a {
             text-decoration: none;
             color: var(--Primary-Color-Light);
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     }
 }
@@ -464,14 +475,41 @@ h3 {
 #Games {
     padding-right: 10px;
     margin-top: 20px;
+    padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+    .carousel-button-left, .carousel-button-right {
+        display: none;
+    }
+    
+    .game-carousel {
+        max-width: 100vw;
+    }
+
+    #RecentGames {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        object-fit: cover;
+
+    }
 }
 
 #RecentGames {
     display: flex;
-    max-width: 800px;
+    overflow: hidden;
+    max-width: 80vw;
 
     button {
-        background-color: var(--Background-Color-Dark);
+        background-color: var(--Background-Color-Blueish);
+        color: var(--N-Light-Gray);
+        font-size: var(--Font-Size-H3);
+        font-weight: var(--h3-font-weight);
+
+        border: none;
+        border-radius: 20px;
+
         width: 262px;
         height: 160px;
         flex-shrink: 0;
@@ -501,7 +539,8 @@ h3 {
 }
 
 .game-carousel {
-    max-width: 1700px;
+    max-width: 90vw;
+    overflow: hidden;
 }
 
 .carousel-button-left, .carousel-button-right {
@@ -544,16 +583,15 @@ h3 {
 .carousel-track.skew-right {
     transform: skewX(10deg);
 }
+
 .carousel-track.skew-left {
     transform: skewX(-10deg);
 }
-
 
 .game-card {
     position: relative;
     margin-right: 20px;
 }
-
 
 .game-card img {
     width: 250px;
@@ -679,8 +717,8 @@ h3 {
     /*Footer*/
         footer {
             z-index: 0;
-
         }
+
         .footer-top, .footer-link-sections, .footer-bottom {
             flex-direction: column;
             align-items: center;
