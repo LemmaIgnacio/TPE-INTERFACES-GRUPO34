@@ -128,6 +128,7 @@ svg {
         top: 0;
         align-self: start;
         align-items: normal;
+        z-index: 99;
     }
     .logo-and-title, .search-bar .dropdown{
         align-items: center;
