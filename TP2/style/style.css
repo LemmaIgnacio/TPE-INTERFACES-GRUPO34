@@ -70,7 +70,9 @@ h3 {
         font-size: min(1.5vw, 12px);
         z-index: 1;
         height: auto;
-        width: 100vw;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     footer a {
@@ -465,6 +467,10 @@ h3 {
         padding-right: 10px;
         margin-top: 20px;
         padding-left: 20px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     @media (max-width: 768px) {
@@ -492,7 +498,8 @@ h3 {
     #RecentGames {
         display: flex;
         align-items: center;
-        
+        width: 100%;
+        max-width: 100%;
         width: 100vw;
 
         button {
@@ -529,11 +536,15 @@ h3 {
     .carousel-container {
         display: flex;
         overflow: hidden;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .game-carousel {
         max-width: 90vw;
         overflow: hidden;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .carousel-button-left, .carousel-button-right {
