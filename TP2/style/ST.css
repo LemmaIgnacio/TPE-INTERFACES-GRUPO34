@@ -2,10 +2,13 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     font-family: var(--font-family-base);
+    overflow-x: hidden;
+    width: 100%;
 }
 
 h1 {
@@ -59,7 +62,12 @@ body {
 /*Main*/
     main {
         padding: 0px;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
     }
+
     .container {
         padding: min(4vw, 20px);
 
