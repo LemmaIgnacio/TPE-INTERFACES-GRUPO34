@@ -460,20 +460,25 @@ h3 {
         }
     }
 
-/* home y games */
+    /* home y games */
     #Games {
         padding-right: 10px;
         margin-top: 20px;
         padding-left: 20px;
     }
 
-    @media (max-width: 1000px) {
-        .carousel-button-left, .carousel-button-right {
-            display: none;
-        }
-        
+    @media (max-width: 768px) {
         .game-carousel {
             max-width: 100vw;
+        }
+
+        .carousel-container {
+            overflow-x: auto;
+        }
+
+        .carousel-track {
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
         }
 
         #RecentGames {
@@ -526,53 +531,51 @@ h3 {
         overflow: hidden;
     }
 
-        .game-carousel {
-            max-width: 90vw;
-            overflow: hidden;
+    .game-carousel {
+        max-width: 90vw;
+        overflow: hidden;
+    }
+
+    .carousel-button-left, .carousel-button-right {
+        border: none;
+        border-radius: 20px;
+        background-color: var(--Background-Color-Blueish);
+        width: 125px;
+        height: 250px;
+        flex-shrink: 0; /* Evita que se achiquen */
+        min-width: 125px; /* Asegura el ancho mínimo */
+        min-height: 250px; /* Asegura la altura mínima */
+        transition: box-shadow 0.3s, transform 0.2s;
+    }
+
+    .carousel-button-left:hover, .carousel-button-right:hover {
+        background-color: var(--Background-Color-Dark);
+        animation: floating 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes floating {
+        0% {
+            transform: translateY(0);
         }
-
-        .carousel-button-left, .carousel-button-right {
-            border: none;
-            border-radius: 20px;
-            background-color: var(--Background-Color-Blueish);
-            width: 125px;
-            height: 250px;
-            flex-shrink: 0; /* Evita que se achiquen */
-            min-width: 125px; /* Asegura el ancho mínimo */
-            min-height: 250px; /* Asegura la altura mínima */
-            transition: box-shadow 0.3s, transform 0.2s;
+        100% {
+            transform: translateY(-16px);
         }
+    }
 
-        .carousel-button-left:hover, .carousel-button-right:hover {
-            background-color: var(--Background-Color-Dark);
-            animation: floating 1.2s ease-in-out infinite alternate;
-        }
-            @keyframes floating {
-                0% {
-                    transform: translateY(0);
-                }
-                100% {
-                    transform: translateY(-16px);
-                }
-            }
+    .carousel-track {
+        display: flex;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        transition: transform 0.25s cubic-bezier(1, 0.2, 0.2, 0.4);
+    }
 
+    .carousel-track.skew-right {
+        transform: skewX(10deg);
+    }
 
-
-        .carousel-track {
-            display: flex;
-            width: 100%;
-            overflow: hidden;
-            scroll-behavior: smooth;
-            transition: transform 0.25s cubic-bezier(1, 0.2, 0.2, 0.4);
-        }
-
-        .carousel-track.skew-right {
-            transform: skewX(10deg);
-        }
-
-        .carousel-track.skew-left {
-            transform: skewX(-10deg);
-        }
+    .carousel-track.skew-left {
+        transform: skewX(-10deg);
+    }
 
     .game-card {
         display: flex;
@@ -584,7 +587,7 @@ h3 {
         height: min(28vw, 210px);
         object-fit: cover;
         border-radius: 8px;
-        overflow:scroll;
+        overflow: scroll;
     }
 
 /* game */

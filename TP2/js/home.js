@@ -49,10 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if(!GAME_GENRES.includes(gameList[i].genre)) continue;
 			loadCarousel(gameList[i], gameCarouselsSection);
 		}
-        
-        updateButtonsVisibility;
 	})();
 });
+
 
 async function loadRecentGame(gameList) {
     try {
@@ -118,6 +117,8 @@ async function loadCarousel(gameData, gameCarouselsSection) {
             }
         }
         
+        updateButtonsVisibility();
+
         window.addEventListener('resize', updateButtonsVisibility);
         
         if (btnLeft && carouselTrack) {
@@ -147,11 +148,28 @@ async function loadCarousel(gameData, gameCarouselsSection) {
             });
         }
 
-        // Actualizar visibilidad al cargar y al hacer scroll manual
-        if (carouselTrack) {
-            carouselTrack.addEventListener('scroll', updateButtonsVisibility);
-            setTimeout(updateButtonsVisibility, 100); // Esperar a que se renderice
-        }
+        let isDragging = false;
+        let scrollStart = 0;
+        let startX = 0;
+
+        // Touch events para móvil
+        carouselTrack.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX;
+            scrollStart = carouselTrack.scrollLeft;
+        });
+
+        carouselTrack.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            const x = e.touches[0].pageX;
+            const walk = (startX - x) * 1.5; // Multiplicador para sensibilidad
+            carouselTrack.scrollLeft = scrollStart + walk;
+        });
+
+        carouselTrack.addEventListener('touchend', () => {
+            isDragging = false;
+        });        
 
     } catch (error) {
         console.error('Error cargando las plantillas:', error);
