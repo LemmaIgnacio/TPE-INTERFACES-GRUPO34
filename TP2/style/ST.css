@@ -49,15 +49,19 @@ body {
     color: var(--colecci-n-variable-n-light-gray);
     min-height: auto;
     min-width: auto;
+}
+
+/* Aplica grid sólo a las páginas con sidebar (Excluye logIn.html y signUp.html) */
+body:has(#sidebar) {
     display: grid;
-    grid-template-columns: auto 1fr; /*Va a ser tan grande como necesite*/
-    grid-template-rows: auto 1fr auto; /*El footer va a ocupar el espacio que necesite*/
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
         "sidebar main"
         "sidebar main"
-        "sidebar footer"; /*El sidebar va a ocupar las 3 filas*/
-    
+        "sidebar footer"; /* El sidebar va a ocupar las 3 filas */
 }
+
 
 /*Main*/
     main {
