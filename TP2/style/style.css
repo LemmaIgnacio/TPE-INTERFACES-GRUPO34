@@ -627,6 +627,9 @@ h3 {
             margin-top: 6px;
             transition: background 0.2s, color 0.2s;
             box-shadow: 0 2px 8px rgba(132,233,221,0.15);
+            
+            animation: float 200ms ease-in-out infinite alternate;
+            box-shadow: 5px 5px 5px var(--colecci-n-variable-black);
         }
         .btn-primary:hover {
             background: var(--Secondary-Color-Purple);
