@@ -350,6 +350,10 @@ svg {
             display: none; /*Esconder el título en pantallas pequeñas*/
         }
 
+        #topbar .dropdown-btn h2 {
+            display: none;
+        }
+
         #sidebar {
             position: fixed;
             width: 300px;
