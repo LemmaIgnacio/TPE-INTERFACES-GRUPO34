@@ -33,8 +33,12 @@
                     </div>
                     <div class="form-control password-field">
                         <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter your password" required>
-                        <img src="placeholder-eye.png" alt="Toggle Password Visibility" id="togglePassword" class="toggle-password">
+                        <div class="password-wrapper">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <button type="button" id="togglePassword" class="toggle-password">
+                                <img src="../assets/icon/disabled_visible.svg" alt="Toggle Password Visibility" id="eye-icon-login" style="width:24px;vertical-align:middle;">
+                            </button>
+                        </div>
                     </div>
                     <a href="#" class="forgot-password">Forgot Password?</a>
                     <div class="recaptcha-container">
