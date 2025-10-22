@@ -59,7 +59,7 @@ body:has(#sidebar) {
     grid-template-areas:
         "sidebar main"
         "sidebar main"
-        "sidebar footer"; /* El sidebar va a ocupar las 3 filas */
+        "footer"; 
 }
 
 
@@ -349,10 +349,6 @@ svg {
         #topbar .logo-and-title > h1 {
             display: none; /*Esconder el título en pantallas pequeñas*/
         }
-        #topbar .dropdown{
-            display: none;
-        }
-
 
         #sidebar {
             position: fixed;
