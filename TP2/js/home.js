@@ -24,12 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (progress >= 100) {
             progress = 100;
             clearInterval(timer);
-            loader.style.display = "none";
+            loader.style.display = "none";//Hidden
         }
         percent.textContent = `${Math.floor(progress)}%`;
     }, interval);
 });
 
+//API y carga de carruseles
 document.addEventListener('DOMContentLoaded', function() {	
     // Cargar los datos de la API y luego cargar los carruseles y la sección de juegos recientemente jugados.
     (async () => {
@@ -101,7 +102,7 @@ async function loadCarousel(gameData, gameCarouselsSection) {
 
         function updateButtonsVisibility() {
             // Oculta ambos botones en pantallas pequeñas
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 800) {
                 if (btnLeft) btnLeft.style.display = 'none';
                 if (btnRight) btnRight.style.display = 'none';
             } else {
@@ -120,7 +121,8 @@ async function loadCarousel(gameData, gameCarouselsSection) {
         updateButtonsVisibility();
 
         window.addEventListener('resize', updateButtonsVisibility);
-        
+
+        //Las imagenes del carrusel se inclinan al hacer click en los botones
         if (btnLeft && carouselTrack) {
             btnLeft.addEventListener('click', () => {
                 carouselTrack.classList.add('skew-left');
@@ -152,7 +154,7 @@ async function loadCarousel(gameData, gameCarouselsSection) {
         let scrollStart = 0;
         let startX = 0;
 
-        // Touch events para móvil
+        // TOUCH events para móvil
         carouselTrack.addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].pageX;
@@ -176,6 +178,7 @@ async function loadCarousel(gameData, gameCarouselsSection) {
     }
 }
 
+// Obtener datos de la API o de respaldo en caso de error.
 async function getApiData() {
 	try {
 		const response = await fetch(API_URL);

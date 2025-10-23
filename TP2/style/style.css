@@ -606,6 +606,14 @@ h3 {
 
 
 /*BUTTONS*/
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-1px);
+        }
+    }
     /*Primary Button --> blur glow effect*/
         .btn-primary {
             background: var(--Primary-Color);
@@ -618,7 +626,9 @@ h3 {
             cursor: pointer;
             margin-top: 6px;
             transition: background 0.2s, color 0.2s;
-            box-shadow: 0 2px 8px rgba(132,233,221,0.15);
+
+            animation: float 200ms ease-in-out infinite alternate;
+            box-shadow: 5px 5px 5px var(--colecci-n-variable-black);
         }
         .btn-primary:hover {
             background: var(--Secondary-Color-Purple);
@@ -651,6 +661,9 @@ h3 {
             transition: transform 0.1s ease;
             font-size: var(--Font-Size-H3);
             font-weight: var(--h3-font-weight);
+
+            animation: float 200ms ease-in-out infinite alternate;
+            box-shadow: 5px 5px 5px var(--colecci-n-variable-black);
         
         }
         .btn-secondary:hover {
@@ -694,7 +707,11 @@ h3 {
 
             font-size: var(--h3-font-size);
             font-weight: var(--h3-font-weight);
+
+            animation: float 200ms ease-in-out infinite alternate;
+            box-shadow: 5px 5px 5px var(--colecci-n-variable-black);
         }
+
         .btn-third:hover {
             border-color: var(--Third-Color);
             color: var(--Third-Color);

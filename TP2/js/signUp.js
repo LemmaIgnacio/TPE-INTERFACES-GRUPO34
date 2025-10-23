@@ -32,3 +32,34 @@ if ($signinLink) {
     });
 }
 
+const $togglePasswordBtn = document.getElementById('toggle-password-btn');
+const $toggleConfirmPasswordBtn = document.getElementById('toggle-confirm-password-btn');
+const $eyeIconPassword = document.getElementById('eye-icon-password');
+const $eyeIconConfirm = document.getElementById('eye-icon-confirm');
+const eyeOpen = '../assets/icon/enabled_visible.svg';
+const eyeClosed = '../assets/icon/disabled_visible.svg'; 
+
+let passwordVisible = false;
+let confirmPasswordVisible = false;
+
+function updateEyeIcon($icon, visible) {
+    $icon.innerHTML = `<img src="${visible ? eyeOpen : eyeClosed}" alt="ojo" style="width:24px;vertical-align:middle;">`;
+}
+
+if ($togglePasswordBtn && $password && $eyeIconPassword) {
+    $togglePasswordBtn.addEventListener('click', () => {
+        passwordVisible = !passwordVisible;
+        $password.type = passwordVisible ? 'text' : 'password';
+        updateEyeIcon($eyeIconPassword, passwordVisible);
+    });
+    updateEyeIcon($eyeIconPassword, false);
+}
+
+if ($toggleConfirmPasswordBtn && $confirmPassword && $eyeIconConfirm) {
+    $toggleConfirmPasswordBtn.addEventListener('click', () => {
+        confirmPasswordVisible = !confirmPasswordVisible;
+        $confirmPassword.type = confirmPasswordVisible ? 'text' : 'password';
+        updateEyeIcon($eyeIconConfirm, confirmPasswordVisible);
+    });
+    updateEyeIcon($eyeIconConfirm, false);
+}
