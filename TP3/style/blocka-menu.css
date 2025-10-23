@@ -1,0 +1,321 @@
+.blocka-gallery-card {
+    background: var(--Background-Color-Dark, #18182f);
+    border-radius: 1em;
+    box-shadow: 0 2px 12px #0005;
+    padding: 0.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.blocka-gallery-card img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0.7em;
+    object-fit: cover;
+}
+.blocka-gallery-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 4px 24px #0008;
+}
+/* Modal Gallery */
+.blocka-gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(18,14,38,0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.blocka-gallery-modal.active {
+    display: flex;
+}
+.blocka-gallery-modal__content {
+    background: var(--Background-Color-Blueish);
+    border-radius: 1em;
+    padding: 2em;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0 4px 24px #0008;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.blocka-gallery-modal__close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    color: var(--Primary-Color);
+    font-size: 2rem;
+    cursor: pointer;
+}
+.blocka-gallery-modal__title {
+    color: var(--Primary-Color);
+    margin-bottom: 1em;
+}
+.blocka-gallery-modal__images {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 120px);
+        gap: 1.5em;
+        justify-items: center;
+        align-items: center;
+        min-width: 320px;
+        min-height: 260px;
+}
+
+@media (max-width: 700px) {
+    .blocka-gallery-modal__images {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 100px);
+        min-width: 0;
+        min-height: 0;
+    }
+}
+.blocka-menu__options--row {
+    display: flex;
+    flex-direction: row;
+    gap: 2.2em;
+    justify-content: center;
+    margin-bottom: 0.2em;
+    margin-top: 2.2em;
+    padding-top: 0.5em;
+}
+.blocka-menu__howto, .blocka-menu__gallery {
+    font-size: 0.95rem;
+    padding: 0.5em 0;
+    width: 110px;
+    background: var(--Secondary-Color-Purple);
+    color: var(--N-Light-Gray);
+    font-weight: 600;
+    border: none;
+    border-radius: 0.2em;
+    box-shadow: 0 2px 8px var(--Primary-Color-Dark, #2D8A81);
+    opacity: 0.82;
+    transition: background 0.2s, color 0.2s, opacity 0.2s, transform 0.1s;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.blocka-menu__howto:hover, .blocka-menu__gallery:hover {
+    background: var(--Secondary-Color-Purple-Dark);
+    color: var(--Primary-Color);
+    opacity: 1;
+    transform: translateY(-2px) scale(1.03);
+}
+
+.blocka-menu {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--Background-Color-Dark);
+    border-radius: 0 0 1.5em 1.5em;
+    box-shadow: 0 4px 24px var(--Primary-Color-Dark, #2D8A81);
+    padding: 0;
+    margin: 0;
+}
+.blocka-menu__container {
+    max-width: 480px;
+    width: 100%;
+    margin: 0.7em auto 1.2em auto;
+    background: var(--Background-Color-Blueish);
+    border-radius: 1.5em;
+    box-shadow: 0 4px 24px #0002;
+    padding: 2.5em 1.5em;
+}
+.blocka-menu__title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5em;
+    color: var(--Primary-Color);
+}
+.blocka-menu__subtitle {
+    margin-bottom: 2em;
+    color: var(--N-Gray);
+}
+.blocka-menu__play {
+    width: 100%;
+    margin-bottom: 2.5em;
+    font-size: 2.2rem;
+    padding: 1.3em 0;
+    background: var(--Primary-Color);
+    color: #fff;
+    box-shadow: 0 4px 16px var(--Primary-Color-Dark, #2D8A81);
+    border: none;
+    border-radius: 0.3em;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    display: block;
+}
+.blocka-menu__play:hover {
+    background: var(--Primary-Color-Dark, #2D8A81);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+}
+.blocka-menu__options {
+    display: flex;
+    flex-direction: row;
+    gap: 0.7em;
+    justify-content: center;
+    margin-bottom: 0.2em;
+}
+.blocka-menu__howto, .blocka-menu__gallery {
+    font-size: 0.95rem;
+    padding: 0.5em 0;
+    width: 110px;
+    background: var(--Secondary-Color-Purple);
+    color: var(--N-Light-Gray);
+    font-weight: 600;
+    border: none;
+    border-radius: 0.2em;
+    box-shadow: 0 2px 8px var(--Primary-Color-Dark, #2D8A81);
+    opacity: 0.82;
+    transition: background 0.2s, color 0.2s, opacity 0.2s, transform 0.1s;
+    margin-bottom: 0;
+}
+.blocka-menu__howto:hover, .blocka-menu__gallery:hover {
+    background: var(--Secondary-Color-Purple-Dark);
+    color: var(--Primary-Color);
+    opacity: 1;
+    transform: translateY(-2px) scale(1.03);
+}
+
+.blocka-howto-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(18,14,38,0.85);
+        gap: 2.2em;
+    align-items: center;
+    justify-content: center;
+}
+.blocka-howto-modal.active {
+    display: flex;
+}
+.blocka-howto-modal__content {
+    background: var(--Background-Color-Blueish);
+    border-radius: 1em;
+    padding: 2em;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0 4px 24px #0008;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.blocka-howto-modal__close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    color: var(--Primary-Color);
+    font-size: 2rem;
+    cursor: pointer;
+}
+.blocka-howto-modal__title {
+    color: var(--Primary-Color);
+    margin-bottom: 1em;
+}
+.blocka-howto-modal__animation {
+    width: 220px;
+    height: 220px;
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.blocka-howto-modal__desc {
+    color: var(--N-Light-Gray);
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 350px;
+}
+/* Blocka Menu principal - Inspirado en los ejemplos visuales del usuario */
+
+#blocka-menu {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--Background-Color-Dark);
+    border-radius: 0 0 1.5em 1.5em;
+    box-shadow: 0 4px 24px var(--Primary-Color-Dark, #2D8A81);
+    padding: 0;
+    margin: 0;
+}
+#blocka-menu .container {
+    max-width: 420px;
+    width: 100%;
+    margin: 3em auto 2em auto;
+    background: var(--Background-Color-Blueish);
+    box-shadow: 0 2px 8px var(--Primary-Color-Dark, #2D8A81);
+    padding: 2.5em 1.5em;
+    text-align: center;
+    border-radius: 1.5em;
+}
+#blocka-menu h1 {
+    font-size: 3rem;
+    color: var(--Primary-Color);
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    letter-spacing: 1px;
+    font-family: var(--Default-Font);
+}
+#blocka-menu .subtitle {
+    font-size: 2rem;
+    color: var(--N-Gray);
+    margin-bottom: 2.5em;
+    font-weight: 400;
+    font-family: var(--Default-Font);
+}
+#blocka-menu .menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    align-items: center;
+    margin-top: 1.5em;
+}
+#blocka-menu .btn-main, #blocka-menu .btn-secondary {
+    width: 320px;
+    max-width: 90vw;
+    padding: 1em 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.2em;
+    background: var(--Secondary-Color-Purple);
+    color: var(--N-Light-Gray);
+    margin: 0 auto;
+    box-shadow: 0 2px 8px var(--Primary-Color-Dark, #2D8A81);
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    cursor: pointer;
+    font-family: var(--Default-Font);
+}
+#blocka-menu .btn-main:hover, #blocka-menu .btn-secondary:hover {
+    background: var(--Secondary-Color-Purple-Dark);
+    color: var(--Primary-Color);
+    transform: translateY(-2px) scale(1.03);
+}
+#blocka-menu .btn-secondary {
+    background: var(--Secondary-Color-Purple);
+    color: var(--N-Light-Gray);
+    font-weight: 700;
+}
+

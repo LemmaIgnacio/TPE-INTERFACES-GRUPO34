@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,11 +8,11 @@
         <link rel="stylesheet" href="../style/loading.css">
         <link rel="stylesheet" href="../style/ST.css" />
         <link rel="stylesheet" href="../style/styleguide.css" />
-        <link rel="stylesheet" href="../style/blocka.css">
+    <link rel="stylesheet" href="../style/blocka.css">
+    <link rel="stylesheet" href="../style/blocka-menu.css">
         <title>Dragon Games</title>
     </head>
     <body>
-        <!--Sidebar -->
         <aside id="sidebar" class="close">
             <ul>
                 <li>
@@ -125,17 +126,65 @@
                 </div>
             </nav>
 
-            <!-- Game Content -->
             <nav class="game-address-navbar">
                 <li class="breadcrumb start"><a href="home.html">Home</a></li>
                 <img src="../assets/icon/purpleChevron.svg">
                 <li class="breadcrumb"><a href="#">Puzzle</a></li>
                 <img src="../assets/icon/purpleChevron.svg">
                 <li class="breadcrumb end"><a href="#">Blocka</a></li>
-                <!-- Resto de breadcrumbs -->
             </nav>
             
-            <section id="GameContainer">
+            <section id="blocka-menu" class="container-main blocka-menu">
+                <div class="container blocka-menu__container">
+                    <h1 class="blocka-menu__title detail-title">Blocka</h1>
+                    <p class="blocka-menu__subtitle subtitle detail-description">Rotate the images to complete the piece</p>
+                    <button id="blocka-start-btn" class="btn-main blocka-menu__play">Play</button>
+                    <div class="blocka-menu__options--row">
+                        <button id="blocka-howto-btn" class="btn-secondary blocka-menu__howto">How to play</button>
+                        <button id="blocka-gallery-btn" class="btn-secondary blocka-menu__gallery">Gallery</button>
+                    </div>
+
+                    <div id="howto-modal" class="blocka-howto-modal">
+                        <div class="blocka-howto-modal__content">
+                            <button id="close-howto" class="blocka-howto-modal__close">&times;</button>
+                            <h2 class="blocka-howto-modal__title">How to play</h2>
+                            <div id="howto-animation" class="blocka-howto-modal__animation">
+                                <svg width="200" height="200" viewBox="0 0 200 200">
+                                    <g id="piece1" style="transform-origin:50px 50px;">
+                                        <rect x="0" y="0" width="90" height="90" fill="#84E9DD" stroke="#222" stroke-width="4"/>
+                                        <text x="45" y="55" text-anchor="middle" font-size="32" fill="#222" font-family="Arial">1</text>
+                                    </g>
+                                    <g id="piece2" style="transform-origin:150px 50px;">
+                                        <rect x="110" y="0" width="90" height="90" fill="#9C6ADE" stroke="#222" stroke-width="4"/>
+                                        <text x="155" y="55" text-anchor="middle" font-size="32" fill="#222" font-family="Arial">2</text>
+                                    </g>
+                                    <g id="piece3" style="transform-origin:50px 150px;">
+                                        <rect x="0" y="110" width="90" height="90" fill="#FF6F61" stroke="#222" stroke-width="4"/>
+                                        <text x="45" y="155" text-anchor="middle" font-size="32" fill="#222" font-family="Arial">3</text>
+                                    </g>
+                                    <g id="piece4" style="transform-origin:150px 150px;">
+                                        <rect x="110" y="110" width="90" height="90" fill="#CCF8F2" stroke="#222" stroke-width="4"/>
+                                        <text x="155" y="155" text-anchor="middle" font-size="32" fill="#222" font-family="Arial">4</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="blocka-howto-modal__desc">Click on a piece to rotate it. Complete the image by orienting all pieces correctly!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div id="gallery-modal" class="blocka-gallery-modal">
+                        <div class="blocka-gallery-modal__content">
+                            <button id="close-gallery" class="blocka-gallery-modal__close">&times;</button>
+                            <h2 class="blocka-gallery-modal__title">Gallery</h2>
+                            <div class="blocka-gallery-modal__images" id="blocka-gallery-images">
+                            </div>
+                        </div>
+            </div>
+
+            <section id="GameContainer" style="display: none;">
                 <canvas id="GameCanvas" width="1000" height="600">
                     <!-- Acá se cargará el juego dinámicamente -->
                 </canvas>
@@ -150,6 +199,7 @@
                             </div>
                 </div>
             </section>
+
 
             <section id="GameDetails">
                 <div id="GameTitle">
@@ -493,7 +543,7 @@
         <script src="../js/main.js"></script>
         <script src="../js/game.js"></script>
         <script src="../js/ST.js"></script>
-        
+        <script src="../js/blockagame/menu.js"></script>
         <script src="../js/blockagame/blocka.js"></script>
         <script src="../js/blockagame/cronometro.js"></script>
     </body>
