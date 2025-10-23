@@ -109,3 +109,30 @@ function drawBlocka() {
         ctx.restore();
     }
 }
+
+canvas.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+});
+
+canvas.addEventListener('mousedown', function(e){
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    for(let i = 0; i<4; i++){
+        const x = dest[i].x;
+        const y = dest[i].y;
+        if(mouseX >= x && mouseX <= x + pieceW &&
+            mouseY >= y && mouseY <= y + pieceH){
+                if (e.button === 0) {
+                    angles[i] = (angles[i] - 90 + 360) % 360;
+                } else if (e.button === 2) {
+                    angles[i] = (angles[i] + 90) % 360;
+                }
+                drawBlocka();
+                break;
+            }
+    }
+});
+    
+
