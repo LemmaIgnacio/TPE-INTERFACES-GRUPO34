@@ -1,16 +1,4 @@
-class Blocka {
-    constructor(image) {
-        
-        let image = image;
-    }
 
-    //Getters y setters.
-
-    //Event Listeners.
-
-    //Métodos
-
-}
 
 let canvas = document.getElementById('GameCanvas');
 let ctx = canvas.getContext("2d");
@@ -21,7 +9,6 @@ canvas.width = width;
 canvas.height = height;
 
 canvas.style.background = "rgba(25, 24, 57, 1)";
-
 
 //CLASES
 class Circle {
@@ -49,7 +36,7 @@ class Circle {
 
              //TEXTO
             ctx.fillStyle = this.color;
-            ctx.font = "20px Arial";
+            ctx.font = "20px Poppins";
                 //Centrar el texto
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
@@ -87,21 +74,37 @@ let getDsitance = function(x1, y1, x2, y2){
 
 
 
-//Creamos CIRCULO dinamicamente    
-    //Itero Objeto
-    let circle = new Circle(100, 800, 50, "rgba(236, 237, 244, 1)", "A", 5);
-    let circle2 = new Circle(300, 300, 200, "rgba(236, 237, 244, 1)", "B", 0);
+//Creamos CIRCULO dinamicamente 
+    let all_circles = [];
+    let randomNro = function (min, max){
+        let result = Math.random()*(max-min)+min;
+        return result;
+    }
 
-    circle.draw(ctx);
-    circle2.draw(ctx);
+    for (let index = 0; index < 10; index++) {
+        let radio = 50;
+        let random_x = randomNro(radio, (width-radio));
+        let random_y = randomNro(radio, (height-radio));
+
+        //Itero Objeto
+            let circle = new Circle(random_x, random_y, radio, "rgba(236, 237, 244, 1)", "A", 5);
+        all_circles.push(circle);
+        circle.draw(ctx);
+        
+    }
+
+    
     
 //Modifico posición
     let updateCircle = function(){
         requestAnimationFrame(updateCircle);
-        ctx.clearRect(0, 0, window_width, window_height);
-        circle.update();
-        circle2.update();
+        ctx.clearRect(0, 0, width, height);
 
+        all_circles.forEach(e => {
+            e.update();
+        })
+
+        /*
         //Collition detection
         if(getDsitance(circle.x, circle.y, circle2.x, circle2.y) < circle2.radio + circle.radio){
             circle2.color = "red";
@@ -109,7 +112,7 @@ let getDsitance = function(x1, y1, x2, y2){
 
         if(getDsitance(circle.x, circle.y, circle2.x, circle2.y) >= circle2.radio + circle.radio){
             circle2.color = "rgba(236, 237, 244, 1)";
-        }
+        }*/
     }
 
 updateCircle();
