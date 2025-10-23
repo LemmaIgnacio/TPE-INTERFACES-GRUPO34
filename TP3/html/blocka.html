@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -139,9 +138,14 @@
                     <h1 class="blocka-menu__title detail-title">Blocka</h1>
                     <p class="blocka-menu__subtitle subtitle detail-description">Rotate the images to complete the piece</p>
                     <button id="blocka-start-btn" class="btn-main blocka-menu__play">Play</button>
+                    <div id="difficulty-buttons" style="display:none; margin-top: 20px;">
+                        <button id="btn-easy" class="btn-secondary">Easy</button>
+                        <button id="btn-medium" class="btn-secondary">Medium</button>
+                        <button id="btn-hard" class="btn-secondary">Hard</button>
+                    </div>
                     <div class="blocka-menu__options--row">
                         <button id="blocka-howto-btn" class="btn-secondary blocka-menu__howto">How to play</button>
-                        <button id="blocka-gallery-btn" class="btn-secondary blocka-menu__gallery">Choose Image</button>
+                        <button id="blocka-gallery-btn" class="btn-secondary blocka-menu__gallery">Gallery</button>
                     </div>
 
                     <div id="howto-modal" class="blocka-howto-modal">
@@ -178,7 +182,7 @@
             <div id="gallery-modal" class="blocka-gallery-modal">
                         <div class="blocka-gallery-modal__content">
                             <button id="close-gallery" class="blocka-gallery-modal__close">&times;</button>
-                            <h2 class="blocka-gallery-modal__title">Choose Image</h2>
+                            <h2 class="blocka-gallery-modal__title">Gallery</h2>
                             <div class="blocka-gallery-modal__images" id="blocka-gallery-images">
                             </div>
                         </div>

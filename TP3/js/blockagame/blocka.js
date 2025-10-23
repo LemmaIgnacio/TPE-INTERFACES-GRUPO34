@@ -1,10 +1,29 @@
-
 let canvas = document.getElementById('GameCanvas');
 let ctx = canvas.getContext("2d");
 let width = 1000;
 let height = 600;
-let diff = 'hard'; //esto se obtiene al seleccionar dificultad
+let diff;
 
+document.getElementById('blocka-start-btn').addEventListener('click', function() {
+    document.getElementById('difficulty-buttons').style.display = 'flex';
+    this.style.display = 'none';
+});
+
+document.getElementById('btn-easy').addEventListener('click', function() {
+    diff = 'easy';
+    if (img.complete) drawBlocka();
+    document.getElementById('difficulty-buttons').style.display = 'none';
+});
+document.getElementById('btn-medium').addEventListener('click', function() {
+    diff = 'medium';
+    if (img.complete) drawBlocka();
+    document.getElementById('difficulty-buttons').style.display = 'none';
+});
+document.getElementById('btn-hard').addEventListener('click', function() {
+    diff = 'hard';
+    if (img.complete) drawBlocka();
+    document.getElementById('difficulty-buttons').style.display = 'none';
+});
 
 canvas.width = width;
 canvas.height = height;
@@ -33,7 +52,12 @@ class Button {
       ctx.font = '20px Poppins, Helvetica';
       //Centrar el texto
         ctx.textAlign = "center";
-        ctx.textBaseline = "center";
+        ctx.textBaseline = "center"; // blocka.js:55 The provided value 'center' is not a valid enum value of type CanvasTextBaseline.
+                                    //draw @ blocka.js:55
+                                    //blocka.js:95 ../media/blockaImages/5_MontaniaFlores.png
+                                    //undefined:1  Failed to load resource: the server responded with a status of 404 (Not Found)
+                                    //blocka.js:114 905 873
+
       ctx.fillText(this.text, this.x + this.width / 2, this.y + 32);
       ctx.fill();
       ctx.stroke();
@@ -91,12 +115,13 @@ const dest = [
 
 
 img.onload = function() {
-    drawBlocka();
+    //drawBlocka();
     console.log(img.width, img.height)
-};
+};;
 
 function drawBlocka() {
     ctx.clearRect(0,0,canvas.width, canvas.height);
+    btn_menu.draw(ctx);
     const coordinates = [
         {x: 0, y: 0},{x: img.width / 2, y: 0},
         {x: 0, y: img.height / 2},{x: img.width / 2, y: img.height / 2}
@@ -118,7 +143,7 @@ function drawBlocka() {
         }else if(filter == 'glow'){
             pieceFilter = addGlow(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, 1.3);
         }else if (filter == 'negative'){
-             pieceFilter = addNegative(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
+            pieceFilter = addNegative(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
         }else{
         }
         
@@ -156,7 +181,7 @@ canvas.addEventListener('mousedown', function(e){
                 if(resolved){
                     console.log("ganaste :D");
                     // BOTON NEXT LEVEL
-                    let btn_next_level = new Button (850, 750, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
+                    let btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
                     btn_next_level.draw(ctx);
 
                     // QUITAR LOS FILTROS
