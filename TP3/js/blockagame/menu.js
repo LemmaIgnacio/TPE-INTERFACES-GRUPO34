@@ -66,21 +66,38 @@ const galleryImages = [
     }
 ];
 
+let selectedImageIndex = 0;
+
 const galleryImagesContainer = document.getElementById('blocka-gallery-images');
 if (galleryImagesContainer) {
-    galleryImages.forEach(img => {
+    galleryImages.forEach((img, index) => {
         const card = document.createElement('div');
         card.className = 'blocka-gallery-card';
+        if (index === selectedImageIndex) {
+            card.classList.add('selected');
+        } 
         const image = document.createElement('img');
         image.src = img.src;
         image.alt = img.alt;
         card.appendChild(image);
+
+        // Agregar evento click a cada card
+        card.addEventListener('click', function() {
+            selectedImageIndex = index;
+            console.log('Imagen seleccionada:', index, img.alt);
+            
+            // Cierra el modal después de seleccionar
+            if (galleryModal) {
+                galleryModal.classList.remove('active');
+            }
+            
+            // Agregar clase visual para mostrar cuál está seleccionada
+            document.querySelectorAll('.blocka-gallery-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            card.classList.add('selected');
+        });
+
         galleryImagesContainer.appendChild(card);
     });
-}
-
-class Menu {
-    constructor() {
-        
-    }
 }
