@@ -101,16 +101,14 @@ if (galleryImagesContainer) {
     });
 }
 
-class Menu {
-    constructor() {
-        
-    }
+let blockaStartBtn = document.querySelector("#blocka-start-btn");
+let blockaMenu = document.querySelector("#blocka-menu");
+let gameContainer = document.querySelector("#GameContainer");
+
+if (blockaStartBtn && blockaMenu) {
+    blockaStartBtn.addEventListener('click', function() {
+        blockaMenu.style.display = 'none';
+
+        gameContainer.style.display = 'flex';
+    });
 }
-
-
-
-
-
-
-
-
