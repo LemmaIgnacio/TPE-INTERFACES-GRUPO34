@@ -103,16 +103,6 @@ let getDsitance = function(x1, y1, x2, y2){
         all_circles.forEach(e => {
             e.update();
         })
-
-        /*
-        //Collition detection
-        if(getDsitance(circle.x, circle.y, circle2.x, circle2.y) < circle2.radio + circle.radio){
-            circle2.color = "red";
-        }
-
-        if(getDsitance(circle.x, circle.y, circle2.x, circle2.y) >= circle2.radio + circle.radio){
-            circle2.color = "rgba(236, 237, 244, 1)";
-        }*/
     }
 
 updateCircle();
