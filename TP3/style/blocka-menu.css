@@ -3,7 +3,7 @@
     border-radius: 1em;
     box-shadow: 0 2px 12px #0005;
     padding: 0.7em;
-    display: flex;
+    display: flexbox;
     align-items: center;
     justify-content: center;
     width: 120px;
