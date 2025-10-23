@@ -1,5 +1,4 @@
 
-
 let canvas = document.getElementById('GameCanvas');
 let ctx = canvas.getContext("2d");
 let width = 1000;
@@ -9,6 +8,35 @@ canvas.width = width;
 canvas.height = height;
 
 canvas.style.background = "rgba(25, 24, 57, 1)";
+
+
+
+
+class Image{
+    constructor(imagePath, x, y, width, height){
+        this.imagePath = imagePath;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+}
+
+function createImage(ctx, imagePath, x, y, width, heigth){
+    let myImage = document.createElement('img');
+    myImage.src = imagePath;
+
+    myImage.onload = function(){
+        ctx.drawImage(myImage, x, y, width, heigth);
+    }
+}
+
+//Itero Imagen
+    let image = new Image('../../media/blockaImages/1_Casas.png', 50, 50, 200, 200);
+    //Creo la Imagen en pantalla
+    createImage(ctx, image.imagePath, image.x, image.y, image.width, image.height);
+
+
 
 //CLASES
 class Circle {
