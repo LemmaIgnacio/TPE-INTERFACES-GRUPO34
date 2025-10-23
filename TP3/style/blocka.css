@@ -1,3 +1,6 @@
 #GameCanvas {
     background-color: var(--Background-Color-Dark);
+    display:flex;
+    align-self: center;
+    margin: 0 auto;
 }
