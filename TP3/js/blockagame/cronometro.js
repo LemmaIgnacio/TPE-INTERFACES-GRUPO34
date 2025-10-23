@@ -5,7 +5,7 @@ let maxTime = localStorage.getItem('maxTime') || 0;
 
 const display = document.getElementById('display');
 const maxDisplay = document.getElementById('max-time');
-const startBtn = document.getElementById('start');
+const startBtn = document.getElementById('blocka-start-btn');
 const pauseBtn = document.getElementById('pause');
 const resetBtn = document.getElementById('reset');
 
