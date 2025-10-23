@@ -3,11 +3,15 @@ let canvas = document.getElementById('GameCanvas');
 let ctx = canvas.getContext("2d");
 let width = 1000;
 let height = 600;
+let diff = 'hard'; //esto se obtiene al seleccionar dificultad
+
 
 canvas.width = width;
 canvas.height = height;
 
 canvas.style.background = "rgba(25, 24, 57, 1)";
+
+const filters = ['gray', 'glow', 'negative' ]
 
 //CLASE BUTTON
 class Button {
@@ -105,7 +109,25 @@ function drawBlocka() {
         const cy = dest[i].y + pieceH / 2;
         ctx.translate(cx, cy);
         ctx.rotate((angles[i] * Math.PI)/180);
-        ctx.drawImage(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2,-pieceW/2, -pieceH/2, pieceW, pieceH );
+
+        //add filters
+        let filter = getFilterByDiff(diff);
+        let pieceFilter;
+        if(filter == 'gray'){
+            pieceFilter = addGray(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
+        }else if(filter == 'glow'){
+            pieceFilter = addGlow(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, 1.3);
+        }else if (filter == 'negative'){
+             pieceFilter = addNegative(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
+        }else{
+        }
+        
+        if (pieceFilter) {
+            ctx.drawImage(pieceFilter, -pieceW/2, -pieceH/2, pieceW, pieceH);
+        } else {
+            
+            ctx.drawImage(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, -pieceW/2, -pieceH/2, pieceW, pieceH);
+}
         ctx.restore();
     }
 }
@@ -130,9 +152,79 @@ canvas.addEventListener('mousedown', function(e){
                     angles[i] = (angles[i] + 90) % 360;
                 }
                 drawBlocka();
-                break;
+                const resolved = angles.every(angles => angles % 360 == 0);
+                if(resolved){
+                    console.log("ganaste :D");
+                    // BOTON NEXT LEVEL
+                    let btn_next_level = new Button (850, 750, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
+                    btn_next_level.draw(ctx);
+
+                    // QUITAR LOS FILTROS
+
+                    // parar temporizador
+                    // guardar
+                }
             }
     }
 });
-    
 
+
+function getFilterByDiff(diff){
+    if (diff === 'easy') return 'gray';
+    if (diff === 'medium') return 'glow';
+    if (diff === 'hard') return 'negative';
+    return 'gray';
+}
+
+function addGray(img, sx, sy, sw, sh) { //refactor x ia
+    let tempCanvas = document.createElement('canvas');
+    tempCanvas.width = sw;
+    tempCanvas.height = sh;
+    let tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+
+    let imageData = tempCtx.getImageData(0, 0, sw, sh);
+    let data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        let avg = (data[i] + data[i+1] + data[i+2]) / 3;
+        data[i] = data[i+1] = data[i+2] = avg;
+    }
+    tempCtx.putImageData(imageData, 0, 0);
+    return tempCanvas;
+}
+    
+function addGlow(img, sx, sy, sw, sh, factor = 3) { //refactor x ia
+    let tempCanvas = document.createElement('canvas');
+    tempCanvas.width = sw;
+    tempCanvas.height = sh;
+    let tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+
+    let imageData = tempCtx.getImageData(0, 0, sw, sh);
+    let data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        data[i] = Math.min(255, data[i] * factor + 125);
+        data[i+1] = Math.min(255, data[i+1] * factor + 125);
+        data[i+2] = Math.min(255, data[i+2] * factor + 125);
+    }
+    tempCtx.putImageData(imageData, 0, 0);
+    return tempCanvas;
+}
+
+function addNegative(img, sx, sy, sw, sh) { //refactor x ia
+    let tempCanvas = document.createElement('canvas');
+    tempCanvas.width = sw;
+    tempCanvas.height = sh;
+    let tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+
+    let imageData = tempCtx.getImageData(0, 0, sw, sh);
+    let data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        data[i] = 255 - data[i];
+        data[i+1] = 255 - data[i+1];
+        data[i+2] = 255 - data[i+2];
+    }
+    tempCtx.putImageData(imageData, 0, 0);
+    return tempCanvas;
+}
