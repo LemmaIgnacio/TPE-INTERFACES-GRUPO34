@@ -1,3 +1,4 @@
+
 .blocka-gallery-card {
     background: var(--Background-Color-Dark, #18182f);
     border-radius: 1em;
@@ -10,6 +11,12 @@
     height: 120px;
     transition: transform 0.15s, box-shadow 0.15s;
 }
+
+.blocka-gallery-card.selected {
+    box-shadow: 0 4px 24px var(--Primary-Color);
+    border-color: var(--Primary-Color);
+}
+
 .blocka-gallery-card img {
     max-width: 100%;
     max-height: 100%;
@@ -20,6 +27,8 @@
     transform: scale(1.06);
     box-shadow: 0 4px 24px #0008;
 }
+
+
 /* Modal Gallery */
 .blocka-gallery-modal {
     display: none;
