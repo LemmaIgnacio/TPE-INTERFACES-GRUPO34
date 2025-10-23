@@ -1,5 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+import Main from "./main.js";
 
+document.addEventListener('DOMContentLoaded', function() {
 
     const howtoBtn = document.getElementById('blocka-howto-btn');
     const howtoModal = document.getElementById('howto-modal');
@@ -111,5 +112,8 @@ if (blockaStartBtn && blockaMenu) {
         blockaMenu.style.display = 'none';
 
         gameContainer.style.display = 'flex';
+
+        const main = new Main();
+        main.run();
     });
 }
