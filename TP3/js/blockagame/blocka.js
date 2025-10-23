@@ -1,13 +1,136 @@
-class Blocka {
-    constructor(image) {
-        
-        let image = image;
+
+let canvas = document.getElementById('GameCanvas');
+let ctx = canvas.getContext("2d");
+let width = 1000;
+let height = 600;
+
+canvas.width = width;
+canvas.height = height;
+
+canvas.style.background = "rgba(25, 24, 57, 1)";
+
+
+
+
+class Image{
+    constructor(imagePath, x, y, width, height){
+        this.imagePath = imagePath;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+}
+
+function createImage(ctx, imagePath, x, y, width, heigth){
+    let myImage = document.createElement('img');
+    myImage.src = imagePath;
+
+    myImage.onload = function(){
+        ctx.drawImage(myImage, x, y, width, heigth);
+    }
+}
+
+//Itero Imagen
+    let image = new Image('../../media/blockaImages/1_Casas.png', 50, 50, 200, 200);
+    //Creo la Imagen en pantalla
+    createImage(ctx, image.imagePath, image.x, image.y, image.width, image.height);
+
+
+
+//CLASES
+class Circle {
+    constructor(x, y, radio, color, text, speed){
+        this.x = x;
+        this.y = y;
+        this.radio = radio;
+        this.color = color;
+        this.text = text;
+        this.speed = speed; 
+
+        this.dx = 1*this.speed;
+        this.dy = 1*this.speed; 
     }
 
-    //Getters y setters.
+    draw(ctx){
+        ctx.beginPath();
+            //CIRCULO
+            ctx.strokeStyle = this.color;
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.lineWidth = 10;
+            ctx.arc(this.x, this.y, this.radio, 0, Math.PI*2);
+            ctx.stroke();
+            ctx.fill();
 
-    //Event Listeners.
+             //TEXTO
+            ctx.fillStyle = this.color;
+            ctx.font = "20px Poppins";
+                //Centrar el texto
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+            ctx.fillText(this.text, this.x, this.y);
+        ctx.closePath();
+    }
 
-    //Métodos
+    update(){
+        this.draw(ctx);
 
+        //Cadad vez que choca el borde
+        if ((this.x + this.radio) > width){
+            this.dx = -this.dx;
+        }
+        if ((this.x - this.radio) < 0){
+            this.dx = -this.dx;
+        }
+        if ((this.y + this.radio) > height){
+            this.dy = -this.dy;
+        }
+        if ((this.y - this.radio) < 0){
+            this.dy = -this.dy;
+        }
+
+        this.x += this.dx;
+        this.y += this.dy;
+    }
 }
+
+let getDsitance = function(x1, y1, x2, y2){
+    let result = Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2)) //Distancia ENTRE 2 PUNTOS
+    return result;
+}
+
+
+
+
+//Creamos CIRCULO dinamicamente 
+    let all_circles = [];
+    let randomNro = function (min, max){
+        let result = Math.random()*(max-min)+min;
+        return result;
+    }
+
+    for (let index = 0; index < 10; index++) {
+        let radio = 50;
+        let random_x = randomNro(radio, (width-radio));
+        let random_y = randomNro(radio, (height-radio));
+
+        //Itero Objeto
+            let circle = new Circle(random_x, random_y, radio, "rgba(236, 237, 244, 1)", "A", 5);
+        all_circles.push(circle);
+        circle.draw(ctx);
+        
+    }
+
+    
+    
+//Modifico posición
+    let updateCircle = function(){
+        requestAnimationFrame(updateCircle);
+        ctx.clearRect(0, 0, width, height);
+
+        all_circles.forEach(e => {
+            e.update();
+        })
+    }
+
+updateCircle();

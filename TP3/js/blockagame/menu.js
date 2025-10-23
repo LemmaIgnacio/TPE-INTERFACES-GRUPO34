@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
 const galleryBtn = document.getElementById('blocka-gallery-btn');
 const galleryModal = document.getElementById('gallery-modal');
 const closeGallery = document.getElementById('close-gallery');

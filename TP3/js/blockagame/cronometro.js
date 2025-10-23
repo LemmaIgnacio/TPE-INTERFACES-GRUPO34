@@ -5,17 +5,15 @@ let maxTime = localStorage.getItem('maxTime') || 0;
 
 const display = document.getElementById('display');
 const maxDisplay = document.getElementById('max-time');
-const startBtn = document.getElementById('start');
+const startBtn = document.getElementById('blocka-start-btn');
 const pauseBtn = document.getElementById('pause');
 const resetBtn = document.getElementById('reset');
 
 function timeToString(time) {
-  const hrs = Math.floor(time / 3600000);
   const mins = Math.floor((time % 3600000) / 60000);
   const secs = Math.floor((time % 60000) / 1000);
-  return `${hrs.toString().padStart(2, '0')}:${mins
-    .toString()
-    .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  const dec_secs = Math.floor((time % 1000) / 10);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${dec_secs.toString().padStart(2, '0')}`;
 }
 
 function updateDisplay() {
