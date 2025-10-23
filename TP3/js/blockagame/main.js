@@ -2,6 +2,7 @@
 import Blocka from "blocka.js";
 import Level from "level.js";
 import Tile from "tile.js";
+import Menu from "menu.js";
 
 class Main {
     constructor() {
