@@ -9,18 +9,36 @@ canvas.height = height;
 
 canvas.style.background = "rgba(25, 24, 57, 1)";
 
+//CLASE BUTTON
+class Button {
+  constructor(x, y, width, height, text, color){
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.text = text;         
+    this.color = color;
+  }
 
-
-
-class Image{
-    constructor(imagePath, x, y, width, height){
-        this.imagePath = imagePath;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
+  draw(ctx){
+    ctx.beginPath();
+      // Botones
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+      ctx.fillStyle = 'rgba(18, 14, 38, 1)';
+      ctx.font = '20px Poppins, Helvetica';
+      //Centrar el texto
+        ctx.textAlign = "center";
+        ctx.textBaseline = "center";
+      ctx.fillText(this.text, this.x + this.width / 2, this.y + 32);
+      ctx.fill();
+      ctx.stroke();
+    ctx.closePath();
+  }
 }
+
+let btn_menu = new Button (10, 10, 80, 50, 'MENU', 'rgba(132, 233, 221, 1)');
+btn_menu.draw(ctx);
 
 function createImage(ctx, imagePath, x, y, width, heigth){
     let myImage = document.createElement('img');
@@ -31,106 +49,63 @@ function createImage(ctx, imagePath, x, y, width, heigth){
     }
 }
 
+
+const blockaImages = [
+    '../media/blockaImages/1_Casas.png',
+    '../media/blockaImages/2_RocaEnMedio.png',
+    '../media/blockaImages/3_LagoBosqueMontania.png',
+    '../media/blockaImages/4_OtroLagoBosqueMontania.png',
+    '../media/blockaImages/5_MontaniaFlores.png',
+    '../media/blockaImages/6_CampoFlores.png'
+];
+
+function getRandomBlockaImage(){
+    const index = Math.floor(Math.random()* blockaImages.length);
+    return blockaImages[index];
+}
+
 //Itero Imagen
-    let image = new Image('../../media/blockaImages/1_Casas.png', 50, 50, 200, 200);
-    //Creo la Imagen en pantalla
+    let image = new Image (getRandomBlockaImage(), 400, 250, 200, 200);
+    //Creo la Imagen en pantalla.
     createImage(ctx, image.imagePath, image.x, image.y, image.width, image.height);
 
+console.log(getRandomBlockaImage());
+const selectedImagePath = getRandomBlockaImage();
+const img = new window.Image();
+img.src = selectedImagePath;
+
+let angles = [0,90,180,270].sort(() => Math.random() - 0.5);
+
+const pieceW = 200;
+const pieceH = 200;
+const offsetX = 400;
+const offsetY = 100;
+const dest = [
+    {x: offsetX, y: offsetY},{x: offsetX + pieceW, y: offsetY},
+    {x: offsetX, y: offsetY + pieceH},{x: offsetX + pieceW, y: offsetY + pieceH}
+];
 
 
-//CLASES
-class Circle {
-    constructor(x, y, radio, color, text, speed){
-        this.x = x;
-        this.y = y;
-        this.radio = radio;
-        this.color = color;
-        this.text = text;
-        this.speed = speed; 
+img.onload = function() {
+    drawBlocka();
+    console.log(img.width, img.height)
+};
 
-        this.dx = 1*this.speed;
-        this.dy = 1*this.speed; 
-    }
+function drawBlocka() {
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+    const coordinates = [
+        {x: 0, y: 0},{x: img.width / 2, y: 0},
+        {x: 0, y: img.height / 2},{x: img.width / 2, y: img.height / 2}
+    ];
+    
+    for(let i = 0; i < 4; i++){
+        ctx.save();
 
-    draw(ctx){
-        ctx.beginPath();
-            //CIRCULO
-            ctx.strokeStyle = this.color;
-            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-            ctx.lineWidth = 10;
-            ctx.arc(this.x, this.y, this.radio, 0, Math.PI*2);
-            ctx.stroke();
-            ctx.fill();
-
-             //TEXTO
-            ctx.fillStyle = this.color;
-            ctx.font = "20px Poppins";
-                //Centrar el texto
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-            ctx.fillText(this.text, this.x, this.y);
-        ctx.closePath();
-    }
-
-    update(){
-        this.draw(ctx);
-
-        //Cadad vez que choca el borde
-        if ((this.x + this.radio) > width){
-            this.dx = -this.dx;
-        }
-        if ((this.x - this.radio) < 0){
-            this.dx = -this.dx;
-        }
-        if ((this.y + this.radio) > height){
-            this.dy = -this.dy;
-        }
-        if ((this.y - this.radio) < 0){
-            this.dy = -this.dy;
-        }
-
-        this.x += this.dx;
-        this.y += this.dy;
+        const cx = dest[i].x + pieceW / 2;
+        const cy = dest[i].y + pieceH / 2;
+        ctx.translate(cx, cy);
+        ctx.rotate((angles[i] * Math.PI)/180);
+        ctx.drawImage(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2,-pieceW/2, -pieceH/2, pieceW, pieceH );
+        ctx.restore();
     }
 }
-
-let getDsitance = function(x1, y1, x2, y2){
-    let result = Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2)) //Distancia ENTRE 2 PUNTOS
-    return result;
-}
-
-
-
-
-//Creamos CIRCULO dinamicamente 
-    let all_circles = [];
-    let randomNro = function (min, max){
-        let result = Math.random()*(max-min)+min;
-        return result;
-    }
-
-    for (let index = 0; index < 10; index++) {
-        let radio = 50;
-        let random_x = randomNro(radio, (width-radio));
-        let random_y = randomNro(radio, (height-radio));
-
-        //Itero Objeto
-            let circle = new Circle(random_x, random_y, radio, "rgba(236, 237, 244, 1)", "A", 5);
-        all_circles.push(circle);
-        circle.draw(ctx);
-        
-    }
-
-    
-    
-//Modifico posición
-    let updateCircle = function(){
-        requestAnimationFrame(updateCircle);
-        ctx.clearRect(0, 0, width, height);
-
-        all_circles.forEach(e => {
-            e.update();
-        })
-    }
-
-updateCircle();
