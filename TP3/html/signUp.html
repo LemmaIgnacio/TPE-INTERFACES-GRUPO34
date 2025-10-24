@@ -3,194 +3,102 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dragon Games - Create Account</title>
         <link rel="stylesheet" href="../style/style.css">
-        <link rel="stylesheet" href="../style/loading.css">
-        <link rel="stylesheet" href="../style/ST.css" />
-        <link rel="stylesheet" href="../style/styleguide.css" />
-        <title>Dragon Games</title>
+        <link rel="stylesheet" href="../style/ST.css">
+        <link rel="stylesheet" href="../style/styleguide.css".css">
+        <link rel="stylesheet" href="../style/register.css">
     </head>
     <body>
-
-        <!-- Loader Overlay  point 3-->
-        <div id="loader-overlay">
-            <div class="loader-content">
-                <div class="spinner"></div>
-                <div id="loader-percent">0%</div>
-                <div class="loader-text">Loading...</div>
-            </div>
-        </div>
-
-        <!--Sidebar -->
-        <aside id="sidebar" class="close">
-            <ul>
-                <li>
-                    <button onclick="toggleSidebar()" id="toggle-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e3e3e3" transform="rotate(180)"><path d="M120-240v-66.67h520V-240H120Zm673.33-48L600.67-480.67l192-192L840-625.33 695.33-480.67l145.34 145.34L793.33-288ZM120-448v-66.67h400V-448H120Zm0-205.33V-720h520v66.67H120Z"></path></svg>
-                    </button>
-                </li>
-                <li class="active">
-                    <a href="home.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M360-840v-80h240v80H360Zm80 440h80v-240h-80v240Zm40 320q-74 0-139.5-28.5T226-186q-49-49-77.5-114.5T120-440q0-74 28.5-139.5T226-694q49-49 114.5-77.5T480-800q62 0 119 20t107 58l56-56 56 56-56 56q38 50 58 107t20 119q0 74-28.5 139.5T734-186q-49 49-114.5 77.5T480-80Zm0-80q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-280Z"/></svg>
-                        <span>Recently Played</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m300-300 280-80 80-280-280 80-80 280Zm180-120q-25 0-42.5-17.5T420-480q0-25 17.5-42.5T480-540q25 0 42.5 17.5T540-480q0 25-17.5 42.5T480-420Zm0 340q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Zm0-320Z"/></svg>
-                        <span>Adventure</span>
-                    </a> <!-- Placeholder for future link. It takes you to the actegories -->
-                </li>
-                <li>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M120-272q0-16 10.5-27t25.5-11q8 0 15.5 2.5T186-300q13 8 26 14t28 6q33 0 56.5-23.5T320-360q0-33-23.5-56.5T240-440q-15 0-29 5t-25 15q-6 5-14 7.5t-16 2.5q-15 0-25.5-11T120-448v-152q0-17 11.5-28.5T160-640h150q-5-15-7.5-30t-2.5-30q0-75 52.5-127.5T480-880q75 0 127.5 52.5T660-700q0 15-2.5 30t-7.5 30h150q17 0 28.5 11.5T840-600v152q0 17-11.5 28.5T800-408q-8 0-14-3.5t-12-8.5q-11-10-25-15t-29-5q-33 0-56.5 23.5T640-360q0 33 23.5 56.5T720-280q15 0 29-5t25-15q5-5 11.5-8.5T800-312q17 0 28.5 11.5T840-272v152q0 17-11.5 28.5T800-80H160q-17 0-28.5-11.5T120-120v-152Zm80 112h560v-46q-10 3-19.5 4.5T720-200q-66 0-113-47t-47-113q0-66 47-113t113-47q11 0 20.5 1.5T760-514v-46H578q-17 0-28.5-11T538-598q0-8 2.5-16.5T550-628q17-12 23.5-31.5T580-700q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 21 6.5 40.5T410-628q7 5 9.5 12.5T422-600q0 17-11.5 28.5T382-560H200v46q10-3 19.5-4.5T240-520q66 0 113 47t47 113q0 66-47 113t-113 47q-11 0-20.5-1.5T200-206v46Zm280-320Z"/></svg>
-                        <span>Puzzle</span>
-                    </a> <!-- Placeholder for future link. It takes you to the actegories -->
-                </li>
-                <li>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M762-96 645-212l-88 88-28-28q-23-23-23-57t23-57l169-169q23-23 57-23t57 23l28 28-88 88 116 117q12 12 12 28t-12 28l-50 50q-12 12-28 12t-28-12Zm118-628L426-270l5 4q23 23 23 57t-23 57l-28 28-88-88L198-96q-12 12-28 12t-28-12l-50-50q-12-12-12-28t12-28l116-117-88-88 28-28q23-23 57-23t57 23l4 5 454-454h160v160ZM334-583l24-23 23-24-23 24-24 23Zm-56 57L80-724v-160h160l198 198-57 56-174-174h-47v47l174 174-56 57Zm92 199 430-430v-47h-47L323-374l47 47Zm0 0-24-23-23-24 23 24 24 23Z"/></svg>
-                        <span>RPG</span>
-                    </a> <!-- Placeholder for future link. It takes you to the actegories -->
-                </li>
-                <li>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-80q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm0-80q66 0 113-47t47-113q0-66-47-113t-113-47q-66 0-113 47t-47 113q0 66 47 113t113 47Zm0-80q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Z"/></svg>
-                        <span>Shooter</span>
-                    </a> <!-- Placeholder for future link. It takes you to the actegories -->
-                </li>
-            </ul>
-        </aside>
-
-        
-        
-        <!-- Main Content -->
         <main>
             <!-- Header Topbar -->
             <nav id="topbar">
-                <li>
-                    <button onclick="toggleSidebarMobil(this)" id="toggle-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e3e3e3" transform="rotate(180)"><path d="M120-240v-66.67h520V-240H120Zm673.33-48L600.67-480.67l192-192L840-625.33 695.33-480.67l145.34 145.34L793.33-288ZM120-448v-66.67h400V-448H120Zm0-205.33V-720h520v66.67H120Z"></path></svg>
-                    </button>
-                </li>
                 <div class="logo-and-title">
                     <span class="logo">
                         <svg width="50" height="50" viewBox="0 0 125 124" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M48.8124 4.4974C47.1169 4.51834 45.2562 4.68369 43.2619 4.9547C49.959 9.88101 55.6742 15.8456 59.6813 21.9294C60.0845 21.9294 60.4858 21.9323 60.8856 21.9407C65.2741 22.0346 69.5059 22.6401 73.8127 23.6736C70.0002 16.8245 66.5411 11.5937 62.2865 8.45761C58.9302 5.98386 54.9839 4.56624 49.5288 4.4974C49.294 4.49419 49.055 4.49419 48.8124 4.4974ZM26.5471 10.0235C26.37 10.0232 26.1922 10.0249 26.0139 10.0288C22.6022 10.1034 18.882 10.9723 14.6311 12.7076C28.2779 17.2341 40.619 24.8544 47.1587 32.8251C51.6227 31.5904 54.31 29.2823 56.0138 25.8893C47.5719 18.8166 40.8379 13.524 34.1656 11.3025C31.6956 10.4798 29.2022 10.0257 26.5471 10.0235ZM26.4978 22.7282C16.9222 24.3547 8.345 30.3949 5.16479 40.5845V118.168H56.8395C24.3767 106.522 14.8638 49.6987 45.4525 55.3822C46.8706 51.9732 47.8622 48.6366 48.1289 45.4023L52.6536 45.7686C52.2445 50.7248 50.5092 55.5139 48.2732 60.1959C48.0954 60.6857 47.9156 61.1875 47.7422 61.6551C55.7199 82.171 75.3783 100.331 88.9145 102.137C89.1368 102.145 89.3773 102.137 89.6319 102.116C93.7652 102.365 98.3427 101.1 102.314 96.7475L104.254 94.6223L101.71 93.2605C100.129 92.4145 98.2385 91.5531 97.2967 90.631C96.8259 90.1699 96.6182 89.7959 96.55 89.3809C96.4815 88.9657 96.5184 88.3636 97.0917 87.3163L99.6843 82.5855L94.4656 84.083C92.9342 84.5222 90.262 83.3532 88.8242 81.5053C88.1051 80.5811 87.7534 79.6022 87.7585 78.8955C87.7634 78.1884 87.9334 77.662 88.9116 76.958L93.637 73.5584L87.8353 72.9037C85.4125 72.6301 83.8588 71.3013 83.1787 69.9448C82.498 68.5888 82.617 67.5177 83.5127 66.7413L86.4772 64.1715L82.7465 62.9187C81.1149 62.3709 80.2455 61.1004 80.2307 60.3596C80.2239 60.0291 80.2885 59.7179 80.6784 59.2823C83.3334 58.707 85.8422 59.1739 87.5013 60.8164C88.9961 62.2956 89.5296 64.4574 89.1961 66.793C91.273 66.2505 93.3219 66.4041 95.0532 67.3933C97.322 68.6898 98.6111 71.1701 98.8596 74.124C102.555 71.6854 106.67 71.0613 109.854 72.8811C113.611 75.028 115.043 79.9844 113.936 85.3365C119.764 77.3085 122.338 67.1126 115.301 56.351C103.951 55.2819 95.4566 48.9678 92.6389 40.0711C91.418 36.2164 87.4687 33.1707 82.4366 30.9483L82.4171 31.0005C75.1929 28.3956 68.9173 26.8246 62.3516 26.4918L62.3711 26.5291C61.8138 26.5067 61.2634 26.4906 60.7285 26.4877C58.4118 31.9931 53.7661 36.091 46.7766 37.5721L45.342 37.8759L44.4733 36.7052C41.0201 32.0528 34.458 26.9691 26.4973 22.7277L26.4978 22.7282ZM64.4443 38.4352C71.2281 38.4176 75.3447 41.2312 74.6685 49.1336C65.9615 49.9495 62.0533 45.1183 59.347 38.8728C61.1706 38.5948 62.8785 38.4395 64.4441 38.4355L64.4443 38.4352ZM76.2029 54.4077C77.1037 54.4245 77.9373 54.6469 78.6355 55.0845C78.2767 55.3422 77.9388 55.6273 77.625 55.9372C76.3506 57.1984 75.6605 58.8548 75.6923 60.4481C75.7368 62.6918 76.9725 64.584 78.7725 65.8779C78.0097 67.8282 78.1769 70.0791 79.1142 71.948C80.0405 73.7935 81.6745 75.3832 83.8029 76.3761C83.4519 77.1862 83.226 78.0276 83.2199 78.8623C83.2049 80.8858 84.041 82.7234 85.2296 84.2512C86.8794 86.3717 89.3255 88.0868 92.0374 88.5619C91.993 89.0866 91.9879 89.6048 92.0697 90.1039C92.3248 91.6549 93.1665 92.9103 94.1053 93.8297C94.9336 94.6408 95.8519 95.2478 96.7283 95.7535C95.187 96.9069 93.7128 97.4518 92.2057 97.6284C90.6232 95.7181 89.8471 93.0352 89.9199 90.058C87.0616 91.5447 84.039 91.7803 81.6318 90.4045C78.0688 88.3684 76.921 83.4161 78.4285 78.291C75.6749 78.9576 73.0529 78.5124 71.3386 76.8151C69.1828 74.6814 69.0225 71.1287 70.5871 67.6811C69.6941 67.5331 68.8957 67.1598 68.2733 66.5439C66.1338 64.4264 66.871 60.2645 69.9193 57.2473C71.8245 55.3615 74.1814 54.3694 76.2034 54.4072L76.2029 54.4077Z" fill="#84E9DD"/></svg>
                     </span>
                     <h1>Dragon Games</h1>
                 </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
-                    </button>
-                </div>
-                <div class="dropdown"> <!--Dropdown menu DONATE-->
-                    <button onclick="toggleSubMenu(this)" class="dropdown-btn" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M640-440 474-602q-31-30-52.5-66.5T400-748q0-55 38.5-93.5T532-880q32 0 60 13.5t48 36.5q20-23 48-36.5t60-13.5q55 0 93.5 38.5T880-748q0 43-21 79.5T807-602L640-440Zm0-112 109-107q19-19 35-40.5t16-48.5q0-22-15-37t-37-15q-14 0-26.5 5.5T700-778l-60 72-60-72q-9-11-21.5-16.5T532-800q-22 0-37 15t-15 37q0 27 16 48.5t35 40.5l109 107ZM280-220l278 76 238-74q-5-9-14.5-15.5T760-240H558q-27 0-43-2t-33-8l-93-31 22-78 81 27q17 5 40 8t68 4q0-11-6.5-21T578-354l-234-86h-64v220ZM40-80v-440h304q7 0 14 1.5t13 3.5l235 87q33 12 53.5 42t20.5 66h80q50 0 85 33t35 87v40L560-60l-280-78v58H40Zm80-80h80v-280h-80v280Zm520-546Z"/></svg>
-                        <span>Donate</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
-                    </button>
-                    <ul class="sub-menu">
-                        <div>
-                            <li>
-                                <h2>Make A Donation!!!</h2>
-                                <p>Help us continue what we do best</p>
-                            </li>
-                            <li>
-                                <a href="https://www.patreon.com/otwarchive">
-                                    <h3>Patreon</h3>
-                                </a>
-                                <p>Support us on Patreon!</p>
-                            </li>
-                            <li>
-                                <a href="https://ko-fi.com/otwarchive">
-                                    <h3>Ko-fi</h3>
-                                </a>
-                                <p>Buy us a coffee!</p>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-                <div class="dropdown"> <!--Dropdown menu USER Log Out-->
-                    <button onclick="toggleSubMenu(this)" class="dropdown-btn" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M360-390q-21 0-35.5-14.5T310-440q0-21 14.5-35.5T360-490q21 0 35.5 14.5T410-440q0 21-14.5 35.5T360-390Zm240 0q-21 0-35.5-14.5T550-440q0-21 14.5-35.5T600-490q21 0 35.5 14.5T650-440q0 21-14.5 35.5T600-390ZM480-160q134 0 227-93t93-227q0-24-3-46.5T786-570q-21 5-42 7.5t-44 2.5q-91 0-172-39T390-708q-32 78-91.5 135.5T160-486v6q0 134 93 227t227 93Zm0 80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-54-715q42 70 114 112.5T700-640q14 0 27-1.5t27-3.5q-42-70-114-112.5T480-800q-14 0-27 1.5t-27 3.5ZM177-581q51-29 89-75t57-103q-51 29-89 75t-57 103Zm249-214Zm-103 36Z"/></svg>
-                        <h2>Hi Julia!</h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
-                    </button>
-                    <ul class="sub-menu">
-                        <div>
-                            <li>
-                                <a href="LogIn.html">
-                                    <h3>Log Out</h3>
-                                </a>
-                                <p>See you later!</p>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
             </nav>
 
-            <div class="container-main">
-                <div class="container">
-                    <h2>A fan-created, fan-run, nonprofit, noncommercial platform for transformative fanworks, like games</h2>
-                    <p>more than 9,327,000 users | 500+ works</p>
-                    <p>Dragon Games is a project of the 
-                        <button type="button" class="btn-secondary" >
-                            <a href="https://www.transformativeworks.org/">Organization for Transformative Works</a>
-                        </button>                        .
-                    </p>
-                </div>
-            </div>
+        <div class="container">
+            <div class="form-card">
+                <h1>Create account</h1>
+                <p class="signin-text">Do you already have an account? <a href="#" id="signin-link">Log in</a></p>
 
-            <section id="Games">
-                <section id="RecentGames">
-                    <button class="recent-game-button">
-                        <img src="../assets/icon/purpleChevron.svg" alt="RecentGames">
-                        <span>Recently Played</span>
-                    </button>
-                    <div class="recent-game-cards">
-                        <article class="recent-game-card">
-                            <a href="../html/game.html">
-                                <div class="recent-game-card__info">
-                                    <img src="../media/PegSolitaire 1.png" alt="{{ game.image }} cover image" class="recent-game-card__image">
-                                </div>
-                            </a>
-                        </article>
-                    </div>
-                </section>
-                
-                <div class="divider"></div>
-                
-                <section id="GameCarousels">
-                    <!-- Incluir aquí los carruseles de juegos -->
-                </section>
-
-                <div class="container-main">
-                    <div class="container">
-                        <div class="container-centered">
-                            <a href="game.html">
-                                <button type="button" class="btn-third" >
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.6838 11.2084C11.3374 11.0974 11.9201 10.7313 12.3038 10.1906C12.6875 9.64995 12.8407 8.97903 12.7298 8.32541L11.7338 2.45641C11.6788 2.13268 11.5606 1.82296 11.3859 1.54492C11.2112 1.26689 10.9834 1.02599 10.7156 0.835995C10.4478 0.645999 10.1452 0.510624 9.82506 0.437601C9.50491 0.364579 9.17352 0.35534 8.84981 0.410412L2.74581 1.44741C2.09221 1.55846 1.50948 1.92457 1.12579 2.46522C0.742104 3.00588 0.588876 3.67679 0.699808 4.33041L1.69581 10.1994C1.75079 10.5231 1.869 10.8329 2.0437 11.1109C2.21841 11.3889 2.44617 11.6298 2.71398 11.8198C2.9818 12.0098 3.28442 12.1452 3.60456 12.2182C3.9247 12.2912 4.25609 12.3005 4.57981 12.2454L10.6838 11.2084ZM5.47981 6.32841C5.47981 6.0006 5.61003 5.68622 5.84182 5.45443C6.07362 5.22263 6.388 5.09241 6.71581 5.09241C7.04362 5.09241 7.358 5.22263 7.58979 5.45443C7.82159 5.68622 7.95181 6.0006 7.95181 6.32841C7.95181 6.65622 7.82159 6.9706 7.58979 7.2024C7.358 7.43419 7.04362 7.56441 6.71581 7.56441C6.388 7.56441 6.07362 7.43419 5.84182 7.2024C5.61003 6.9706 5.47981 6.65622 5.47981 6.32841ZM20.1768 22.3234C19.859 22.9053 19.3232 23.337 18.6871 23.5238C18.051 23.7106 17.3667 23.6371 16.7848 23.3194L11.3508 20.3514C10.769 20.0336 10.3372 19.4978 10.1504 18.8617C9.96361 18.2256 10.0371 17.5413 10.3548 16.9594L13.2078 11.7354C13.5256 11.1536 14.0615 10.7218 14.6976 10.535C15.3337 10.3482 16.0179 10.4217 16.5998 10.7394L22.0348 13.7074C22.6165 14.0254 23.0481 14.5613 23.2346 15.1974C23.4212 15.8335 23.3476 16.5176 23.0298 17.0994L20.1768 22.3234ZM15.9668 13.6774C15.639 13.6774 15.3246 13.8076 15.0928 14.0394C14.861 14.2712 14.7308 14.5856 14.7308 14.9134C14.7308 15.2412 14.861 15.5556 15.0928 15.7874C15.3246 16.0192 15.639 16.1494 15.9668 16.1494C16.2946 16.1494 16.609 16.0192 16.8408 15.7874C17.0726 15.5556 17.2028 15.2412 17.2028 14.9134C17.2028 14.5856 17.0726 14.2712 16.8408 14.0394C16.609 13.8076 16.2946 13.6774 15.9668 13.6774ZM16.1368 18.9474C16.1368 18.6196 16.267 18.3052 16.4988 18.0734C16.7306 17.8416 17.045 17.7114 17.3728 17.7114C17.7006 17.7114 18.015 17.8416 18.2468 18.0734C18.4786 18.3052 18.6088 18.6196 18.6088 18.9474C18.6088 19.2752 18.4786 19.5896 18.2468 19.8214C18.015 20.0532 17.7006 20.1834 17.3728 20.1834C17.045 20.1834 16.7306 20.0532 16.4988 19.8214C16.267 19.5896 16.1368 19.2752 16.1368 18.9474Z" fill="#FF6F61"/></svg>
-                                    Random Game
-                                </button>
-                            </a>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><span class="required">*</span> Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label><span class="required">*</span> Lastname</label>
+                            <input type="text" id="lastname" required>
                         </div>
                     </div>
-                </div>
-            </section>
 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nickname</label>
+                            <input type="text">
+                        </div>
+                        <div class="form-group">
+                            <label><span class="required">*</span> Age</label>
+                            <input type="number" id="age" required>
+                        </div>
+                    </div>
 
+                    <div class="form-group full-width">
+                        <label><span class="required">*</span> Email</label>
+                        <input type="email" id="email" required>
+                    </div>
 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><span class="required">*</span> Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" required>
+                                <button type="button" class="toggle-password" id="toggle-password-btn">
+                                    <span id="eye-icon-password"></span>
+                                </button>
+                            </div>
+                            <div class="password-requirements">Required: 1 capital letter, 1 number, 1 symbol</div>
+                        </div>
+                        <div class="form-group">
+                            <label><span class="required">*</span> Confirm Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirm-password" required>
+                                <button type="button" class="toggle-password" id="toggle-confirm-password-btn">
+                                    <span id="eye-icon-confirm"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="recaptcha-wrapper">
+                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit">Sign Up</button>
+
+                    <div class="divider"></div>
+
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn facebook-btn">
+                            <span>f</span> Register with Facebook
+                        </button>
+                        <button type="button" class="social-btn google-btn">
+                            <span>G</span> Register with Google
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
         </main>
+        
 
-        <!--Footer-->
+        <!-- Footer -->
         <footer>
             <div class="footer-content">
                 <section class="footer-top">
@@ -393,10 +301,11 @@
                 </section>
             </div>
         </footer>
-        
+
+
+        <script src="../js/ST.js"></script>
         <script src="../js/footer.js"></script>
         <script src="../js/main.js"></script>
-        <script src="../js/home.js"></script>
-        <script src="../js/ST.js"></script>
+        <script src="../js/signUp.js"></script>
     </body>
 </html>
