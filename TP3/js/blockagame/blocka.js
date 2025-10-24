@@ -115,7 +115,7 @@ const dest = [
 
 
 img.onload = function() {
-    //drawBlocka();
+    drawBlocka();
     console.log(img.width, img.height)
 };;
 
