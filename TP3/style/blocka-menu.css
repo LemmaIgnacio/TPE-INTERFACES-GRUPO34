@@ -1,4 +1,5 @@
 
+
 .blocka-gallery-card {
     background: var(--Background-Color-Dark, #18182f);
     border-radius: 1em;
@@ -330,3 +331,26 @@
     font-weight: 700;
 }
 
+#difficulty-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 20px;
+}
+#difficulty-buttons button {
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--color-accent, #84E9DD);
+    color: #18143a;
+    font-family: 'Poppins', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+#difficulty-buttons button:hover {
+    background: #18143a;
+    color: #84E9DD;
+    border: 2px solid #84E9DD;
+}
