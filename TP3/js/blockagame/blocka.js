@@ -63,6 +63,7 @@ class Button {
     clickBtn(mouseX, mouseY){
         if(mouseX >= this.x && mouseX <= this.x+this.width && mouseY >= this.y && mouseY <= this.y+this.height){
             ctx.fillStyle = 'rgba(132, 51, 120, 1)';
+            ctx.fill();
         }       
     }
 }
@@ -73,6 +74,7 @@ canvas.addEventListener('click', (e) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     btn_menu.clickBtn(x, y);
+    
 })
 
 let btn_menu = new Button (10, 10, 80, 50, 'MENU', 'rgba(132, 233, 221, 1)');
@@ -101,6 +103,13 @@ function getRandomBlockaImage(){
     return blockaImages[index];
 }
 
+//Cargo una nueva imagen, siguiente nivel
+function loadNewPuzzle() {
+    const selectedImagePath = getRandomBlockaImage();
+    img.src = selectedImagePath;
+    angles = [0,90,180,270].sort(() => Math.random() - 0.5);
+}
+
 
 
 console.log(getRandomBlockaImage());
@@ -126,13 +135,14 @@ img.onload = function() {
 };
 
 function drawBlocka() {
+    console.log('drawBlocka')
     ctx.clearRect(0,0,canvas.width, canvas.height);
 
     //Itero Imagen
     let image = new Image (getRandomBlockaImage(), 400, 250, 200, 200);
     //Creo la Imagen en pantalla.
     createImage(ctx, image.imagePath, image.x, image.y, image.width, image.height);
-
+console.log('itero imagen')
     btn_menu.draw(ctx);//Menu
     
     const coordinates = [
@@ -144,6 +154,8 @@ function drawBlocka() {
         //Rotar la imagen
             ctx.save();
 
+            console.log('modifico imagen')
+
             const cx = dest[i].x + pieceW / 2;
             const cy = dest[i].y + pieceH / 2;
             ctx.translate(cx, cy);
@@ -153,21 +165,27 @@ function drawBlocka() {
         let filter = getFilterByDiff(diff[index_diff]);
         let pieceFilter;
         if(filter === 'gray'){
+            console.log('filtro grisa')
             pieceFilter = addGray(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
         }else if(filter === 'glow'){
+            console.log('filtro brillo')
             pieceFilter = addGlow(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, 1.3);
         }else if (filter === 'negative'){
+            console.log('filtro negarivo')
             pieceFilter = addNegative(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
         }else{
             alert("COMPLETASATE EL JUEGO");
         }
         
         if (pieceFilter) {
+            console.log('dibujar imagen ??')
             ctx.drawImage(pieceFilter, -pieceW/2, -pieceH/2, pieceW, pieceH);
         } else {
+            console.log('dibuja imagen ??')
             ctx.drawImage(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, -pieceW/2, -pieceH/2, pieceW, pieceH);
         }
         ctx.restore();
+        console.log('restora')
     }
 }
 
@@ -190,9 +208,12 @@ canvas.addEventListener('mousedown', function(e){
                 } else if (e.button === 2) { //Click DERECHO
                     angles[i] = (angles[i] + 90) % 360;
                 }
-                drawBlocka();
-                const resolved = angles.every(angles => angles % 360 == 0);
+                drawBlocka();//Actualiza el Blocka cada vez que le hacemos click
+                
+                let resolved = angles.every(angles => angles % 360 == 0);
+                
                 if(resolved){
+                    console.log('Resuelto')
                     alert("ganaste :D");
                     // BOTON NEXT LEVEL
                     let btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
@@ -202,13 +223,15 @@ canvas.addEventListener('mousedown', function(e){
                     // QUITAR LOS FILTROS
                     //Click next level
                         canvas.addEventListener('click', (e) => {
+                            console.log('cambia diff')
                             const rect = canvas.getBoundingClientRect();
                             const x = e.clientX - rect.left;
                             const y = e.clientY - rect.top;
                             btn_next_level.clickBtn(x, y);
                             index_diff += 1; //Aumenta dificultad
-                            drawBlocka();
+                            loadNewPuzzle();
                         })
+                        resolved = false;
 
                     // parar temporizador
                     // guardar
