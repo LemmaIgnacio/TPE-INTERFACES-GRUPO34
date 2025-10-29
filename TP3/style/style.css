@@ -202,12 +202,57 @@ h3 {
     }
 
     #GameContainer {
-        display: flexbox;
+        display: flex;
         align-items: center;
         justify-content: center;
+        margin: 0 auto;
         margin-bottom: 50px;
-        gap:10px
+        gap: 10px;
+        padding: 10px;
+        max-width: 1300px;
+        border-radius: 10px;
+        box-shadow: 5px 5px 20px rgb(118, 206, 238);
+        
     }
+        /* Timer styling */
+            #max-time {
+                margin-top: 8px;
+                font-family: "Poppins", Helvetica, sans-serif;
+                font-weight: bold;
+                font-size: 20px;
+                padding: 8px 12px;
+                border-radius: 10px;
+                backdrop-filter: blur(4px);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+                    background: linear-gradient(90deg, #84E9DD 0%, #9C6ADE 50%, #FF6F61 100%);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent; /* gradient text via background-clip */
+            }
+            #display{
+                display: flexbox;
+                font-family: "Poppins", Helvetica, sans-serif;
+                font-weight: 700;
+                font-size: 38px;
+                color: #0b1220;
+                /*Lindo efecto gradiente arcoiris*/
+                    background: linear-gradient(90deg, #84E9DD 0%, #9C6ADE 50%, #FF6F61 100%);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent; /* gradient text via background-clip */
+                padding: 18px 28px;
+                border-radius: 14px;
+                box-shadow: 0 8px 24px rgba(12,14,28,0.45);
+            }
+
+            /* Optional: style wrapper for layout in the page */
+            .container > h1 {
+                padding: 8px 12px;
+                border:none;
+                border-radius: 10px;
+                backdrop-filter: blur(4px);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+            }
 
     #GameWindow {
         width: 1000px;
