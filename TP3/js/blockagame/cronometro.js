@@ -1,7 +1,8 @@
 let startTime = 0;
 let elapsedTime = 0;
 let timerInterval;
-let maxTime = localStorage.getItem('maxTime') || 0;
+let bestTimes = JSON.parse(localStorage.getItem('blockaBestTimes') || '{}');
+let currentDiff = 'easy';
 
 const display = document.getElementById('display');
 const maxDisplay = document.getElementById('max-time');
@@ -21,15 +22,18 @@ function updateDisplay() {
 }
 
 function updateMaxDisplay() {
-  maxDisplay.textContent = `Máximo: ${timeToString(maxTime)}`;
+  let best = bestTimes[currentDiff] || 0;
+  maxDisplay.textContent = `Mejor tiempo (${currentDiff}): ${timeToString(best)}`;
 }
 
-function start() {
+function start(diff) {
+  currentDiff = diff || currentDiff;
   startTime = Date.now() - elapsedTime;
   timerInterval = setInterval(() => {
     elapsedTime = Date.now() - startTime;
     updateDisplay();
   }, 1000);
+  updateMaxDisplay();
 }
 
 function pause() {
@@ -38,16 +42,17 @@ function pause() {
 
 function reset() {
   clearInterval(timerInterval);
-  if (elapsedTime > maxTime) {
-    maxTime = elapsedTime;
-    localStorage.setItem('maxTime', maxTime);
+  let best = bestTimes[currentDiff] || 0;
+  if (elapsedTime > 0 && (best === 0 || elapsedTime < best)) {
+    bestTimes[currentDiff] = elapsedTime;
+    localStorage.setItem('blockaBestTimes', JSON.stringify(bestTimes));
   }
   elapsedTime = 0;
   updateDisplay();
   updateMaxDisplay();
 }
 
-startBtn.addEventListener('click', start);
+startBtn.addEventListener('click', function(){ start(currentDiff); });
 pauseBtn.addEventListener('click', pause);
 resetBtn.addEventListener('click', reset);
 
