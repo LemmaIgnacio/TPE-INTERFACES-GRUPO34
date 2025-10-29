@@ -184,6 +184,7 @@ canvas.addEventListener('click', (e) => {
     const y = e.clientY - rect.top;
     btn_menu.clickBtn(x, y);
     if (nextLevelActive && btn_next_level) {
+
         // Check if btn_next_level button was clicked
         if ( x >= btn_next_level.x && x <= btn_next_level.x + btn_next_level.width && y >= btn_next_level.y && y <= btn_next_level.y + btn_next_level.height) {
             // Reset game state
@@ -192,10 +193,15 @@ canvas.addEventListener('click', (e) => {
             if (index_diff < diffLevels.length - 1) {
                 index_diff += 1;
                 window.setBlockaDiff(diffLevels[index_diff]);
-                angles = [0,90,180,270].sort(() => Math.random() - 0.5);
-                drawBlocka();
-                reset(); //guarda el record si es el mejor y reinicia display
-                start();//Reinicia el cronometro
+                //Carga una nueva imagen RANDOM
+                const newImagePath = getRandomBlockaImage();
+                img.src = newImagePath;
+                img.onload = function() {
+                    angles = [0,90,180,270].sort(() => Math.random() - 0.5);
+                    drawBlocka();
+                    reset(); //guarda el record si es el mejor y reinicia display
+                    start();//Reinicia el cronometro
+                };
             } else {
                 gameFinished = true;
                 drawBlocka();
@@ -253,6 +259,9 @@ function getRandomBlockaImage(){
 }
 
 
+
+
+
 //---------------------------------------------------------------------------------------------------
 
 const selectedImagePath = getRandomBlockaImage();
@@ -289,19 +298,29 @@ function drawBlocka() {
     ctx.restore();
 
 
-    if (gameFinished) {
+    if (nextLevelActive) {
         ctx.save();
-            ctx.globalAlpha = 0.7;
-            ctx.fillStyle = 'rgba(0,0,0,0.7)';
-            ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.globalAlpha = 1;
             ctx.drawImage(img, offsetX, offsetY, pieceW*2, pieceH*2);
             ctx.font = '40px Poppins, Helvetica';
-            ctx.fillStyle = 'rgba(132, 233, 221, 1)';
+            ctx.fillStyle = 'rgba(255, 255, 255, 1)';
             ctx.textAlign = 'center';
-            ctx.fillText('¡Felicitaciones! Completaste todos los niveles.', canvas.width/2, 80);
+            ctx.fillText('🎉 Level Complete!', canvas.width/5, 120);
             ctx.font = '24px Poppins, Helvetica';
-            ctx.fillText('Haz clic en MENU para volver.', canvas.width/2, 130);
+        ctx.restore();
+        btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
+        btn_next_level.draw(ctx);
+        return;
+    }
+
+    if (gameFinished) {
+        ctx.save();
+            ctx.drawImage(img, offsetX, offsetY, pieceW*2, pieceH*2);
+            ctx.font = '40px Poppins, Helvetica';
+            ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+            ctx.textAlign = 'center';
+            ctx.fillText('🎉 Congratulations!!', canvas.width/5, 120);
+            ctx.fillText('All levels completed!', canvas.width/5.2, 190);
+            ctx.font = '24px Poppins, Helvetica';
         ctx.restore();
         return;
     }
@@ -332,10 +351,6 @@ function drawBlocka() {
         }
         ctx.restore();
     }
-    if (nextLevelActive) {
-        btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
-        btn_next_level.draw(ctx);
-    }
 }
 
 canvas.addEventListener('contextmenu', function(e){
@@ -362,6 +377,7 @@ canvas.addEventListener('mousedown', function(e){
                 if(resolved){
                     pause(); //pausa temporizador
                     nextLevelActive = true;
+                    
                     drawBlocka();
                 }
             }
