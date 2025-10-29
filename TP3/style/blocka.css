@@ -1,5 +1,5 @@
 #GameCanvas {
-    background-color: var(--Background-Color-Dark);
+    background: var(--Background-Color-Dark, #18182f);
     display:flex;
     align-self: center;
     justify-content: center;

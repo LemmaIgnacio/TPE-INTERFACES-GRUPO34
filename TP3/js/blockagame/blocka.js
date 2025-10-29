@@ -12,6 +12,7 @@ document.getElementById('blocka-start-btn').addEventListener('click', function()
     document.getElementById('difficulty-buttons').style.display = 'flex';
     this.style.display = 'none';
 });
+/*
 document.getElementById('btn-easy').addEventListener('click', function() {
     index_diff = 0;
     window.setBlockaDiff(diffLevels[index_diff]);
@@ -38,7 +39,7 @@ document.getElementById('btn-hard').addEventListener('click', function() {
         start();
     }
     document.getElementById('difficulty-buttons').style.display = 'none';
-});
+});*/
 
 canvas.width = width;
 canvas.height = height;
@@ -89,10 +90,9 @@ canvas.addEventListener('click', (e) => {
     const y = e.clientY - rect.top;
     btn_menu.clickBtn(x, y);
     if (nextLevelActive && btn_next_level) {
-        if (
-            x >= btn_next_level.x && x <= btn_next_level.x + btn_next_level.width &&
-            y >= btn_next_level.y && y <= btn_next_level.y + btn_next_level.height
-        ) {
+        // Check if btn_next_level button was clicked
+        if ( x >= btn_next_level.x && x <= btn_next_level.x + btn_next_level.width && y >= btn_next_level.y && y <= btn_next_level.y + btn_next_level.height) {
+            // Reset game state
             nextLevelActive = false;
             btn_next_level = null;
             if (index_diff < diffLevels.length - 1) {
@@ -106,6 +106,28 @@ canvas.addEventListener('click', (e) => {
                 gameFinished = true;
                 drawBlocka();
             }
+        }
+    }
+    if(btn_menu){
+        // Check if menu button was clicked
+        if (x >= btn_menu.x && x <= btn_menu.x + btn_menu.width &&
+            y >= btn_menu.y && y <= btn_menu.y + btn_menu.height) {
+            // Reset game state
+            gameFinished = false;
+            nextLevelActive = false;
+            btn_next_level = null;
+            index_diff = 0;
+            
+            // Show difficulty buttons and hide start button
+            document.getElementById('blocka-menu').style.display = 'block';
+            document.getElementById('GameContainer').style.display = 'none';
+            
+            // Reset timer
+            reset();
+            
+            // Redraw canvas
+            drawBlocka();
+            return;
         }
     }
 });
