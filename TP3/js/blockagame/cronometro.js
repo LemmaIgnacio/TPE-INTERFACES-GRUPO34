@@ -3,6 +3,10 @@ let elapsedTime = 0;
 let timerInterval;
 let bestTimes = JSON.parse(localStorage.getItem('blockaBestTimes') || '{}');
 let currentDiff = 'easy';
+window.setBlockaDiff = function(diff) {
+  currentDiff = diff;
+  updateMaxDisplay();
+}
 
 const display = document.getElementById('display');
 const maxDisplay = document.getElementById('max-time');
@@ -26,8 +30,7 @@ function updateMaxDisplay() {
   maxDisplay.textContent = `Mejor tiempo (${currentDiff}): ${timeToString(best)}`;
 }
 
-function start(diff) {
-  currentDiff = diff || currentDiff;
+function start() {
   startTime = Date.now() - elapsedTime;
   timerInterval = setInterval(() => {
     elapsedTime = Date.now() - startTime;
@@ -52,7 +55,7 @@ function reset() {
   updateMaxDisplay();
 }
 
-startBtn.addEventListener('click', function(){ start(currentDiff); });
+startBtn.addEventListener('click', function(){ start(); });
 pauseBtn.addEventListener('click', pause);
 resetBtn.addEventListener('click', reset);
 
