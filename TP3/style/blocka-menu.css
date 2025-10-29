@@ -267,6 +267,7 @@
     align-items: center;
     justify-content: flex-start;
     background: var(--Background-Color-Dark);
+    background-image: url(../media/portada_BLOCKA.png);
     border-radius: 0 0 1.5em 1.5em;
     box-shadow: 0 4px 24px var(--Primary-Color-Dark, #2D8A81);
     padding: 0;

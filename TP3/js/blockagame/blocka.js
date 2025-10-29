@@ -292,9 +292,11 @@ function drawBlocka() {
     // Add level text
     ctx.save();
         ctx.font = '24px Poppins, Helvetica';
-        ctx.fillStyle = 'rgba(132, 233, 221, 1)';
+        ctx.fillStyle = 'rgba(153, 223, 238, 1)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
         ctx.textAlign = 'center';
-        ctx.fillText(`Level ${index_diff + 1}`, canvas.width/2, 50);
+        ctx.fillText(`Level ${index_diff + 1}: ${diffLevels[index_diff]}`, canvas.width/2, 50);
+        ctx.stroke();
     ctx.restore();
 
 
@@ -320,7 +322,10 @@ function drawBlocka() {
             ctx.textAlign = 'center';
             ctx.fillText('🎉 Congratulations!!', canvas.width/5, 120);
             ctx.fillText('All levels completed!', canvas.width/5.2, 190);
+            ctx.font = '20px Poppins, Helvetica';
+            ctx.fillText('Return to MENU to play again!', canvas.width/5.2, 260);
             ctx.font = '24px Poppins, Helvetica';
+            reset();
         ctx.restore();
         return;
     }
