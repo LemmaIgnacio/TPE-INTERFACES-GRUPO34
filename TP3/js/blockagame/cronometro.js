@@ -56,8 +56,8 @@ function reset() {
 }
 
 startBtn.addEventListener('click', function(){ start(); });
-pauseBtn.addEventListener('click', pause);
-resetBtn.addEventListener('click', reset);
+/*pauseBtn.addEventListener('click', pause);
+resetBtn.addEventListener('click', reset);*/
 
 updateDisplay();
 updateMaxDisplay();

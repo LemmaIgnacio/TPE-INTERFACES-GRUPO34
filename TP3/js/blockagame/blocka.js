@@ -100,7 +100,8 @@ canvas.addEventListener('click', (e) => {
                 window.setBlockaDiff(diffLevels[index_diff]);
                 angles = [0,90,180,270].sort(() => Math.random() - 0.5);
                 drawBlocka();
-                start();
+                reset(); //guarda el record si es el mejor y reinicia display
+                start();//Reinicia el cronometro
             } else {
                 gameFinished = true;
                 drawBlocka();
@@ -244,7 +245,6 @@ canvas.addEventListener('mousedown', function(e){
                 const resolved = angles.every(angle => angle % 360 == 0);
                 if(resolved){
                     pause(); //pausa temporizador
-                    reset(); //guarda el record si es el mejor y reinicia display
                     nextLevelActive = true;
                     drawBlocka();
                 }
