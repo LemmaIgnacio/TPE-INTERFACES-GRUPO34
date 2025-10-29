@@ -14,17 +14,29 @@ document.getElementById('blocka-start-btn').addEventListener('click', function()
 });
 document.getElementById('btn-easy').addEventListener('click', function() {
     index_diff = 0;
-    if (img.complete) drawBlocka();
+    window.setBlockaDiff(diffLevels[index_diff]);
+    if (img.complete) {
+        drawBlocka();
+        start();
+    }
     document.getElementById('difficulty-buttons').style.display = 'none';
 });
 document.getElementById('btn-medium').addEventListener('click', function() {
     index_diff = 1;
-    if (img.complete) drawBlocka();
+    window.setBlockaDiff(diffLevels[index_diff]);
+    if (img.complete) {
+        drawBlocka();
+        start();
+    }
     document.getElementById('difficulty-buttons').style.display = 'none';
 });
 document.getElementById('btn-hard').addEventListener('click', function() {
     index_diff = 2;
-    if (img.complete) drawBlocka();
+    window.setBlockaDiff(diffLevels[index_diff]);
+    if (img.complete) {
+        drawBlocka();
+        start();
+    }
     document.getElementById('difficulty-buttons').style.display = 'none';
 });
 
@@ -85,8 +97,10 @@ canvas.addEventListener('click', (e) => {
             btn_next_level = null;
             if (index_diff < diffLevels.length - 1) {
                 index_diff += 1;
+                window.setBlockaDiff(diffLevels[index_diff]);
                 angles = [0,90,180,270].sort(() => Math.random() - 0.5);
                 drawBlocka();
+                start();
             } else {
                 gameFinished = true;
                 drawBlocka();
