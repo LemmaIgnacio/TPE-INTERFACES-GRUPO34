@@ -12,7 +12,6 @@ document.getElementById('blocka-start-btn').addEventListener('click', function()
     document.getElementById('difficulty-buttons').style.display = 'flex';
     this.style.display = 'none';
 });
-
 document.getElementById('btn-easy').addEventListener('click', function() {
     index_diff = 0;
     if (img.complete) drawBlocka();
@@ -34,7 +33,7 @@ canvas.height = height;
 
 canvas.style.background = "rgba(25, 24, 57, 1)";
 
-const filters = ['gray', 'glow', 'negative' ]
+const filters = ['gray', 'glow', 'negative']
 
 //CLASE BUTTON
 class Button {
@@ -66,11 +65,12 @@ class Button {
     clickBtn(mouseX, mouseY){
         if(mouseX >= this.x && mouseX <= this.x+this.width && mouseY >= this.y && mouseY <= this.y+this.height){
             ctx.fillStyle = 'rgba(132, 51, 120, 1)';
+            ctx.fill();
         }       
     }
 }
 
-//Click menu
+//Click nwxt level
 canvas.addEventListener('click', (e) => {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -122,8 +122,8 @@ function getRandomBlockaImage(){
 }
 
 
+//---------------------------------------------------------------------------------------------------
 
-console.log(getRandomBlockaImage());
 const selectedImagePath = getRandomBlockaImage();
 const img = new window.Image();
 img.src = selectedImagePath;
@@ -149,19 +149,28 @@ function drawBlocka() {
     ctx.clearRect(0,0,canvas.width, canvas.height);
     btn_menu.draw(ctx);//Menu
 
-    if (gameFinished) {
-        ctx.save();
-        ctx.globalAlpha = 0.7;
-        ctx.fillStyle = 'rgba(0,0,0,0.7)';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.globalAlpha = 1;
-        ctx.drawImage(img, offsetX, offsetY, pieceW*2, pieceH*2);
-        ctx.font = '40px Poppins, Helvetica';
+    // Add level text
+    ctx.save();
+        ctx.font = '24px Poppins, Helvetica';
         ctx.fillStyle = 'rgba(132, 233, 221, 1)';
         ctx.textAlign = 'center';
-        ctx.fillText('¡Felicitaciones! Completaste todos los niveles.', canvas.width/2, 80);
-        ctx.font = '24px Poppins, Helvetica';
-        ctx.fillText('Haz clic en MENU para volver.', canvas.width/2, 130);
+        ctx.fillText(`Level ${index_diff + 1}`, canvas.width/2, 50);
+    ctx.restore();
+
+
+    if (gameFinished) {
+        ctx.save();
+            ctx.globalAlpha = 0.7;
+            ctx.fillStyle = 'rgba(0,0,0,0.7)';
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.globalAlpha = 1;
+            ctx.drawImage(img, offsetX, offsetY, pieceW*2, pieceH*2);
+            ctx.font = '40px Poppins, Helvetica';
+            ctx.fillStyle = 'rgba(132, 233, 221, 1)';
+            ctx.textAlign = 'center';
+            ctx.fillText('¡Felicitaciones! Completaste todos los niveles.', canvas.width/2, 80);
+            ctx.font = '24px Poppins, Helvetica';
+            ctx.fillText('Haz clic en MENU para volver.', canvas.width/2, 130);
         ctx.restore();
         return;
     }
