@@ -2,10 +2,11 @@ let canvas = document.getElementById('GameCanvas');
 let ctx = canvas.getContext("2d");
 let width = 1000;
 let height = 600;
-let diff = ['easy', 'medium', 'hard'];
+const diffLevels = ['easy', 'medium', 'hard'];
 let index_diff = 0;
 let nextLevelActive = false;
-let btn_next_level;
+let btn_next_level = null;
+let gameFinished = false;
 
 document.getElementById('blocka-start-btn').addEventListener('click', function() {
     document.getElementById('difficulty-buttons').style.display = 'flex';
@@ -13,17 +14,17 @@ document.getElementById('blocka-start-btn').addEventListener('click', function()
 });
 
 document.getElementById('btn-easy').addEventListener('click', function() {
-    diff = 'easy';
+    index_diff = 0;
     if (img.complete) drawBlocka();
     document.getElementById('difficulty-buttons').style.display = 'none';
 });
 document.getElementById('btn-medium').addEventListener('click', function() {
-    diff = 'medium';
+    index_diff = 1;
     if (img.complete) drawBlocka();
     document.getElementById('difficulty-buttons').style.display = 'none';
 });
 document.getElementById('btn-hard').addEventListener('click', function() {
-    diff = 'hard';
+    index_diff = 2;
     if (img.complete) drawBlocka();
     document.getElementById('difficulty-buttons').style.display = 'none';
 });
@@ -75,7 +76,24 @@ canvas.addEventListener('click', (e) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     btn_menu.clickBtn(x, y);
-})
+    if (nextLevelActive && btn_next_level) {
+        if (
+            x >= btn_next_level.x && x <= btn_next_level.x + btn_next_level.width &&
+            y >= btn_next_level.y && y <= btn_next_level.y + btn_next_level.height
+        ) {
+            nextLevelActive = false;
+            btn_next_level = null;
+            if (index_diff < diffLevels.length - 1) {
+                index_diff += 1;
+                angles = [0,90,180,270].sort(() => Math.random() - 0.5);
+                drawBlocka();
+            } else {
+                gameFinished = true;
+                drawBlocka();
+            }
+        }
+    }
+});
 
 let btn_menu = new Button (10, 10, 80, 50, 'MENU', 'rgba(132, 233, 221, 1)');
 
@@ -129,30 +147,36 @@ img.onload = function() {
 
 function drawBlocka() {
     ctx.clearRect(0,0,canvas.width, canvas.height);
-
-    //Itero Imagen
-    let image = new Image (getRandomBlockaImage(), 400, 250, 200, 200);
-    //Creo la Imagen en pantalla.
-    createImage(ctx, image.imagePath, image.x, image.y, image.width, image.height);
-
     btn_menu.draw(ctx);//Menu
-    
+
+    if (gameFinished) {
+        ctx.save();
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = 'rgba(0,0,0,0.7)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.globalAlpha = 1;
+        ctx.drawImage(img, offsetX, offsetY, pieceW*2, pieceH*2);
+        ctx.font = '40px Poppins, Helvetica';
+        ctx.fillStyle = 'rgba(132, 233, 221, 1)';
+        ctx.textAlign = 'center';
+        ctx.fillText('¡Felicitaciones! Completaste todos los niveles.', canvas.width/2, 80);
+        ctx.font = '24px Poppins, Helvetica';
+        ctx.fillText('Haz clic en MENU para volver.', canvas.width/2, 130);
+        ctx.restore();
+        return;
+    }
+
     const coordinates = [
         {x: 0, y: 0},{x: img.width / 2, y: 0},
         {x: 0, y: img.height / 2},{x: img.width / 2, y: img.height / 2}
     ];
-    
     for(let i = 0; i < 4; i++){
-        //Rotar la imagen
-            ctx.save();
-
-            const cx = dest[i].x + pieceW / 2;
-            const cy = dest[i].y + pieceH / 2;
-            ctx.translate(cx, cy);
-            ctx.rotate((angles[i] * Math.PI)/180);
-
-        //add filters
-        let filter = getFilterByDiff(diff[index_diff]);
+        ctx.save();
+        const cx = dest[i].x + pieceW / 2;
+        const cy = dest[i].y + pieceH / 2;
+        ctx.translate(cx, cy);
+        ctx.rotate((angles[i] * Math.PI)/180);
+        let filter = getFilterByDiff(diffLevels[index_diff]);
         let pieceFilter;
         if(filter === 'gray'){
             pieceFilter = addGray(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
@@ -160,16 +184,17 @@ function drawBlocka() {
             pieceFilter = addGlow(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, 1.3);
         }else if (filter === 'negative'){
             pieceFilter = addNegative(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2);
-        }else{
-            alert("COMPLETASATE EL JUEGO");
         }
-        
         if (pieceFilter) {
             ctx.drawImage(pieceFilter, -pieceW/2, -pieceH/2, pieceW, pieceH);
         } else {
             ctx.drawImage(img, coordinates[i].x, coordinates[i].y, img.width/2, img.height/2, -pieceW/2, -pieceH/2, pieceW, pieceH);
         }
         ctx.restore();
+    }
+    if (nextLevelActive) {
+        btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
+        btn_next_level.draw(ctx);
     }
 }
 
@@ -178,10 +203,10 @@ canvas.addEventListener('contextmenu', function(e){
 });
 
 canvas.addEventListener('mousedown', function(e){ 
+    if (gameFinished) return;
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-
     for(let i = 0; i<4; i++){
         const x = dest[i].x;
         const y = dest[i].y;
@@ -193,28 +218,12 @@ canvas.addEventListener('mousedown', function(e){
                     angles[i] = (angles[i] + 90) % 360;
                 }
                 drawBlocka();
-                const resolved = angles.every(angles => angles % 360 == 0);
+                const resolved = angles.every(angle => angle % 360 == 0);
                 if(resolved){
                     pause(); //pausa temporizador
                     reset(); //guarda el record si es el mejor y reinicia display
                     nextLevelActive = true;
-                    let btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
-                    btn_next_level.draw(ctx);
-
-
-                    // QUITAR LOS FILTROS
-                    //Click next level
-                        canvas.addEventListener('click', (e) => {
-                            const rect = canvas.getBoundingClientRect();
-                            const x = e.clientX - rect.left;
-                            const y = e.clientY - rect.top;
-                            btn_next_level.clickBtn(x, y);
-                            index_diff += 1; //Aumenta dificultad
-                            drawBlocka();
-                        })
-
-                    // parar temporizador
-                    // guardar
+                    drawBlocka();
                 }
             }
     }
@@ -225,6 +234,7 @@ function getFilterByDiff(diff){
     if (diff === 'easy') return 'gray';
     if (diff === 'medium') return 'glow';
     if (diff === 'hard') return 'negative';
+    return null;
 }
 
 function addGray(img, sx, sy, sw, sh) { //refactor x ia
@@ -279,20 +289,3 @@ function addNegative(img, sx, sy, sw, sh) { //refactor x ia
     tempCtx.putImageData(imageData, 0, 0);
     return tempCanvas;
 }
-
-canvas.addEventListener('click', (e) => {
-    if (nextLevelActive && btn_next_level) {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        if (
-            x >= btn_next_level.x && x <= btn_next_level.x + btn_next_level.width &&
-            y >= btn_next_level.y && y <= btn_next_level.y + btn_next_level.height
-        ) {
-            nextLevelActive = false;
-            index_diff += 1;
-            angles = [0,90,180,270].sort(() => Math.random() - 0.5);
-            drawBlocka();
-        }
-    }
-});
