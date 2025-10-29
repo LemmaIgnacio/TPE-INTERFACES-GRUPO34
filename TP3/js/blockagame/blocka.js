@@ -8,11 +8,11 @@ let nextLevelActive = false;
 let btn_next_level = null;
 let gameFinished = false;
 
+/*
 document.getElementById('blocka-start-btn').addEventListener('click', function() {
     document.getElementById('difficulty-buttons').style.display = 'flex';
     this.style.display = 'none';
 });
-/*
 document.getElementById('btn-easy').addEventListener('click', function() {
     index_diff = 0;
     window.setBlockaDiff(diffLevels[index_diff]);
@@ -50,30 +50,30 @@ const filters = ['gray', 'glow', 'negative']
 
 //CLASE BUTTON
 class Button {
-  constructor(x, y, width, height, text, color){
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.text = text;         
-    this.color = color;
-  }
+    constructor(x, y, width, height, text, color){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.text = text;         
+        this.color = color;
+    }
 
-  draw(ctx){
-    ctx.beginPath();
-      // Botones
-      ctx.fillStyle = this.color;
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = 'rgba(18, 14, 38, 1)';
-      ctx.font = '20px Poppins, Helvetica';
-      //Centrar el texto
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle"; 
-      ctx.fillText(this.text, this.x + this.width / 2, this.y + 32);
-      ctx.fill();
-      ctx.stroke();
-    ctx.closePath();
-  }
+    draw(ctx){
+        ctx.beginPath();
+        // Botones
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillStyle = 'rgba(18, 14, 38, 1)';
+        ctx.font = '20px Poppins, Helvetica';
+        //Centrar el texto
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle"; 
+        ctx.fillText(this.text, this.x + this.width / 2, this.y + 32);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+    }
 
     clickBtn(mouseX, mouseY){
         if(mouseX >= this.x && mouseX <= this.x+this.width && mouseY >= this.y && mouseY <= this.y+this.height){
@@ -119,7 +119,7 @@ canvas.addEventListener('click', (e) => {
             index_diff = 0;
             
             // Show difficulty buttons and hide start button
-            document.getElementById('blocka-menu').style.display = 'block';
+            document.getElementById('blocka-menu').style.display = 'flex';
             document.getElementById('GameContainer').style.display = 'none';
             
             // Reset timer
