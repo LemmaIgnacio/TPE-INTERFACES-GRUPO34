@@ -17,8 +17,8 @@ const resetBtn = document.getElementById('reset');
 function timeToString(time) {
   const mins = Math.floor((time % 3600000) / 60000);
   const secs = Math.floor((time % 60000) / 1000);
-  const dec_secs = Math.floor((time % 1000) / 10);
-  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${dec_secs.toString().padStart(2, '0')}`;
+  const ms = Math.floor(time % 1000);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}:${ms.toString().padStart(3, '0')}`;
 }
 
 function updateDisplay() {
@@ -35,7 +35,7 @@ function start() {
   timerInterval = setInterval(() => {
     elapsedTime = Date.now() - startTime;
     updateDisplay();
-  }, 1000);
+  }, 10);
   updateMaxDisplay();
 }
 
