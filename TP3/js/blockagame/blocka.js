@@ -112,9 +112,6 @@ function loadNewPuzzle() {
     angles = [0,90,180,270].sort(() => Math.random() - 0.5);
 }
 
-
-
-console.log(getRandomBlockaImage());
 const selectedImagePath = getRandomBlockaImage();
 const img = new window.Image();
 img.src = selectedImagePath;
@@ -133,18 +130,15 @@ const dest = [
 
 img.onload = function() {
     drawBlocka();
-    console.log(img.width, img.height)
 };
 
 function drawBlocka() {
-    console.log('drawBlocka')
     ctx.clearRect(0,0,canvas.width, canvas.height);
 
     //Itero Imagen
     let image = new Image (getRandomBlockaImage(), 400, 250, 200, 200);
     //Creo la Imagen en pantalla.
     createImage(ctx, image.imagePath, image.x, image.y, image.width, image.height);
-console.log('itero imagen')
     btn_menu.draw(ctx);//Menu
     
     const coordinates = [
