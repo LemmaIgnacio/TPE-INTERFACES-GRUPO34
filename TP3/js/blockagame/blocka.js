@@ -4,6 +4,8 @@ let width = 1000;
 let height = 600;
 let diff = ['easy', 'medium', 'hard'];
 let index_diff = 0;
+let nextLevelActive = false;
+let btn_next_level;
 
 document.getElementById('blocka-start-btn').addEventListener('click', function() {
     document.getElementById('difficulty-buttons').style.display = 'flex';
@@ -213,9 +215,9 @@ canvas.addEventListener('mousedown', function(e){
                 let resolved = angles.every(angles => angles % 360 == 0);
                 
                 if(resolved){
-                    console.log('Resuelto')
-                    alert("ganaste :D");
-                    // BOTON NEXT LEVEL
+                    pause(); //pausa temporizador
+                    reset(); //guarda el record si es el mejor y reinicia display
+                    nextLevelActive = true;
                     let btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
                     btn_next_level.draw(ctx);
 
@@ -299,3 +301,20 @@ function addNegative(img, sx, sy, sw, sh) { //refactor x ia
     tempCtx.putImageData(imageData, 0, 0);
     return tempCanvas;
 }
+
+canvas.addEventListener('click', (e) => {
+    if (nextLevelActive && btn_next_level) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (
+            x >= btn_next_level.x && x <= btn_next_level.x + btn_next_level.width &&
+            y >= btn_next_level.y && y <= btn_next_level.y + btn_next_level.height
+        ) {
+            nextLevelActive = false;
+            index_diff += 1;
+            angles = [0,90,180,270].sort(() => Math.random() - 0.5);
+            drawBlocka();
+        }
+    }
+});
