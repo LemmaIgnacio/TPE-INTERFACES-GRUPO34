@@ -15,3 +15,6 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
+
+//Iteraciones por frame
+let playBtn = new Button(350, 300, 200, 60, "JUGAR");

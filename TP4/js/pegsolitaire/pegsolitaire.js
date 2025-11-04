@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Peg Solitaire</title>
-  <style>
-    canvas { background: #f0f0f0; display: block; margin: 20px auto; }
-    #timer { text-align: center; font-size: 24px; font-family: monospace; }
-  </style>
-</head>
-<body>
-  <div id="timer">10:00:00</div>
-  <canvas id="gameCanvas" width="420" height="420"></canvas>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const timerDisplay = document.getElementById('timer');
+    const timer = new Timer(10 * 60 * 1000, timerDisplay);
+    const game = new PegSolitaire(ctx);
+    timer.start();
 
-  <script>
-    class Timer {
+
+class Timer {
       constructor(duration, display) {
         this.duration = duration;
         this.display = display;
@@ -51,7 +44,8 @@
       }
     }
 
-    class PegSolitaire {
+
+class PegSolitaire {
       constructor(ctx) {
         this.ctx = ctx;
         this.size = 7;
@@ -132,8 +126,3 @@
         this.board[dy][dx] = 1;
       }
     }
-
-
-  </script>
-</body>
-</html>
