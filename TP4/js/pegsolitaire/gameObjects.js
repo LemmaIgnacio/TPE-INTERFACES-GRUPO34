@@ -25,7 +25,7 @@ class Tablero {
 }
 
 // Temporizador
-class Temporizador {
+class Timer {
     constructor(X, Y, width, height, color) {
         this.x = X;
         this.y = Y;
@@ -130,6 +130,49 @@ class Button {
         return false;
     }
 }
+//Efecto de BUTTON 
+        // Hover / pressed handling for canvas buttons (redibuja cuando cambia)
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            let anyHover = false;
+
+            if (btn_menu) {
+                btn_menu.hover = btn_menu.isPointInside(mx, my);
+                anyHover = anyHover || btn_menu.hover;
+            }
+            if (btn_next_level) {
+                btn_next_level.hover = btn_next_level.isPointInside(mx, my);
+                anyHover = anyHover || btn_next_level.hover;
+            }
+
+            canvas.style.cursor = anyHover ? 'pointer' : 'default';
+            drawBlocka();
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            if (btn_menu) { btn_menu.hover = false; btn_menu.pressed = false; }
+            if (btn_next_level) { btn_next_level.hover = false; btn_next_level.pressed = false; }
+            canvas.style.cursor = 'default';
+            drawBlocka();
+        });
+
+        // Provide visual pressed feedback (doesn't replace your click handlers)
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            if (btn_menu && btn_menu.isPointInside(mx, my)) btn_menu.pressed = true;
+            if (btn_next_level && btn_next_level.isPointInside(mx, my)) btn_next_level.pressed = true;
+            drawBlocka();
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (btn_menu) btn_menu.pressed = false;
+            if (btn_next_level) btn_next_level.pressed = false;
+            drawBlocka();
+        });
 
 // Fichas
 class Ficha {

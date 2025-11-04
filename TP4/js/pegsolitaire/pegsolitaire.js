@@ -1,9 +1,13 @@
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    const timerDisplay = document.getElementById('timer');
-    const timer = new Timer(10 * 60 * 1000, timerDisplay);
-    const game = new PegSolitaire(ctx);
-    timer.start();
+const canvas = document.getElementById('GameCanvas');
+const ctx = canvas.getContext('2d');
+const timerDisplay = document.getElementById('timer');
+
+const timer = new Timer(10 * 60 * 1000, timerDisplay);
+const game = new PegSolitaire(ctx);
+
+let gameFinished = false
+
+timer.start();
 
 
 class Timer {
@@ -89,6 +93,21 @@ class PegSolitaire {
               }
             }
           }
+        }
+        if (gameFinished) {
+          ctx.save();
+              ctx.drawImage(img, offsetX, offsetY, pieceW*2, pieceH*2);
+              ctx.font = '40px Poppins, Helvetica';
+              ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+              ctx.textAlign = 'center';
+              ctx.fillText('🎉 Congratulations!!', canvas.width/5, 120);
+              ctx.fillText('All levels completed!', canvas.width/5.2, 190);
+              ctx.font = '20px Poppins, Helvetica';
+              ctx.fillText('Return to MENU to play again!', canvas.width/5.2, 260);
+              ctx.font = '24px Poppins, Helvetica';
+              reset();
+          ctx.restore();
+          return;
         }
       }
 
