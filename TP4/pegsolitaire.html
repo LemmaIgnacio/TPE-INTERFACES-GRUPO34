@@ -133,7 +133,12 @@
       }
     }
 
-
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const timerDisplay = document.getElementById('timer');
+    const timer = new Timer(10 * 60 * 1000, timerDisplay);
+    const game = new PegSolitaire(ctx);
+    timer.start();
   </script>
 </body>
 </html>
