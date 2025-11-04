@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader-overlay");
     const percent = document.getElementById("loader-percent");
     let progress = 0;
-    const duration = 5000; // 5 seconds
+    const duration = 1000; // 5 seconds
     const interval = 50;
     const step = 100 / (duration / interval);
 
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, interval);
 });
 
+//---------------------------------------------------------------------------------------
 //API y carga de carruseles
 document.addEventListener('DOMContentLoaded', function() {	
     // Cargar los datos de la API y luego cargar los carruseles y la sección de juegos recientemente jugados.
@@ -62,13 +63,14 @@ async function loadRecentGame(gameList) {
         const recentGame = createElementFromString(recentGameHtml);
         recentGame.querySelector('.recent-game-card__image').src = gameList[1].image;
         recentGameCards.appendChild(recentGame);
-    }   catch (error) {
+    } catch (error) {
         console.error('Error cargando la plantilla de juego reciente:', error);
     }
 }
 
 async function loadCarousel(gameData, gameCarouselsSection) {
     try {
+        //Llama plantillas
         const carouselHtml = await fetch('../html/home/gameCarousel.html').then(res => res.text());
         const cardHtml = await fetch('../html/home/gameCard.html').then(res => res.text());
 
@@ -133,7 +135,7 @@ async function loadCarousel(gameData, gameCarouselsSection) {
                 setTimeout(() => {
                     carouselTrack.classList.remove('skew-left');
                     updateButtonsVisibility();
-                }, 200);
+                }, 300);
             });
         }
         if (btnRight && carouselTrack) {
@@ -146,7 +148,7 @@ async function loadCarousel(gameData, gameCarouselsSection) {
                 setTimeout(() => {
                     carouselTrack.classList.remove('skew-right');
                     updateButtonsVisibility();
-                }, 200);
+                }, 300);
             });
         }
 

@@ -397,7 +397,7 @@ function getFilterByDiff(diff){
     return null;
 }
 
-function addGray(img, sx, sy, sw, sh) { //refactor x ia
+function addGray(img, sx, sy, sw, sh) { 
     let tempCanvas = document.createElement('canvas');
     tempCanvas.width = sw;
     tempCanvas.height = sh;
@@ -414,7 +414,7 @@ function addGray(img, sx, sy, sw, sh) { //refactor x ia
     return tempCanvas;
 }
     
-function addGlow(img, sx, sy, sw, sh, factor = 3) { //refactor x ia
+function addGlow(img, sx, sy, sw, sh, factor = 3) { 
     let tempCanvas = document.createElement('canvas');
     tempCanvas.width = sw;
     tempCanvas.height = sh;
@@ -432,7 +432,7 @@ function addGlow(img, sx, sy, sw, sh, factor = 3) { //refactor x ia
     return tempCanvas;
 }
 
-function addNegative(img, sx, sy, sw, sh) { //refactor x ia
+function addNegative(img, sx, sy, sw, sh) { 
     let tempCanvas = document.createElement('canvas');
     tempCanvas.width = sw;
     tempCanvas.height = sh;

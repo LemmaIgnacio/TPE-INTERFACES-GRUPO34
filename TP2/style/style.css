@@ -632,22 +632,24 @@ h3 {
             box-shadow: 5px 5px 5px var(--colecci-n-variable-black);
         }
         .btn-primary:hover {
-            background: var(--Secondary-Color-Purple);
+            background: green;
             color: var(--N-Light-Gray);
             animation: glow-loop 2.5s infinite;
         }
             @keyframes glow-loop {
                 0% {
-                    box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple);
+                    box-shadow: 0 0 0px 0px green;
                 }
                 40% {
-                    box-shadow: 0 0 18px 4px var(--Secondary-Color-Purple);
+                    box-shadow: 0 0 18px 4px purple;
+                    background: purple;
                 }
                 60% {
-                    box-shadow: 0 0 8px 1px var(--Secondary-Color-Purple);
+                    box-shadow: 0 0 8px 1px purple;
                 }
                 100% {
-                    box-shadow: 0 0 0px 0px var(--Secondary-Color-Purple);
+                    box-shadow: 0 0 0px 0px green;
+                    background: green;
                 }
             }
     /*Secondary Button --> */
