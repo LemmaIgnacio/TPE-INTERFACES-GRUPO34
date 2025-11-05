@@ -174,6 +174,9 @@ function main() {
                 if (gameState === 'won') {
                     setTimeout(() => {
                         alert('¡Felicidades! ¡Has ganado!');
+                        // Volver al menú principal
+                        gameMenu.style.display = 'block';
+                        gameContainer.style.display = 'none';
                     }, 500);
                 } else if (gameState === 'lost') {
                     setTimeout(() => {
