@@ -17,6 +17,7 @@ function main() {
     const gameContainer = document.getElementById('GameContainer');
     const canvas = document.getElementById('pegsolitaire-canvas');
     const ctx = canvas.getContext('2d');
+    
 
     function resizeCanvas() {
         canvas.width = 600;
@@ -29,13 +30,14 @@ function main() {
     resizeCanvas();
 
     let tablero;
-    const fondoPath = "../media/ChatGPT Image 16 sept 2025, 10_05_29 p.m..png";
+    const fondoPath = "../media/PegSolitarie/board.png";
 
     function drawBoard() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (!tablero) {
             tablero = new Tablero(fondoPath);
             tablero.init();
+            
         }
         tablero.render(ctx);
         tablero.renderCasillas(ctx);
@@ -100,7 +102,7 @@ function main() {
         requestAnimationFrame(drawBoard);
     }
 
-    let draggingFicha = null;
+
 
     // Obtener celda por coords del mouse
     function getCellFromCoords(mx, my) {
@@ -119,6 +121,7 @@ function main() {
         return null;
     }
 
+    // Iniciar arrastre
     canvas.addEventListener('mousedown', function(e) {
         if (!tablero) return;
         const rect = canvas.getBoundingClientRect();
@@ -150,6 +153,7 @@ function main() {
         drawBoard();
     });
 
+    // Soltar la ficha
     canvas.addEventListener('mouseup', function(e) {
         if (!draggingFicha) return;
         const rect = canvas.getBoundingClientRect();
@@ -165,14 +169,37 @@ function main() {
         drawBoard();
     });
 
+    //Dibuja la ficha que se está arrastrando
     function drawDraggingFicha(drag) {
         const cellSize = 80;
         drag.ficha.render(ctx, drag.mouseX - cellSize/2, drag.mouseY - cellSize/2, cellSize);
     }
 
+    //Iniciar juego
     playBtn.addEventListener('click', function() {
         gameMenu.style.display = 'none';
         gameContainer.style.display = 'flex';
         drawBoard();
+        cron.start();
     });
+
+    // Reiniciar juego
+    const restartBtn = document.getElementById('pegsolitaire-restart-btn');
+    function restartGame() {
+        tablero.init();
+        drawBoard();
+        cron.reset();
+        cron.start();
+        draggingFicha = null;
+    }
+    if (restartBtn) restartBtn.addEventListener('click', restartGame);
+
+
+    
+
+
+
+
+    // Llama onGameFinished() en el código donde detectas fin de partida / victoria
+
 }

@@ -124,14 +124,47 @@ class Tablero {
     }
 }
 
-// Cronometro
-class Cronometro {
+//Temporizador
+class Temporizador {
+    constructor(duration, display) {
+        this.duration = duration;
+        this.display = display;
+        this.startTime = null;
+        this.running = false;
+    }
 
+    start() {
+        this.startTime = performance.now();
+        this.running = true;
+        this.update();
+    }
+
+    format(msLeft) {
+        const totalMs = Math.max(msLeft, 0);
+        const minutes = Math.floor(totalMs / 60000);
+        const seconds = Math.floor((totalMs % 60000) / 1000);
+        const milliseconds = Math.floor((totalMs % 1000) / 10);
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+    }
+
+    update = () => {
+        if (!this.running) return;
+        const now = performance.now();
+        const elapsed = now - this.startTime;
+        const remaining = this.duration - elapsed;
+        this.display.textContent = this.format(remaining);
+        if (remaining > 0) {
+          requestAnimationFrame(this.update);
+        } else {
+          this.running = false;
+          this.display.textContent = "00:00:00";
+          alert("¡Tiempo terminado!");
+        }
+    }
 }
 
 // Fichas
 class Ficha {
-
     render(ctx, x, y, size) {
         const cx = x + size/2;
         const cy = y + size/2;
@@ -171,6 +204,7 @@ class FichaAzul extends Ficha {
     }
 }
 
+/*
 class FichaRoja extends Ficha {
     constructor() {
         super();
@@ -188,3 +222,5 @@ class FichaAmarilla extends Ficha {
     }
 
 }
+    */
+
