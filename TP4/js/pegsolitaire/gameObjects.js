@@ -113,69 +113,6 @@ class Tablero {
         return true;
     }
 
-    // Cuenta cuántas fichas quedan en el tablero
-    countFichas() {
-        let count = 0;
-        for (let i = 0; i < this.casillas.length; i++) {
-            for (let j = 0; j < this.casillas[i].length; j++) {
-                if (this.casillas[i][j] instanceof Ficha) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-
-    // Verifica si hay algún movimiento válido disponible
-    hasValidMoves() {
-        const rows = this.casillas.length;
-        const cols = this.casillas[0].length;
-        const dirs = [
-            {di: -2, dj: 0}, // arriba
-            {di: 2, dj: 0},  // abajo
-            {di: 0, dj: -2}, // izquierda
-            {di: 0, dj: 2}   // derecha
-        ];
-        
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                if (this.casillas[i][j] instanceof Ficha) {
-                    for (const dir of dirs) {
-                        const to = {i: i + dir.di, j: j + dir.dj};
-                        if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
-                            if (this.validMove({i, j}, to)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    // Verifica el estado del juego: 'playing', 'won', 'lost'
-    checkGameState() {
-        const fichasRestantes = this.countFichas();
-        
-        if (fichasRestantes === 1) {
-            // Verificar si la única ficha está en el centro
-            const centerI = Math.floor(this.casillas.length / 2);
-            const centerJ = Math.floor(this.casillas[0].length / 2);
-            if (centerI && centerJ) {
-                return 'won';
-            } else {
-                return 'lost';
-            }
-        }
-        
-        if (!this.hasValidMoves()) {
-            return 'lost';
-        }
-        
-        return 'playing';
-    }
-
     render(ctx) {
         if (this.fondo.complete) {
             ctx.drawImage(this.fondo, 0, 0, ctx.canvas.width, ctx.canvas.height);
