@@ -205,6 +205,9 @@ function main() {
     playBtn.addEventListener('click', function() {
         gameMenu.style.display = 'none';
         gameContainer.style.display = 'flex';
+        if (tablero) {
+            tablero.init();
+        }
         drawBoard();
         timer.reset();
         timerStarted = false;
