@@ -162,6 +162,10 @@ function main() {
         const cell = getCellFromCoords(mx, my);
         if (cell && tablero && draggingFicha.ficha) {
             if (tablero.validMove(draggingFicha.from, cell)) {
+                if (!timerStarted) {
+                    timer.start();
+                    timerStarted = true;
+                }
                 tablero.moveFicha(draggingFicha.from, cell);
                 
                 // Verificar estado del juego después del movimiento
@@ -192,13 +196,15 @@ function main() {
     const timerDisplay = document.getElementById('display');
     const timer = new Temporizador(10 * 60 * 1000, timerDisplay); // 10 minutos
     let draggingFicha = null;
+    let timerStarted = false;
 
     //Iniciar juego
     playBtn.addEventListener('click', function() {
         gameMenu.style.display = 'none';
         gameContainer.style.display = 'flex';
         drawBoard();
-        timer.start();
+        timer.reset();
+        timerStarted = false;
     });
 
     // Reiniciar juego
@@ -207,8 +213,8 @@ function main() {
         tablero.init();
         drawBoard();
         timer.reset();
-        timer.start();
         draggingFicha = null;
+        timerStarted = false;
     }
     if (restartBtn) restartBtn.addEventListener('click', restartGame);
 
