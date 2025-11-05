@@ -9,14 +9,13 @@
     justify-content: flex-start;
     background: var(--Background-Color-Dark);
     background-image: url(../media/ChatGPT\ Image\ 16\ sept\ 2025\,\ 10_05_29\ p.m..png);
-    background-size: cover;
-    background-position: center; /* Optional: centers the image */
+    background-size: 100% auto;
+    background-position: center;
     background-repeat: no-repeat;
     border-radius: 0 0 1.5em 1.5em;
     box-shadow: 0 4px 24px var(--Primary-Color-Dark, #2D8A81);
     padding: 0;
     margin: 0 auto;
-    z-index: 1;
 }
 
 .pegsolitaire-menu__container {
