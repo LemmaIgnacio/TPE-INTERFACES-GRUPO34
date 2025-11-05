@@ -174,7 +174,6 @@ function main() {
                 if (gameState === 'won') {
                     setTimeout(() => {
                         alert('¡Felicidades! ¡Has ganado!');
-                        // Volver al menú principal
                         gameMenu.style.display = 'block';
                         gameContainer.style.display = 'none';
                     }, 500);
@@ -182,6 +181,8 @@ function main() {
                     setTimeout(() => {
                         const fichasRestantes = tablero.countFichas();
                         alert(`Juego terminado. Te quedaron ${fichasRestantes} fichas. ¡Intenta de nuevo!`);
+                        gameMenu.style.display = 'block';
+                        gameContainer.style.display = 'none';
                     }, 500);
                 }
             }

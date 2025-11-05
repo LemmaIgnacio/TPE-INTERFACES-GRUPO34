@@ -356,6 +356,10 @@ function drawBlocka() {
         }
         ctx.restore();
     }
+    if (nextLevelActive) {
+        btn_next_level = new Button (850, 540, 140, 50, 'Siguiente nivel', 'rgba(132, 233, 221, 1)');
+        btn_next_level.draw(ctx);
+    }
 }
 
 canvas.addEventListener('contextmenu', function(e){
