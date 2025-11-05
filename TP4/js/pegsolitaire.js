@@ -163,6 +163,20 @@ function main() {
         if (cell && tablero && draggingFicha.ficha) {
             if (tablero.validMove(draggingFicha.from, cell)) {
                 tablero.moveFicha(draggingFicha.from, cell);
+                
+                // Verificar estado del juego después del movimiento
+                const gameState = tablero.checkGameState();
+                console.log(gameState);
+                if (gameState === 'won') {
+                    setTimeout(() => {
+                        alert('¡Felicidades! ¡Has ganado!');
+                    }, 500);
+                } else if (gameState === 'lost') {
+                    setTimeout(() => {
+                        const fichasRestantes = tablero.countFichas();
+                        alert(`Juego terminado. Te quedaron ${fichasRestantes} fichas. ¡Intenta de nuevo!`);
+                    }, 500);
+                }
             }
         }
         draggingFicha = null;
