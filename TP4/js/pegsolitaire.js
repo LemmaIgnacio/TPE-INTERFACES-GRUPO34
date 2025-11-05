@@ -175,12 +175,16 @@ function main() {
         drag.ficha.render(ctx, drag.mouseX - cellSize/2, drag.mouseY - cellSize/2, cellSize);
     }
 
+    const timerDisplay = document.getElementById('display-timer');
+    const timer = new Temporizador(10 * 60 * 1000, timerDisplay); // 10 minutos
+    let draggingFicha = null;
+
     //Iniciar juego
     playBtn.addEventListener('click', function() {
         gameMenu.style.display = 'none';
         gameContainer.style.display = 'flex';
         drawBoard();
-        cron.start();
+        timer.start();
     });
 
     // Reiniciar juego
@@ -188,8 +192,8 @@ function main() {
     function restartGame() {
         tablero.init();
         drawBoard();
-        cron.reset();
-        cron.start();
+        timer.reset();
+        timer.start();
         draggingFicha = null;
     }
     if (restartBtn) restartBtn.addEventListener('click', restartGame);

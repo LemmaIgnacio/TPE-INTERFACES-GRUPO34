@@ -161,6 +161,16 @@ class Temporizador {
           alert("¡Tiempo terminado!");
         }
     }
+
+    pause() {
+        this.running = false;
+    }
+
+    reset() {
+        this.running = false;
+        this.display.textContent = this.format(this.duration);
+    }
+
 }
 
 // Fichas
