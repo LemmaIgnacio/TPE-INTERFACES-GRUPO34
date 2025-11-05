@@ -27,7 +27,19 @@ class MenuScene extends Scene {
 
 // Juego
 class GameScene extends Scene {
+    constructor() {
+        super();
+        // Instancia el tablero con imagen de fondo
+        this.tablero = new Tablero('../media/pegsolitaire/board_bg.png');
+        this.tablero.init();
+    }
 
+    render(ctx) {
+        // Dibuja el fondo del tablero
+        this.tablero.render(ctx);
+        // Dibuja las casillas y fichas
+        this.tablero.renderCasillas(ctx);
+    }
 }
 
 // Juego terminado
