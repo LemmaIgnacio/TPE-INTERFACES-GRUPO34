@@ -1,6 +1,6 @@
 const toggleBtn = document.getElementById('toggle-btn')
 const sidebar = document.getElementById('sidebar')
-const main = document.querySelector('main')
+const mainMobile = document.querySelector('main')
 
 
 //Sidebar toggle
@@ -19,12 +19,12 @@ const main = document.querySelector('main')
         toggleBtn.classList.toggle('rotate')
         sidebar.classList.remove('close')
         sidebar.classList.toggle('show-sidebar-mobile')
-        main.classList.toggle('less-opacity')
+        mainMobile.classList.toggle('less-opacity')
         
     }
     function closeSidebarMobile(params) {
         sidebar.classList.remove('show-sidebar-mobile')
-        main.classList.remove('less-opacity')
+        mainMobile.classList.remove('less-opacity')
         toggleBtn.classList.remove('rotate')
     }
 
