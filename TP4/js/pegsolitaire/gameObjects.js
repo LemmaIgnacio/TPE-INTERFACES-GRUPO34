@@ -58,13 +58,13 @@ class Tablero {
         // 0 = casilla vacía
         // Tablero clásico 7x7 
         this.casillas = [
-            [null, null, new FichaAzul(), new FichaAzul(), new FichaAzul(), null, null],
-            [null, null, new FichaAzul(), new FichaAzul(), new FichaAzul(), null, null],
-            [new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul()],
-            [new FichaAzul(), new FichaAzul(), new FichaAzul(), 0, new FichaAzul(), new FichaAzul(), new FichaAzul()],
-            [new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul(), new FichaAzul()],
-            [null, null, new FichaAzul(), new FichaAzul(), new FichaAzul(), null, null],
-            [null, null, new FichaAzul(), new FichaAzul(), new FichaAzul(), null, null]
+            [null, null, new FichaAzul(), new FichaRoja(), new FichaVioleta(), null, null],
+            [null, null, new FichaAzul(), new FichaRoja(), new FichaVioleta(), null, null],
+            [new FichaAzul(), new FichaRoja(), new FichaVioleta(), new FichaAzul(), new FichaRoja(), new FichaVioleta(), new FichaAzul()],
+            [new FichaRoja(), new FichaVioleta(), new FichaAzul(), 0, new FichaRoja(), new FichaVioleta(), new FichaAzul()],
+            [new FichaAzul(), new FichaRoja(), new FichaVioleta(), new FichaAzul(), new FichaRoja(), new FichaVioleta(), new FichaAzul()],
+            [null, null, new FichaAzul(), new FichaRoja(), new FichaVioleta(), null, null],
+            [null, null, new FichaAzul(), new FichaRoja(), new FichaVioleta(), null, null]
         ];
     }
 
@@ -276,23 +276,22 @@ class FichaAzul extends Ficha {
     }
 }
 
-/*
+
 class FichaRoja extends Ficha {
     constructor() {
         super();
         this.imagen = new window.Image();
-        this.imagen.src = "../";
+        this.imagen.src = "../media/PegSolitarie/fichaRoja.png";
     }
 
 }
 
-class FichaAmarilla extends Ficha {
+class FichaVioleta extends Ficha {
     constructor() {
         super();
         this.imagen = new window.Image();
-        this.imagen.src = "../";
+        this.imagen.src = "../media/PegSolitarie/fichaVioleta.png" ;
     }
-
 }
-    */
+
 
