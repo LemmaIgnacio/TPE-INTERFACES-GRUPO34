@@ -189,11 +189,12 @@ class Tablero {
 
 //Temporizador
 class Temporizador {
-    constructor(duration, display) {
+    constructor(duration, display, onFinish) {
         this.duration = duration;
         this.display = display;
         this.startTime = null;
         this.running = false;
+        this.onFinish = typeof onFinish === 'function' ? onFinish : null;
     }
 
     start() {
@@ -217,11 +218,11 @@ class Temporizador {
         const remaining = this.duration - elapsed;
         this.display.textContent = this.format(remaining);
         if (remaining > 0) {
-          requestAnimationFrame(this.update);
+            requestAnimationFrame(this.update);
         } else {
-          this.running = false;
-          this.display.textContent = "00:00:00";
-          alert("¡Tiempo terminado!");
+            this.running = false;
+            this.display.textContent = "00:00:00";
+            if (this.onFinish) this.onFinish();
         }
     }
 
@@ -232,6 +233,9 @@ class Temporizador {
     reset() {
         this.running = false;
         this.display.textContent = this.format(this.duration);
+    }
+    setOnFinish(callback) {
+        this.onFinish = typeof callback === 'function' ? callback : null;
     }
 
 }
