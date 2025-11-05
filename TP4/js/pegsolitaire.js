@@ -175,7 +175,7 @@ function main() {
         drag.ficha.render(ctx, drag.mouseX - cellSize/2, drag.mouseY - cellSize/2, cellSize);
     }
 
-    const timerDisplay = document.getElementById('display-timer');
+    const timerDisplay = document.getElementById('display');
     const timer = new Temporizador(10 * 60 * 1000, timerDisplay); // 10 minutos
     let draggingFicha = null;
 
