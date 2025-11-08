@@ -126,6 +126,7 @@ function draw() {
   // Puntaje
   ctx.fillStyle = 'white';
   ctx.font = '24px Arial';
+  ctx.Rect(0, 0, 150, 80);
   ctx.fillText('Puntaje: ' + score, 10, 30);
   ctx.fillText('Máximo: ' + highScore, 10, 60);
 
