@@ -1,6 +1,11 @@
 const canvas = document.getElementById('flappybird-canvas');
 const ctx = canvas.getContext('2d');
 
+const playBtn = document.getElementById('flappybird-play-btn');
+const gameMenu = document.getElementById('flappybird-menu');
+const gameContainer = document.getElementById('GameContainer');
+
+
 // Cargar imágenes
 const bg = new Image();
 bg.src = '../../media/bg.png';
@@ -137,4 +142,11 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-draw();
+
+//Iniciar juego
+    playBtn.addEventListener('click', function() {
+        gameMenu.style.display = 'none';
+        gameContainer.style.display = 'flex';
+        draw();
+    });
+
