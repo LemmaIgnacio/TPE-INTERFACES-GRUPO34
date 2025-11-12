@@ -56,10 +56,10 @@ function main() {
         const offsetX = (canvas.width - boardWidth) / 2;
         const offsetY = (canvas.height - boardHeight) / 2;
         const dirs = [
-            {di: -2, dj: 0}, // arriba
-            {di: 2, dj: 0},  // abajo
-            {di: 0, dj: -2}, // izquierda
-            {di: 0, dj: 2}   // derecha
+            {di: -3, dj: 0}, // arriba
+            {di: 3, dj: 0},  // abajo
+            {di: 0, dj: -3}, // izquierda
+            {di: 0, dj: 3}   // derecha
         ];
         for (const dir of dirs) {
             const to = {i: from.i + dir.di, j: from.j + dir.dj};

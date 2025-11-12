@@ -53,10 +53,7 @@ class Tablero {
      * Forma clásica: tablero en cruz, esquinas inválidas (null), centro vacío.
      */
     init() {
-        // null = casilla inválida
-        // FichaAzul = casilla con ficha,
-        // 0 = casilla vacía
-        // Tablero clásico 7x7 
+        // Tablero clásico 7x7
         this.casillas = [
             [null, null, new FichaAzul(), new FichaRoja(), new FichaVioleta(), null, null],
             [null, null, new FichaAzul(), new FichaRoja(), new FichaVioleta(), null, null],
@@ -74,41 +71,52 @@ class Tablero {
         const ficha = this.casillas[from.i][from.j];
         if (!(ficha instanceof Ficha)) return false;
         if (this.casillas[to.i][to.j] !== 0) return false;
-        // Movimiento de 2 celdas
+        // Movimiento de 3 celdas en línea recta
         const di = to.i - from.i;
         const dj = to.j - from.j;
-        if (Math.abs(di) === 2 && dj === 0) {
+        let mid1I, mid1J, mid2I, mid2J;
+        if (Math.abs(di) === 3 && dj === 0) {
             // Salto vertical
-            const midI = from.i + di/2;
-            const midJ = from.j;
-            const fichaSaltada = this.casillas[midI][midJ];
-            if (fichaSaltada instanceof Ficha) return true;
-        } else if (Math.abs(dj) === 2 && di === 0) {
+            mid1I = from.i + (di > 0 ? 1 : -1);
+            mid1J = from.j;
+            mid2I = from.i + (di > 0 ? 2 : -2);
+            mid2J = from.j;
+        } else if (Math.abs(dj) === 3 && di === 0) {
             // Salto horizontal
-            const midI = from.i;
-            const midJ = from.j + dj/2;
-            const fichaSaltada = this.casillas[midI][midJ];
-            if (fichaSaltada instanceof Ficha) return true;
+            mid1I = from.i;
+            mid1J = from.j + (dj > 0 ? 1 : -1);
+            mid2I = from.i;
+            mid2J = from.j + (dj > 0 ? 2 : -2);
+        } else {
+            return false;
         }
-        return false;
+        // Verifica que ambas fichas intermedias existan
+        if (!(this.casillas[mid1I][mid1J] instanceof Ficha)) return false;
+        if (!(this.casillas[mid2I][mid2J] instanceof Ficha)) return false;
+        return true;
     }
-
+    
     moveFicha(from, to) {
         if (!this.validMove(from, to)) return false;
         const ficha = this.casillas[from.i][from.j];
-        // Eliminar ficha saltada
+        // Eliminar dos fichas saltadas
         const di = to.i - from.i;
         const dj = to.j - from.j;
-        let midI, midJ;
-        if (Math.abs(di) === 2 && dj === 0) {
-            midI = from.i + di/2;
-            midJ = from.j;
-        } else if (Math.abs(dj) === 2 && di === 0) {
-            midI = from.i;
-            midJ = from.j + dj/2;
+        let mid1I, mid1J, mid2I, mid2J;
+        if (Math.abs(di) === 3 && dj === 0) {
+            mid1I = from.i + (di > 0 ? 1 : -1);
+            mid1J = from.j;
+            mid2I = from.i + (di > 0 ? 2 : -2);
+            mid2J = from.j;
+        } else if (Math.abs(dj) === 3 && di === 0) {
+            mid1I = from.i;
+            mid1J = from.j + (dj > 0 ? 1 : -1);
+            mid2I = from.i;
+            mid2J = from.j + (dj > 0 ? 2 : -2);
         }
         this.casillas[from.i][from.j] = 0;
-        this.casillas[midI][midJ] = 0;
+        this.casillas[mid1I][mid1J] = 0;
+        this.casillas[mid2I][mid2J] = 0;
         this.casillas[to.i][to.j] = ficha;
         return true;
     }
@@ -130,11 +138,12 @@ class Tablero {
     hasValidMoves() {
         const rows = this.casillas.length;
         const cols = this.casillas[0].length;
+        // Direcciones para saltos de 3 celdas
         const dirs = [
-            {di: -2, dj: 0}, // arriba
-            {di: 2, dj: 0},  // abajo
-            {di: 0, dj: -2}, // izquierda
-            {di: 0, dj: 2}   // derecha
+            {di: -3, dj: 0}, // arriba
+            {di: 3, dj: 0},  // abajo
+            {di: 0, dj: -3}, // izquierda
+            {di: 0, dj: 3}   // derecha
         ];
         
         for (let i = 0; i < rows; i++) {
