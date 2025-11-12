@@ -33,7 +33,7 @@ class Tablero {
                     // No dibujar nada si es vacio o centro
                     if (casilla === null || casilla === 0) continue;
                     ctx.save();
-                    ctx.strokeStyle = '#bdbdbd';
+                    ctx.strokeStyle = '#00fffbff';
                     ctx.lineWidth = 2;
                     ctx.fillStyle = '#f5f5f5';
                     ctx.beginPath();
@@ -67,56 +67,95 @@ class Tablero {
 
     validMove(from, to) {
         if (!from || !to) return false;
-        // Debe haber ficha en origen y destino debe estar vacío
+        
         const ficha = this.casillas[from.i][from.j];
         if (!(ficha instanceof Ficha)) return false;
         if (this.casillas[to.i][to.j] !== 0) return false;
-        // Movimiento de 3 celdas en línea recta
+        
         const di = to.i - from.i;
         const dj = to.j - from.j;
         let mid1I, mid1J, mid2I, mid2J;
+        
+        // Saltos de 2 celdas (comer 1 ficha)
+        if (Math.abs(di) === 2 && dj === 0) {
+            mid1I = from.i + (di > 0 ? 1 : -1);
+            mid1J = from.j;
+            if (!(this.casillas[mid1I][mid1J] instanceof Ficha)) return false;
+            return true;
+        }
+        
+        if (Math.abs(dj) === 2 && di === 0) {
+            mid1I = from.i;
+            mid1J = from.j + (dj > 0 ? 1 : -1);
+            if (!(this.casillas[mid1I][mid1J] instanceof Ficha)) return false;
+            return true;
+        }
+        
+        // Saltos de 3 celdas (comer 2 fichas)
         if (Math.abs(di) === 3 && dj === 0) {
-            // Salto vertical
             mid1I = from.i + (di > 0 ? 1 : -1);
             mid1J = from.j;
             mid2I = from.i + (di > 0 ? 2 : -2);
             mid2J = from.j;
-        } else if (Math.abs(dj) === 3 && di === 0) {
-            // Salto horizontal
+            if (!(this.casillas[mid1I][mid1J] instanceof Ficha)) return false;
+            if (!(this.casillas[mid2I][mid2J] instanceof Ficha)) return false;
+            return true;
+        }
+        
+        if (Math.abs(dj) === 3 && di === 0) {
             mid1I = from.i;
             mid1J = from.j + (dj > 0 ? 1 : -1);
             mid2I = from.i;
             mid2J = from.j + (dj > 0 ? 2 : -2);
-        } else {
-            return false;
+            if (!(this.casillas[mid1I][mid1J] instanceof Ficha)) return false;
+            if (!(this.casillas[mid2I][mid2J] instanceof Ficha)) return false;
+            return true;
         }
-        // Verifica que ambas fichas intermedias existan
-        if (!(this.casillas[mid1I][mid1J] instanceof Ficha)) return false;
-        if (!(this.casillas[mid2I][mid2J] instanceof Ficha)) return false;
-        return true;
+        
+        return false;
     }
     
-    moveFicha(from, to) {
+   moveFicha(from, to) {
         if (!this.validMove(from, to)) return false;
+        
         const ficha = this.casillas[from.i][from.j];
-        // Eliminar dos fichas saltadas
         const di = to.i - from.i;
         const dj = to.j - from.j;
         let mid1I, mid1J, mid2I, mid2J;
+        
+        // Saltos de 2 celdas (comer 1 ficha)
+        if (Math.abs(di) === 2 && dj === 0) {
+            mid1I = from.i + (di > 0 ? 1 : -1);
+            mid1J = from.j;
+            this.casillas[mid1I][mid1J] = 0; // Eliminar 1 ficha
+        }
+        
+        if (Math.abs(dj) === 2 && di === 0) {
+            mid1I = from.i;
+            mid1J = from.j + (dj > 0 ? 1 : -1);
+            this.casillas[mid1I][mid1J] = 0; // Eliminar 1 ficha
+        }
+        
+        // Saltos de 3 celdas (comer 2 fichas)
         if (Math.abs(di) === 3 && dj === 0) {
             mid1I = from.i + (di > 0 ? 1 : -1);
             mid1J = from.j;
             mid2I = from.i + (di > 0 ? 2 : -2);
             mid2J = from.j;
-        } else if (Math.abs(dj) === 3 && di === 0) {
+            this.casillas[mid1I][mid1J] = 0; // Eliminar ficha 1
+            this.casillas[mid2I][mid2J] = 0; // Eliminar ficha 2
+        }
+        if (Math.abs(dj) === 3 && di === 0) {
             mid1I = from.i;
             mid1J = from.j + (dj > 0 ? 1 : -1);
             mid2I = from.i;
             mid2J = from.j + (dj > 0 ? 2 : -2);
+            this.casillas[mid1I][mid1J] = 0; // Eliminar ficha 1
+            this.casillas[mid2I][mid2J] = 0; // Eliminar ficha 2
         }
+        
+        // Mover la ficha
         this.casillas[from.i][from.j] = 0;
-        this.casillas[mid1I][mid1J] = 0;
-        this.casillas[mid2I][mid2J] = 0;
         this.casillas[to.i][to.j] = ficha;
         return true;
     }
@@ -139,18 +178,32 @@ class Tablero {
         const rows = this.casillas.length;
         const cols = this.casillas[0].length;
         // Direcciones para saltos de 3 celdas
-        const dirs = [
+        const dirs_1 = [
             {di: -3, dj: 0}, // arriba
             {di: 3, dj: 0},  // abajo
             {di: 0, dj: -3}, // izquierda
             {di: 0, dj: 3}   // derecha
         ];
+        const dirs_2 = [
+            {di: -2, dj: 0}, // arriba
+            {di: 2, dj: 0},  // abajo
+            {di: 0, dj: -2}, // izquierda
+            {di: 0, dj: 2}   // derecha
+        ];
         
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
                 if (this.casillas[i][j] instanceof Ficha) {
-                    for (const dir of dirs) {
-                        const to = {i: i + dir.di, j: j + dir.dj};
+                    for (const dir of dirs_1) {
+                        const to = {i: from.i + dir.di, j: from.j + dir.dj};
+                        if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
+                            if (this.validMove({i, j}, to)) {
+                                return true;
+                            }
+                        }
+                    }
+                    for (const dir of dirs_2) {
+                        const to = {i: from.i + dir.di, j: from.j + dir.dj};
                         if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
                             if (this.validMove({i, j}, to)) {
                                 return true;
@@ -267,7 +320,7 @@ class Ficha {
                 ctx.drawImage(this.imagen, cx - radius, cy - radius, radius*2, radius*2);
                 ctx.restore();
             };
-        } else {
+        } else { //Por las dudas de que se rompa la imagen
             ctx.fillStyle = 'rgba(132, 233, 221, 1)';
             ctx.beginPath();
             ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
@@ -284,7 +337,6 @@ class FichaAzul extends Ficha {
         this.imagen.src = "../media/PegSolitarie/ej_ficha_azul.png";
     }
 }
-
 
 class FichaRoja extends Ficha {
     constructor() {
