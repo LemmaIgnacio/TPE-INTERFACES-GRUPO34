@@ -48,7 +48,7 @@ function main() {
     }
 
     function drawHints(tablero, from) {
-        const cellSize = 80;
+        const cellSize = 85;
         const rows = tablero.casillas.length;
         const cols = tablero.casillas[0].length;
         const boardWidth = cols * cellSize;
@@ -85,13 +85,13 @@ function main() {
         ctx.translate(x, y);
         ctx.scale(scale, scale);
         ctx.beginPath();
-        if (dir.di === -2) { // arriba
+        if (dir.di === -3) { // arriba
             ctx.moveTo(0, -20); ctx.lineTo(-10, 0); ctx.lineTo(10, 0); ctx.closePath();
-        } else if (dir.di === 2) { // abajo
+        } else if (dir.di === 3) { // abajo
             ctx.moveTo(0, 20); ctx.lineTo(-10, 0); ctx.lineTo(10, 0); ctx.closePath();
-        } else if (dir.dj === -2) { // izquierda
+        } else if (dir.dj === -3) { // izquierda
             ctx.moveTo(-20, 0); ctx.lineTo(0, -10); ctx.lineTo(0, 10); ctx.closePath();
-        } else if (dir.dj === 2) { // derecha
+        } else if (dir.dj === 3) { // derecha
             ctx.moveTo(20, 0); ctx.lineTo(0, -10); ctx.lineTo(0, 10); ctx.closePath();
         }
         ctx.fillStyle = 'rgba(132,233,221,0.8)';
@@ -106,7 +106,7 @@ function main() {
 
     // Obtener celda por coords del mouse
     function getCellFromCoords(mx, my) {
-        const cellSize = 80;
+        const cellSize = 85;
         const rows = tablero.casillas.length;
         const cols = tablero.casillas[0].length;
         const boardWidth = cols * cellSize;
@@ -193,7 +193,7 @@ function main() {
 
     //Dibuja la ficha que se está arrastrando
     function drawDraggingFicha(drag) {
-        const cellSize = 80;
+        const cellSize = 85;
         drag.ficha.render(ctx, drag.mouseX - cellSize/2, drag.mouseY - cellSize/2, cellSize);
     }
 

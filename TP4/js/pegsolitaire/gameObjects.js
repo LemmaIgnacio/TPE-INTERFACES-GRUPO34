@@ -16,7 +16,7 @@ class Tablero {
 
         renderCasillas(ctx) {
             // Tamaño de cada casilla
-            const cellSize = 80;
+            const cellSize = 85;
             const rows = this.casillas.length;
             const cols = this.casillas[0].length;
             // Calcular tamaño total del tablero
