@@ -195,7 +195,7 @@ class Tablero {
             for (let j = 0; j < cols; j++) {
                 if (this.casillas[i][j] instanceof Ficha) {
                     for (const dir of dirs_1) {
-                        const to = {i: from.i + dir.di, j: from.j + dir.dj};
+                        const to = {i: i + dir.di, j: j + dir.dj};
                         if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
                             if (this.validMove({i, j}, to)) {
                                 return true;
@@ -203,7 +203,7 @@ class Tablero {
                         }
                     }
                     for (const dir of dirs_2) {
-                        const to = {i: from.i + dir.di, j: from.j + dir.dj};
+                        const to = {i: i + dir.di, j: j + dir.dj};
                         if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
                             if (this.validMove({i, j}, to)) {
                                 return true;
@@ -224,7 +224,7 @@ class Tablero {
             // Verificar si la única ficha está en el centro
             const centerI = Math.floor(this.casillas.length / 2);
             const centerJ = Math.floor(this.casillas[0].length / 2);
-            if (centerI && centerJ) {
+            if (this.casillas[centerI][centerJ] instanceof Ficha) {
                 return 'won';
             } else {
                 return 'lost';
