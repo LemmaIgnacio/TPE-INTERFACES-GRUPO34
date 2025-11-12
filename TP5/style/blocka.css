@@ -1,0 +1,9 @@
+#GameCanvas {
+    background: var(--Background-Color-Dark, #18182f);
+    display:flex;
+    align-self: center;
+    justify-content: center;
+    margin: 0 auto;
+    border: 2px solid;
+    border-color: black;
+}

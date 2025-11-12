@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="../style/ST.css" />
         <link rel="stylesheet" href="../style/styleguide.css" />
         <title>Dragon Games</title>
-        <link rel="stylesheet" href="../style/pegsolitaire.css">
     </head>
     <body>
+        <!--Sidebar -->
         <aside id="sidebar" class="close">
             <ul>
                 <li>
@@ -18,7 +18,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e3e3e3" transform="rotate(180)"><path d="M120-240v-66.67h520V-240H120Zm673.33-48L600.67-480.67l192-192L840-625.33 695.33-480.67l145.34 145.34L793.33-288ZM120-448v-66.67h400V-448H120Zm0-205.33V-720h520v66.67H120Z"></path></svg>
                     </button>
                 </li>
-                <li>
+                <li class="active">
                     <a href="home.html">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
                         <span>Home</span>
@@ -36,7 +36,7 @@
                         <span>Adventure</span>
                     </a> <!-- Placeholder for future link. It takes you to the actegories -->
                 </li>
-                <li class="active">
+                <li>
                     <a href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M120-272q0-16 10.5-27t25.5-11q8 0 15.5 2.5T186-300q13 8 26 14t28 6q33 0 56.5-23.5T320-360q0-33-23.5-56.5T240-440q-15 0-29 5t-25 15q-6 5-14 7.5t-16 2.5q-15 0-25.5-11T120-448v-152q0-17 11.5-28.5T160-640h150q-5-15-7.5-30t-2.5-30q0-75 52.5-127.5T480-880q75 0 127.5 52.5T660-700q0 15-2.5 30t-7.5 30h150q17 0 28.5 11.5T840-600v152q0 17-11.5 28.5T800-408q-8 0-14-3.5t-12-8.5q-11-10-25-15t-29-5q-33 0-56.5 23.5T640-360q0 33 23.5 56.5T720-280q15 0 29-5t25-15q5-5 11.5-8.5T800-312q17 0 28.5 11.5T840-272v152q0 17-11.5 28.5T800-80H160q-17 0-28.5-11.5T120-120v-152Zm80 112h560v-46q-10 3-19.5 4.5T720-200q-66 0-113-47t-47-113q0-66 47-113t113-47q11 0 20.5 1.5T760-514v-46H578q-17 0-28.5-11T538-598q0-8 2.5-16.5T550-628q17-12 23.5-31.5T580-700q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 21 6.5 40.5T410-628q7 5 9.5 12.5T422-600q0 17-11.5 28.5T382-560H200v46q10-3 19.5-4.5T240-520q66 0 113 47t47 113q0 66-47 113t-113 47q-11 0-20.5-1.5T200-206v46Zm280-320Z"/></svg>
                         <span>Puzzle</span>
@@ -124,60 +124,36 @@
                 </div>
             </nav>
 
+            <!-- Game Content -->
             <nav class="game-address-navbar">
                 <li class="breadcrumb start"><a href="home.html">Home</a></li>
                 <img src="../assets/icon/purpleChevron.svg">
-                <li class="breadcrumb"><a href="#">Puzzle</a></li>
+                <li class="breadcrumb"><a href="#">Board Games</a></li>
                 <img src="../assets/icon/purpleChevron.svg">
-                <li class="breadcrumb end"><a href="#">Peg Solitaire</a></li>
+                <li class="breadcrumb end"><a href="#">Dragon Peg Solitaire</a></li>
+                <!-- Resto de breadcrumbs -->
             </nav>
             
-            <section id="pegsolitaire-menu" class="container-main pegsolitaire-menu">
-                <div class="container pegsolitaire-menu__container">
-                    <h1 class="pegsolitaire-menu__title detail-title">Peg Solitaire</h1>
-                    <p class="pegsolitaire-menu__subtitle subtitle detail-description">Jump the pegs and clear the board!</p>
-                    <button id="pegsolitaire-play-btn" class="btn-main pegsolitaire-menu__play">Play Peg Solitaire</button>
-                    <div class="pegsolitaire-menu__options--row">
-                        <button id="pegsolitaire-howto-btn" class="btn-secondary pegsolitaire-menu__howto">How to play</button>
-                    </div>
-
-                    <div id="howto-modal" class="pegsolitaire-howto-modal">
-                        <div class="pegsolitaire-howto-modal__content">
-                            <h2 class="pegsolitaire-howto-modal__title">How to play</h2>
-                            <p class="pegsolitaire-howto-modal__desc">Click on a peg to select it. Jump over another peg into an empty space to remove the jumped peg. Try to leave only one peg in the center!</p>
-                        </div>
-                    </div>
-                </div>
+            <section id="GameContainer">
+                <canvas id="GameWindow" width="1080" height="1080"></canvas>
             </section>
 
-
-            <section id="GameContainer" style="display: none;">
-                <canvas id="pegsolitaire-canvas" width="1080" height="1080" style="background:#f8f8fc;border-radius:16px;box-shadow:0 2px 12px rgba(132,233,221,0.10);"></canvas>
-                <div class="container">
-                    <h1>Timer</h1>
-                    <div id="display">10:00:00</div>
-
-                    <div style="margin-top:12px;">
-                        <button id="pegsolitaire-restart-btn" class="btn-secondary">Reiniciar juego</button>
-                    </div>
-                </div>
-            </section>
-            
             <section id="GameDetails">
                 <div id="GameTitle">
-                    <span class="detail-title">Peg Solitaire</span>
+                    <span class="detail-title">Dragon Peg Solitaire</span>
                 </div>
 
                 <div id="GameInformation">
                     <span class="detail-info">Rating: ⭐⭐⭐⭐⭐</span>
                     <span class="detail-info">Author: Dragon Games</span>
-                    <span class="detail-info">Published: 30/07/25</span>
+                    <span class="detail-info">Published: 16/07/25</span>
                 </div>
 
                 <div id="GameDescription">
                     <span class="detail-description">
                         Immerse yourself in a mystical world where logic becomes legend! 
-                        Dragon Peg Solitaire is an online game that reinvents the classic peg solitaire with epic aesthetics and strategic challenges.                    </span>
+                        Dragon Peg Solitaire is an online game that reinvents the classic peg solitaire with epic aesthetics and strategic challenges.
+                    </span>
                     <button class="share-button">Share</button>
                 </div>
             </section>
@@ -186,34 +162,36 @@
                 <div class="how-to-play-content">
                     <div class="how-to-play-content-text">
                         <div>
-                            <h2>🕹️How to Play</h2>
-                            <span>Make your first move</span>
-                            <ul>
-                                <li>Click on a peg to select it.</li>
-                                <li>Then click on an empty space that you can jump to (there must be a peg in between).</li>
-                                <li>The jumped peg is automatically removed.</li>
-                            </ul>
+                            <span>How to Play</span>
+                        </div>
 
-                            <span>Plan your moves</span>
-                            <ul>
-                                <li>Avoid leaving isolated pegs.</li>
-                                <li>Work from the edges to the center.</li>
-                                <li>Use features like undo if you make a mistake.</li>
-                            </ul>
-                                
-                            <span>Win the game</span>
-                            <ul>
-                                <li>The game ends when you can't make any more moves.</li>
-                                <li>If only one peg remains in the center, you win!</li>
-                            </ul>
-                            <a href="#">Wiki</a>
+                        <span>Make your first move</span>
+                        <ul>
+                            <li>Click on a peg to select it.</li>
+                            <li>Then click on an empty space that you can jump to (there must be a peg in between).</li>
+                            <li>The jumped peg is automatically removed.</li>
+                        </ul>
+
+                        <span>Plan your moves</span>
+                        <ul>
+                            <li>Avoid leaving isolated pegs.</li>
+                            <li>Work from the edges to the center.</li>
+                            <li>Use features like undo if you make a mistake.</li>
+                        </ul>
+                            
+                        <span>Win the game</span>
+                        <ul>
+                            <li>The game ends when you can't make any more moves.</li>
+                            <li>If only one peg remains in the center, you win!</li>
+                        </ul>
+                        <a href="#">Wiki</a>
                     </div>
 
                     <div class="how-to-play-content-media">
                         <div>
                             <span>Media</span>
                         </div>
-                        <div style="display: flexbox;">
+                        <div>
                             <img src="../media/PegSolitaire 1.png">
                             <img src="../media/image.webp">
                         </div>
@@ -299,10 +277,6 @@
                 </div>
             </section>
         </main>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     <!--Footer-->
     <footer>
         <div class="footer-content">
@@ -512,6 +486,5 @@
         <script src="../js/main.js"></script>
         <script src="../js/game.js"></script>
         <script src="../js/ST.js"></script>
-        <script src="../js/pegsolitaire-menu.js"></script>
     </body>
 </html>

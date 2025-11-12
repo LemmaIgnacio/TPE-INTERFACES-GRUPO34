@@ -1,5 +1,5 @@
- /* Estilos para Peg Solitaire, siguiendo el formato de Blocka */
-#pegsolitaire-menu{
+ /* Estilos para Flappy Bird, siguiendo el formato de Blocka */
+#flappybird-menu{
     min-height: 580px;
     width: 1300px;
     display: flex;
@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: flex-start;
     background: var(--Background-Color-Dark);
-    background-image: url(../media/ChatGPT\ Image\ 16\ sept\ 2025\,\ 10_05_29\ p.m..png);
+    background-image: url(../media/flappybird/bg.png);
     background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
@@ -18,7 +18,7 @@
     margin: 0 auto;
 }
 
-.pegsolitaire-menu__container {
+.flappybird-menu__container {
   background: #1a1536;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(132, 233, 221, 0.10);
@@ -31,7 +31,7 @@
   
 }
 
-.pegsolitaire-menu__title {
+.flappybird-menu__title {
   font-size: 2.5rem;
   font-weight: 700;
   color: #fff;
@@ -39,14 +39,14 @@
   text-shadow: 0 2px 12px #84E9DD33;
 }
 
-.pegsolitaire-menu__subtitle {
+.flappybird-menu__subtitle {
   font-size: 1.2rem;
   color: #cfcfff;
   margin-bottom: 24px;
   text-align: center;
 }
 
-.btn-main.pegsolitaire-menu__play {
+.btn-main.flappybird-menu__play {
   background: linear-gradient(90deg, #84E9DD 0%, #8F6FE6 100%);
   color: #fff;
   font-size: 1.3rem;
@@ -59,18 +59,18 @@
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 }
-.btn-main.pegsolitaire-menu__play:hover {
+.btn-main.flappybird-menu__play:hover {
   background: linear-gradient(90deg, #8F6FE6 0%, #84E9DD 100%);
   transform: scale(1.05);
 }
 
-.pegsolitaire-menu__options--row {
+.flappybird-menu__options--row {
   display: flex;
   gap: 16px;
   margin-bottom: 24px;
 }
 
-.btn-secondary.pegsolitaire-menu__howto {
+.btn-secondary.flappybird-menu__howto {
   background: #ff4fcf;
   color: #fff;
   font-size: 1.2rem;
@@ -82,19 +82,19 @@
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 }
-.btn-secondary.pegsolitaire-menu__howto:hover {
+.btn-secondary.flappybird-menu__howto:hover {
   background: #e03bb2;
   transform: scale(1.05);
 }
 
 /* Modal How to Play */
-.pegsolitaire-howto-modal {
+.flappybird-howto-modal {
   display: block;
   background: none;
   margin-top: 32px;
   width: 100%;
 }
-.pegsolitaire-howto-modal__content {
+.flappybird-howto-modal__content {
   background: #221a3a;
   border-radius: 20px;
   box-shadow: 0 4px 24px #84E9DD22;
@@ -103,43 +103,43 @@
   margin: 0 auto;
   text-align: center;
 }
-.pegsolitaire-howto-modal__title {
+.flappybird-howto-modal__title {
   font-size: 2rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 18px;
 }
-.pegsolitaire-howto-modal__animation {
+.flappybird-howto-modal__animation {
   margin-bottom: 18px;
 }
-.pegsolitaire-howto-modal__desc {
+.flappybird-howto-modal__desc {
   color: #cfcfff;
   font-size: 1.1rem;
   margin-bottom: 0;
 }
-.pegsolitaire-howto-modal__close {
+.flappybird-howto-modal__close {
   display: none;
 }
 
 /* Canvas */
-#pegsolitaire-canvas {
-  display: block;
-  margin: 32px auto 0 auto;
-  background: #f8f8fc;
+#flappybird-canvas {
+  background-image:url(../media/flappybird/bg.png);
+  background-size: cover;
+  background-position: center;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(132,233,221,0.10);
 }
 
 @media (max-width: 700px) {
-  .pegsolitaire-menu__container {
+  .flappybird-menu__container {
     padding: 24px 8px;
     max-width: 98vw;
   }
-  .pegsolitaire-howto-modal__content {
+  .flappybird-howto-modal__content {
     padding: 18px 4px;
     max-width: 98vw;
   }
-  #pegsolitaire-canvas {
+  #flappybird-canvas {
     width: 98vw !important;
     height: 60vw !important;
   }
