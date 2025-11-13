@@ -8,38 +8,6 @@ let nextLevelActive = false;
 let btn_next_level = null;
 let gameFinished = false;
 
-/*
-document.getElementById('blocka-start-btn').addEventListener('click', function() {
-    document.getElementById('difficulty-buttons').style.display = 'flex';
-    this.style.display = 'none';
-});
-document.getElementById('btn-easy').addEventListener('click', function() {
-    index_diff = 0;
-    window.setBlockaDiff(diffLevels[index_diff]);
-    if (img.complete) {
-        drawBlocka();
-        start();
-    }
-    document.getElementById('difficulty-buttons').style.display = 'none';
-});
-document.getElementById('btn-medium').addEventListener('click', function() {
-    index_diff = 1;
-    window.setBlockaDiff(diffLevels[index_diff]);
-    if (img.complete) {
-        drawBlocka();
-        start();
-    }
-    document.getElementById('difficulty-buttons').style.display = 'none';
-});
-document.getElementById('btn-hard').addEventListener('click', function() {
-    index_diff = 2;
-    window.setBlockaDiff(diffLevels[index_diff]);
-    if (img.complete) {
-        drawBlocka();
-        start();
-    }
-    document.getElementById('difficulty-buttons').style.display = 'none';
-});*/
 
 canvas.width = width;
 canvas.height = height;

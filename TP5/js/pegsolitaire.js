@@ -48,20 +48,40 @@ function main() {
     }
 
     function drawHints(tablero, from) {
-        const cellSize = 80;
+        const cellSize = 85;
         const rows = tablero.casillas.length;
         const cols = tablero.casillas[0].length;
         const boardWidth = cols * cellSize;
         const boardHeight = rows * cellSize;
         const offsetX = (canvas.width - boardWidth) / 2;
         const offsetY = (canvas.height - boardHeight) / 2;
-        const dirs = [
+        const dirs_1 = [
+            {di: -3, dj: 0}, // arriba
+            {di: 3, dj: 0},  // abajo
+            {di: 0, dj: -3}, // izquierda
+            {di: 0, dj: 3}   // derecha
+        ];
+        const dirs_2 = [
             {di: -2, dj: 0}, // arriba
             {di: 2, dj: 0},  // abajo
             {di: 0, dj: -2}, // izquierda
             {di: 0, dj: 2}   // derecha
         ];
-        for (const dir of dirs) {
+
+        for (const dir of dirs_1) {
+            const to = {i: from.i + dir.di, j: from.j + dir.dj};
+            if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
+                if (tablero.validMove(from, to)) {
+                    // Dibujar hint
+                    drawAnimatedArrow(
+                        offsetX + to.j * cellSize + cellSize/2,
+                        offsetY + to.i * cellSize + cellSize/2,
+                        dir
+                    );
+                }
+            }
+        }
+        for (const dir of dirs_2) {
             const to = {i: from.i + dir.di, j: from.j + dir.dj};
             if (to.i >= 0 && to.i < rows && to.j >= 0 && to.j < cols) {
                 if (tablero.validMove(from, to)) {
@@ -85,6 +105,15 @@ function main() {
         ctx.translate(x, y);
         ctx.scale(scale, scale);
         ctx.beginPath();
+        if (dir.di === -3) { // arriba
+            ctx.moveTo(0, -20); ctx.lineTo(-10, 0); ctx.lineTo(10, 0); ctx.closePath();
+        } else if (dir.di === 3) { // abajo
+            ctx.moveTo(0, 20); ctx.lineTo(-10, 0); ctx.lineTo(10, 0); ctx.closePath();
+        } else if (dir.dj === -3) { // izquierda
+            ctx.moveTo(-20, 0); ctx.lineTo(0, -10); ctx.lineTo(0, 10); ctx.closePath();
+        } else if (dir.dj === 3) { // derecha
+            ctx.moveTo(20, 0); ctx.lineTo(0, -10); ctx.lineTo(0, 10); ctx.closePath();
+        }
         if (dir.di === -2) { // arriba
             ctx.moveTo(0, -20); ctx.lineTo(-10, 0); ctx.lineTo(10, 0); ctx.closePath();
         } else if (dir.di === 2) { // abajo
@@ -94,8 +123,8 @@ function main() {
         } else if (dir.dj === 2) { // derecha
             ctx.moveTo(20, 0); ctx.lineTo(0, -10); ctx.lineTo(0, 10); ctx.closePath();
         }
-        ctx.fillStyle = 'rgba(132,233,221,0.8)';
-        ctx.shadowColor = '#84E9DD';
+        ctx.fillStyle = 'rgba(0, 255, 225, 0.8)';
+        ctx.shadowColor = '#000000ff';
         ctx.shadowBlur = 10;
         ctx.fill();
         ctx.restore();
@@ -106,7 +135,7 @@ function main() {
 
     // Obtener celda por coords del mouse
     function getCellFromCoords(mx, my) {
-        const cellSize = 80;
+        const cellSize = 85;
         const rows = tablero.casillas.length;
         const cols = tablero.casillas[0].length;
         const boardWidth = cols * cellSize;
@@ -154,12 +183,15 @@ function main() {
     });
 
     // Soltar la ficha
+        // Soltar la ficha
     canvas.addEventListener('mouseup', function(e) {
         if (!draggingFicha) return;
         const rect = canvas.getBoundingClientRect();
         const mx = e.clientX - rect.left;
         const my = e.clientY - rect.top;
         const cell = getCellFromCoords(mx, my);
+        
+        let movementMade = false;
         if (cell && tablero && draggingFicha.ficha) {
             if (tablero.validMove(draggingFicha.from, cell)) {
                 if (!timerStarted) {
@@ -167,6 +199,8 @@ function main() {
                     timerStarted = true;
                 }
                 tablero.moveFicha(draggingFicha.from, cell);
+                movementMade = true;
+                draggingFicha = null;
                 
                 // Verificar estado del juego después del movimiento
                 const gameState = tablero.checkGameState();
@@ -187,13 +221,15 @@ function main() {
                 }
             }
         }
+        
+        // Limpiar arrastre SIEMPRE antes de redibujar
         draggingFicha = null;
         drawBoard();
     });
 
     //Dibuja la ficha que se está arrastrando
     function drawDraggingFicha(drag) {
-        const cellSize = 80;
+        const cellSize = 85;
         drag.ficha.render(ctx, drag.mouseX - cellSize/2, drag.mouseY - cellSize/2, cellSize);
     }
 

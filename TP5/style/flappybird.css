@@ -123,9 +123,7 @@
 
 /* Canvas */
 #flappybird-canvas {
-  background-image:url(../media/flappybird/bg.png);
-  background-size: cover;
-  background-position: center;
+
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(132,233,221,0.10);
 }
