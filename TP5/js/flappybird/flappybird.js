@@ -24,7 +24,8 @@ async function main() {
 // Sonidos (opcionales)
   const jumpSound = new Audio('../media/flappybird/jump.mp3');
   const hitSound = new Audio('../media/flappybird/hit.mp3');
-  jumpSound.onerror = () => {}; hitSound.onerror = () => {};
+  const plusPointSound = new Audio('../media/flappybird/point.mp3');
+  jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
   // Estado del juego
   const bird = { x: 50, y: 150, width: 34, height: 24, gravity: 0.5, lift: -8, velocity: 0 };
@@ -131,6 +132,7 @@ async function main() {
       if (p.x + 60 < bird.x && !p.passed) {
         score++;
         p.passed = true;
+        try { plusPointSound.currentTime = 0; plusPointSound.play(); } catch (e) {}
         if (score > highScore) {
           highScore = score;
           localStorage.setItem('highScore', String(highScore));
