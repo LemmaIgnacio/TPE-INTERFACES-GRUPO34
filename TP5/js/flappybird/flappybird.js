@@ -7,28 +7,51 @@ async function main() {
   const gameMenu = document.getElementById('flappybird-menu');
   const gameContainer = document.getElementById('GameContainer');
 
-  // Ajustar tamaño del canvas si es necesario
   canvas.width = canvas.width || 800;
   canvas.height = canvas.height || 600;
   canvas.style.display = 'block';
 
   // Cargar imágenes
   const bg = new Image(); bg.src = '../media/flappybird/bg.png';
-  const birdImg = new Image(); birdImg.src = '../media/flappybird/bird.png';
+  const dragonImg = new Image(); dragonImg.src = '../media/flappybird/dragon.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
   const pipeBottom = new Image(); pipeBottom.src = '../media/flappybird/pipe_bottom.png';
 
-  const images = [bg, birdImg, pipeTop, pipeBottom].map(img =>
+  const images = [bg, dragonImg, pipeTop, pipeBottom].map(img =>
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
-// Sonidos (opcionales)
+
+  // Sonidos (opcionales)
   const jumpSound = new Audio('../media/flappybird/jump.mp3');
   const hitSound = new Audio('../media/flappybird/hit.mp3');
   const plusPointSound = new Audio('../media/flappybird/point.mp3');
   jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
+  // CONFIGURACIÓN DE ANIMACIÓN DE SPRITE
+  const spriteConfig = {
+    frameWidth: 200,      // Ancho de cada frame en el sprite.
+    frameHeight: 150,     // Alto de cada frame.
+    gapBetweenFrames: 10, // Espacio entre frames.
+    framesPerRow: 3,     // Frames por fila en el sprite sheet.
+    animationSpeed: 4    // Cambiar frame cada X frames del juego. (menor = más rápido)
+  };
+
   // Estado del juego
-  const bird = { x: 50, y: 150, width: 34, height: 24, gravity: 0.5, lift: -8, velocity: 0 };
+  const dragon = { 
+    x: 50, 
+    y: 150, 
+    width: 40, 
+    height: 28, 
+    gravity: 0.5, 
+    lift: -8, 
+    velocity: 0,
+    // Propiedades para la animación
+    currentFrame: 0,
+    frameCounter: 0,
+    isAnimating: false,
+    animationDirection: 1  // 1 = adelante, -1 = atrás
+  };
+
   const pipes = [];
   const pipeGap = 120;
   const pipeSpeed = 2;
@@ -40,8 +63,12 @@ async function main() {
   let animating = false;
 
   function resetGame() {
-    bird.y = 150;
-    bird.velocity = 0;
+    dragon.y = 150;
+    dragon.velocity = 0;
+    dragon.currentFrame = 0;
+    dragon.frameCounter = 0;
+    dragon.isAnimating = false;
+    dragon.animationDirection = 1;
     pipes.length = 0;
     score = 0;
     frame = 0;
@@ -52,12 +79,61 @@ async function main() {
   function flap() {
     if (!started) started = true;
     if (!gameOver) {
-      bird.velocity = bird.lift;
+      dragon.velocity = dragon.lift;
+      // Iniciar la animación desde el frame 1
+      dragon.currentFrame = 0;
+      dragon.isAnimating = true;
+      dragon.animationDirection = 1;
+      dragon.frameCounter = 0;
       try { jumpSound.currentTime = 0; jumpSound.play(); } catch (e) {}
     } else {
       resetGame();
       if (!animating) requestAnimationFrame(draw);
     }
+  }
+
+  // Función para actualizar el frame de animación
+  function updateDragonAnimation() {
+    if (!dragon.isAnimating) return;
+    
+    dragon.frameCounter++;
+    if (dragon.frameCounter >= spriteConfig.animationSpeed) {
+      dragon.frameCounter = 0;
+      
+      // Actualizar frame según la dirección
+      dragon.currentFrame += dragon.animationDirection;
+      
+      // Si llegamos al frame 3, cambiar dirección a reversa
+      if (dragon.currentFrame >= 2 && dragon.animationDirection === 1) {
+        dragon.animationDirection = -1;
+      }
+      
+      // Si volvimos al frame 1, terminar la animación
+      if (dragon.currentFrame <= 1 && dragon.animationDirection === -1) {
+        dragon.currentFrame = 0;
+        dragon.isAnimating = false;
+        dragon.animationDirection = 1;
+      }
+    }
+  }
+
+  // Función para dibujar el dragón con el frame actual
+  function drawDragon() {
+    if (!dragonImg.complete) return;
+    
+    // Calcular la posición del frame en el sprite sheet
+    const frameX = spriteConfig.gapBetweenFrames + (dragon.currentFrame * (spriteConfig.frameWidth + spriteConfig.gapBetweenFrames));
+    const frameY = Math.floor(dragon.currentFrame / spriteConfig.framesPerRow) * spriteConfig.frameHeight;
+    
+    // Dibujar el frame específico del sprite
+    ctx.drawImage(
+      dragonImg,
+      frameX, frameY,                           // Posición en el sprite sheet
+      spriteConfig.frameWidth,                   // Ancho del frame
+      spriteConfig.frameHeight,                  // Alto del frame
+      dragon.x, dragon.y,                        // Posición en el canvas
+      dragon.width, dragon.height                // Tamaño de dibujado
+    );
   }
 
   // Controles
@@ -97,14 +173,20 @@ async function main() {
       ctx.font = '28px Arial';
       ctx.textAlign = 'center';
       ctx.fillText('Presiona cualquier tecla o click para comenzar', canvas.width / 2, canvas.height / 2 + 8);
+      // Dibujar dragón estático
+      drawDragon();
       if (!gameOver) requestAnimationFrame(draw);
       return;
     }
 
     // Física del pájaro
-    bird.velocity += bird.gravity;
-    bird.y += bird.velocity;
-    if (birdImg.complete) ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+    dragon.velocity += dragon.gravity;
+    dragon.y += dragon.velocity;
+    
+    // Actualizar y dibujar animación del dragón
+    updateDragonAnimation();
+    drawDragon();
+
     // Generar pipes
     if (frame % 90 === 0) {
       const top = Math.random() * (canvas.height - pipeGap - 140) + 40;
@@ -121,15 +203,15 @@ async function main() {
 
       // Colisión
       if (
-        bird.x < p.x + 60 &&
-        bird.x + bird.width > p.x &&
-        (bird.y < p.top || bird.y + bird.height > p.bottom)
+        dragon.x < p.x + 60 &&
+        dragon.x + dragon.width > p.x &&
+        (dragon.y < p.top || dragon.y + dragon.height > p.bottom)
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         gameOver = true;
       }
 
-      if (p.x + 60 < bird.x && !p.passed) {
+      if (p.x + 60 < dragon.x && !p.passed) {
         score++;
         p.passed = true;
         try { plusPointSound.currentTime = 0; plusPointSound.play(); } catch (e) {}
@@ -145,7 +227,7 @@ async function main() {
     }
 
     // Suelo / techo
-    if (bird.y + bird.height > canvas.height || bird.y < 0) {
+    if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
       gameOver = true;
     }
@@ -196,25 +278,7 @@ async function main() {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-----------------------------------------------------------------
 // Ejecutar main al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
   main().catch(err => console.error('FlappyBird init error:', err));
 });
-
