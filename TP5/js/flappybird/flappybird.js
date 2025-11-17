@@ -14,11 +14,11 @@ async function main() {
 
   // Cargar imágenes
   const bg = new Image(); bg.src = '../media/flappybird/bg.png';
-  const birdImg = new Image(); birdImg.src = '../media/flappybird/bird.png';
+  const dragonImg = new Image(); dragonImg.src = '../media/flappybird/dragon-sprite-1.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
   const pipeBottom = new Image(); pipeBottom.src = '../media/flappybird/pipe_bottom.png';
 
-  const images = [bg, birdImg, pipeTop, pipeBottom].map(img =>
+  const images = [bg, dragonImg, pipeTop, pipeBottom].map(img =>
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
 // Sonidos (opcionales)
@@ -28,7 +28,7 @@ async function main() {
   jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
   // Estado del juego
-  const bird = { x: 50, y: 150, width: 34, height: 24, gravity: 0.5, lift: -8, velocity: 0 };
+  const dragon = { x: 50, y: 150, width: 35, height: 21, gravity: 0.5, lift: -8, velocity: 0 };
   const pipes = [];
   const pipeGap = 120;
   const pipeSpeed = 2;
@@ -40,8 +40,8 @@ async function main() {
   let animating = false;
 
   function resetGame() {
-    bird.y = 150;
-    bird.velocity = 0;
+    dragon.y = 150;
+    dragon.velocity = 0;
     pipes.length = 0;
     score = 0;
     frame = 0;
@@ -52,7 +52,7 @@ async function main() {
   function flap() {
     if (!started) started = true;
     if (!gameOver) {
-      bird.velocity = bird.lift;
+      dragon.velocity = dragon.lift;
       try { jumpSound.currentTime = 0; jumpSound.play(); } catch (e) {}
     } else {
       resetGame();
@@ -102,9 +102,9 @@ async function main() {
     }
 
     // Física del pájaro
-    bird.velocity += bird.gravity;
-    bird.y += bird.velocity;
-    if (birdImg.complete) ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+    dragon.velocity += dragon.gravity;
+    dragon.y += dragon.velocity;
+    if (dragonImg.complete) ctx.drawImage(dragonImg, dragon.x, dragon.y, dragon.width, dragon.height);
     // Generar pipes
     if (frame % 90 === 0) {
       const top = Math.random() * (canvas.height - pipeGap - 140) + 40;
@@ -121,15 +121,15 @@ async function main() {
 
       // Colisión
       if (
-        bird.x < p.x + 60 &&
-        bird.x + bird.width > p.x &&
-        (bird.y < p.top || bird.y + bird.height > p.bottom)
+        dragon.x < p.x + 60 &&
+        dragon.x + dragon.width > p.x &&
+        (dragon.y < p.top || dragon.y + dragon.height > p.bottom)
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         gameOver = true;
       }
 
-      if (p.x + 60 < bird.x && !p.passed) {
+      if (p.x + 60 < dragon.x && !p.passed) {
         score++;
         p.passed = true;
         try { plusPointSound.currentTime = 0; plusPointSound.play(); } catch (e) {}
@@ -145,7 +145,7 @@ async function main() {
     }
 
     // Suelo / techo
-    if (bird.y + bird.height > canvas.height || bird.y < 0) {
+    if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
       gameOver = true;
     }
