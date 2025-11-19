@@ -11,7 +11,7 @@ async function main() {
   canvas.height = canvas.height || 600;
   canvas.style.display = 'block';
 
-  // Cargar imágenes
+  // Cargar imágenes.
   const bg = new Image(); bg.src = '../media/flappybird/bg.png';
   const dragonImg = new Image(); dragonImg.src = '../media/flappybird/dragon.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
@@ -21,13 +21,13 @@ async function main() {
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
 
-  // Sonidos (opcionales)
+  // Sonidos.
   const jumpSound = new Audio('../media/flappybird/jump.mp3');
   const hitSound = new Audio('../media/flappybird/hit.mp3');
   const plusPointSound = new Audio('../media/flappybird/point.mp3');
   jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
-  // CONFIGURACIÓN DE ANIMACIÓN DE SPRITE
+  // CONFIGURACIÓN DE ANIMACIÓN DE SPRITE.
   const spriteConfig = {
     frameWidth: 200,      // Ancho de cada frame en el sprite.
     frameHeight: 150,     // Alto de cada frame.
@@ -36,7 +36,7 @@ async function main() {
     animationSpeed: 4    // Cambiar frame cada X frames del juego. (menor = más rápido)
   };
 
-  // Estado del juego
+  // Estado del juego.
   const dragon = { 
     x: 50, 
     y: 150, 
@@ -45,7 +45,7 @@ async function main() {
     gravity: 0.5, 
     lift: -8, 
     velocity: 0,
-    // Propiedades para la animación
+    // Propiedades para la animación.
     currentFrame: 0,
     frameCounter: 0,
     isAnimating: false,
@@ -92,7 +92,7 @@ async function main() {
     }
   }
 
-  // Función para actualizar el frame de animación
+  // Función para actualizar el frame de animación.
   function updateDragonAnimation() {
     if (!dragon.isAnimating) return;
     
@@ -103,12 +103,12 @@ async function main() {
       // Actualizar frame según la dirección
       dragon.currentFrame += dragon.animationDirection;
       
-      // Si llegamos al frame 3, cambiar dirección a reversa
+      // Si llegamos al frame 3, cambiar dirección a reversa.
       if (dragon.currentFrame >= 2 && dragon.animationDirection === 1) {
         dragon.animationDirection = -1;
       }
       
-      // Si volvimos al frame 1, terminar la animación
+      // Si volvimos al frame 1, terminar la animación.
       if (dragon.currentFrame <= 1 && dragon.animationDirection === -1) {
         dragon.currentFrame = 0;
         dragon.isAnimating = false;
@@ -117,15 +117,15 @@ async function main() {
     }
   }
 
-  // Función para dibujar el dragón con el frame actual
+  // Función para dibujar el dragón con el frame actual.
   function drawDragon() {
     if (!dragonImg.complete) return;
     
-    // Calcular la posición del frame en el sprite sheet
+    // Calcular la posición del frame en el sprite sheet.
     const frameX = spriteConfig.gapBetweenFrames + (dragon.currentFrame * (spriteConfig.frameWidth + spriteConfig.gapBetweenFrames));
     const frameY = Math.floor(dragon.currentFrame / spriteConfig.framesPerRow) * spriteConfig.frameHeight;
     
-    // Dibujar el frame específico del sprite
+    // Dibujar el frame específico del sprite.
     ctx.drawImage(
       dragonImg,
       frameX, frameY,                           // Posición en el sprite sheet
@@ -136,7 +136,7 @@ async function main() {
     );
   }
 
-  // Controles
+  // Controles.
   function bindControls() {
     document.addEventListener('keydown', onKeydown);
     canvas.addEventListener('mousedown', flap);
@@ -159,7 +159,7 @@ async function main() {
     canvas.removeEventListener('touchstart', onTouchStart);
   }
 
-  // Dibujo principal
+  // Dibujo principal.
   function draw() {
     animating = true;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -173,27 +173,27 @@ async function main() {
       ctx.font = '28px Arial';
       ctx.textAlign = 'center';
       ctx.fillText('Presiona cualquier tecla o click para comenzar', canvas.width / 2, canvas.height / 2 + 8);
-      // Dibujar dragón estático
+      // Dibujar dragón estático.
       drawDragon();
       if (!gameOver) requestAnimationFrame(draw);
       return;
     }
 
-    // Física del pájaro
+    // Física del pájaro.
     dragon.velocity += dragon.gravity;
     dragon.y += dragon.velocity;
     
-    // Actualizar y dibujar animación del dragón
+    // Actualizar y dibujar animación del dragón.
     updateDragonAnimation();
     drawDragon();
 
-    // Generar pipes
+    // Generar pipes.
     if (frame % 90 === 0) {
       const top = Math.random() * (canvas.height - pipeGap - 140) + 40;
       pipes.push({ x: canvas.width, top, bottom: top + pipeGap, passed: false });
     }
 
-    // Dibujar y actualizar pipes
+    // Dibujar y actualizar pipes.
     for (let i = pipes.length - 1; i >= 0; i--) {
       const p = pipes[i];
       p.x -= pipeSpeed;
@@ -201,7 +201,7 @@ async function main() {
       if (pipeTop.complete) ctx.drawImage(pipeTop, p.x, 0, 60, p.top);
       if (pipeBottom.complete) ctx.drawImage(pipeBottom, p.x, p.bottom, 60, canvas.height - p.bottom);
 
-      // Colisión
+      // Colisión.
       if (
         dragon.x < p.x + 60 &&
         dragon.x + dragon.width > p.x &&
@@ -226,13 +226,13 @@ async function main() {
       }
     }
 
-    // Suelo / techo
+    // Suelo / techo.
     if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
       gameOver = true;
     }
 
-    // UI: fondo del puntaje y texto
+    // UI: fondo del puntaje y texto.
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
     ctx.fillRect(10, 10, 160, 60);
     ctx.fillStyle = 'white';
@@ -259,7 +259,7 @@ async function main() {
     requestAnimationFrame(draw);
   }
 
-  // Bind play button to start the game (wait images)
+  // Bind play button to start the game (wait images).
   if (playBtn) {
     playBtn.addEventListener('click', async function () {
       if (gameMenu) gameMenu.style.display = 'none';
@@ -270,7 +270,7 @@ async function main() {
       if (!animating) requestAnimationFrame(draw);
     });
   } else {
-    // If no play button, auto-start once images loaded
+    // If no play button, auto-start once images loaded.
     await Promise.all(images);
     resetGame();
     bindControls();
@@ -278,7 +278,7 @@ async function main() {
   }
 }
 
-// Ejecutar main al cargar el DOM
+// Ejecutar main al cargar el DOM.
 document.addEventListener('DOMContentLoaded', () => {
   main().catch(err => console.error('FlappyBird init error:', err));
 });
