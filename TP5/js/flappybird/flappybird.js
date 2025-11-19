@@ -278,6 +278,17 @@ async function main() {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------------------------------------------------
 // Ejecutar main al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
   main().catch(err => console.error('FlappyBird init error:', err));
