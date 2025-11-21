@@ -21,10 +21,10 @@ async function main() {
     // un loop separado. Los dibujaremos desde la función `draw()` para que
     // siempre sean el fondo y se escalen al tamaño del canvas.
     const [layer1, layer2, layer3, layer4] = await Promise.all([
-    loadSprite("../../media/flappybird/parallax/1.png"),
-    loadSprite("../../media/flappybird/parallax/2.png"),
-    loadSprite("../../media/flappybird/parallax/3.png"),
-    loadSprite("../../media/flappybird/parallax/4.png"),
+    loadSprite("../media/flappybird/parallax/1.png"),
+    loadSprite("../media/flappybird/parallax/2.png"),
+    loadSprite("../media/flappybird/parallax/3.png"),
+    loadSprite("../media/flappybird/parallax/4.png"),
     ]);
 
     // Escalar cada layer para que su altura coincida con la altura del canvas
