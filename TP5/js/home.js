@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const gameList = await getApiData();
 
         // Cargar los juegos recientemente jugados
-        for (let i = 0; i < GAME_GENRES.length; i++) {
+        for (let i = 0; i < GAME_GENRES.length - 2; i++) {
             if(!gameList.find(g => g.genre === GAME_GENRES[i])) continue;
             loadRecentGame(gameList[i].games);
         }

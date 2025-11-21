@@ -1,3 +1,7 @@
+import {loadSprite, makeSprite, makeLayer, makeInfiniteScroll} from "./utils.js";
+
+
+
 async function main() {
   const canvas = document.getElementById('flappybird-canvas');
   if (!canvas) return;
@@ -11,23 +15,51 @@ async function main() {
   canvas.height = canvas.height || 600;
   canvas.style.display = 'block';
 
-  // Cargar imágenes.
-  const bg = new Image(); bg.src = '../media/flappybird/bg.png';
+  //Parallax
+    ctx.imageSmoothingEnabled = false; //Para que el arte pixel no se vea mal
+    // Parallax: cargamos las imágenes y creamos los objetos, pero no usamos
+    // un loop separado. Los dibujaremos desde la función `draw()` para que
+    // siempre sean el fondo y se escalen al tamaño del canvas.
+    const [layer1, layer2, layer3, layer4] = await Promise.all([
+    loadSprite("../media/flappybird/parallax/1.png"),
+    loadSprite("../media/flappybird/parallax/2.png"),
+    loadSprite("../media/flappybird/parallax/3.png"),
+    loadSprite("../media/flappybird/parallax/4.png"),
+    ]);
+
+    // Escalar cada layer para que su altura coincida con la altura del canvas
+    const scale1 = canvas.height / layer1.height || 1;
+    const scale2 = canvas.height / layer2.height || 1;
+    const scale3 = canvas.height / layer3.height || 1;
+    const scale4 = canvas.height / layer4.height || 1;
+
+    // Posicionar cada layer en y = 0 (se ajustan por su escala)
+    const layer1GameObj = makeSprite(ctx, layer1, { x: 0, y: 0 }, scale1);
+    const layer2GameObj = makeLayer(ctx, layer2, { x: 0, y: 0 }, scale2);
+    const layer3GameObj = makeLayer(ctx, layer3, { x: 0, y: 0 }, scale3);
+    const layer4GameObj = makeLayer(ctx, layer4, { x: 0, y: 0 }, scale4);
+
+    // Tiempo para parallax (se usa dentro de draw)
+      let parallaxOldTime = 0;
+      let parallaxMoving = false; // parallax stays still until keydown in bindControls
+
+  // Cargar imágenes
+  //const bg = new Image(); bg.src = '../media/flappybird/bg.png';
   const dragonImg = new Image(); dragonImg.src = '../media/flappybird/dragon.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
   const pipeBottom = new Image(); pipeBottom.src = '../media/flappybird/pipe_bottom.png';
 
-  const images = [bg, dragonImg, pipeTop, pipeBottom].map(img =>
+  const images = [dragonImg, pipeTop, pipeBottom].map(img =>
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
 
-  // Sonidos.
+  //Sonidos
   const jumpSound = new Audio('../media/flappybird/jump.mp3');
   const hitSound = new Audio('../media/flappybird/hit.mp3');
   const plusPointSound = new Audio('../media/flappybird/point.mp3');
   jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
-  // CONFIGURACIÓN DE ANIMACIÓN DE SPRITE.
+  //CONFIGURACIÓN DE ANIMACIÓN DE SPRITE
   const spriteConfig = {
     frameWidth: 200,      // Ancho de cada frame en el sprite.
     frameHeight: 150,     // Alto de cada frame.
@@ -36,12 +68,12 @@ async function main() {
     animationSpeed: 4    // Cambiar frame cada X frames del juego. (menor = más rápido)
   };
 
-  // Estado del juego.
+  //Estado del juego
   const dragon = { 
     x: 50, 
     y: 150, 
     width: 40, 
-    height: 28, 
+    height: 30, 
     gravity: 0.5, 
     lift: -8, 
     velocity: 0,
@@ -74,6 +106,7 @@ async function main() {
     frame = 0;
     gameOver = false;
     started = false;
+    parallaxMoving = false; // Reset parallax on game restart
   }
 
   function flap() {
@@ -92,7 +125,7 @@ async function main() {
     }
   }
 
-  // Función para actualizar el frame de animación.
+  //Función para actualizar el frame de animación
   function updateDragonAnimation() {
     if (!dragon.isAnimating) return;
     
@@ -136,35 +169,68 @@ async function main() {
     );
   }
 
-  // Controles.
+  //-------------------------------------------------------------------------
+  // Controles
   function bindControls() {
     document.addEventListener('keydown', onKeydown);
-    canvas.addEventListener('mousedown', flap);
+    canvas.addEventListener('mousedown', onMouseDown);
     canvas.addEventListener('touchstart', onTouchStart, { passive: false });
   }
+  function onMouseDown(e) {
+    e.preventDefault();
+    // Start parallax movement on mouse click
+    parallaxMoving = true;
+    parallaxOldTime = performance.now();
+    flap();
+  }
   function onKeydown(e) {
+    if(e.code === 'ArrowDown') {
+      e.preventDefault();
+    }
     if (e.code === 'Space' || e.code === 'ArrowUp' || e.key === ' ') {
       e.preventDefault();
+      // Start parallax movement specifically on keydown
+      parallaxMoving = true;
+      parallaxOldTime = performance.now();
       flap();
     }
   }
   function onTouchStart(e) {
     e.preventDefault();
+    // Start parallax movement on touch
+    parallaxMoving = true;
+    parallaxOldTime = performance.now();
     flap();
   }
 
   function unbindControls() {
     document.removeEventListener('keydown', onKeydown);
-    canvas.removeEventListener('mousedown', flap);
+    canvas.removeEventListener('mousedown', onMouseDown);
     canvas.removeEventListener('touchstart', onTouchStart);
   }
 
-  // Dibujo principal.
-  function draw() {
+  
+  
+  // Dibujo principal
+  function draw(timeStamp) {
     animating = true;
+
+    // Calcular delta time para parallax. Solo avanzar si parallaxMoving=true.
+    if (typeof timeStamp === 'undefined') timeStamp = performance.now();
+    let pdt = 0;
+    if (parallaxMoving) {
+      if (parallaxOldTime) pdt = (timeStamp - parallaxOldTime) / 1000;
+      parallaxOldTime = timeStamp;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (bg.complete) ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+    // Dibujar parallax escalado al tamaño del canvas (fondo)
+    if (typeof layer1GameObj !== 'undefined') layer1GameObj.draw();
+    if (typeof layer2GameObj !== 'undefined') makeInfiniteScroll(pdt, layer2GameObj, -50 * (scale2 || 1));
+    if (typeof layer3GameObj !== 'undefined') makeInfiniteScroll(pdt, layer3GameObj, -100 * (scale3 || 1));
+    if (typeof layer4GameObj !== 'undefined') makeInfiniteScroll(pdt, layer4GameObj, -150 * (scale4 || 1));
+
 
     if (!started) {
       ctx.fillStyle = 'rgba(0,0,0,0.6)';
@@ -183,17 +249,17 @@ async function main() {
     dragon.velocity += dragon.gravity;
     dragon.y += dragon.velocity;
     
-    // Actualizar y dibujar animación del dragón.
+    //Actualizar y dibujar animación del dragón
     updateDragonAnimation();
     drawDragon();
 
-    // Generar pipes.
+    //Generar pipes
     if (frame % 90 === 0) {
       const top = Math.random() * (canvas.height - pipeGap - 140) + 40;
       pipes.push({ x: canvas.width, top, bottom: top + pipeGap, passed: false });
     }
 
-    // Dibujar y actualizar pipes.
+    //Dibujar y actualizar pipes
     for (let i = pipes.length - 1; i >= 0; i--) {
       const p = pipes[i];
       p.x -= pipeSpeed;
@@ -209,6 +275,7 @@ async function main() {
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         gameOver = true;
+        parallaxMoving = false; // Stop parallax on collision
       }
 
       if (p.x + 60 < dragon.x && !p.passed) {
@@ -230,6 +297,7 @@ async function main() {
     if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
       gameOver = true;
+      parallaxMoving = false; // Stop parallax on ground/ceiling hit
     }
 
     // UI: fondo del puntaje y texto.
@@ -259,7 +327,7 @@ async function main() {
     requestAnimationFrame(draw);
   }
 
-  // Bind play button to start the game (wait images).
+  //Bind play button to start the game (wait images)
   if (playBtn) {
     playBtn.addEventListener('click', async function () {
       if (gameMenu) gameMenu.style.display = 'none';
@@ -278,7 +346,18 @@ async function main() {
   }
 }
 
-// Ejecutar main al cargar el DOM.
+
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------------------------------------------------
+// Ejecutar main al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
   main().catch(err => console.error('FlappyBird init error:', err));
 });

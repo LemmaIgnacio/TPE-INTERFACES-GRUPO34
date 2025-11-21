@@ -1,5 +1,5 @@
  /* Estilos para Flappy Bird, siguiendo el formato de Blocka */
-#flappybird-menu{
+#flappybird-menu {
     min-height: 580px;
     width: 1300px;
     display: flex;
@@ -123,9 +123,12 @@
 
 /* Canvas */
 #flappybird-canvas {
-
+  margin: 0 auto;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(132,233,221,0.10);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
 }
 
 @media (max-width: 700px) {
