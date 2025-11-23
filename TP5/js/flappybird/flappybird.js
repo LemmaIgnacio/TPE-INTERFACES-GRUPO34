@@ -46,10 +46,11 @@ async function main() {
   // Cargar imágenes
   //const bg = new Image(); bg.src = '../media/flappybird/bg.png';
   const dragonImg = new Image(); dragonImg.src = '../media/flappybird/dragon.png';
+  const coinImg = new Image(); coinImg.src = '../media/flappybird/coin.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
   const pipeBottom = new Image(); pipeBottom.src = '../media/flappybird/pipe_bottom.png';
 
-  const images = [dragonImg, pipeTop, pipeBottom].map(img =>
+  const images = [dragonImg, coinImg, pipeTop, pipeBottom].map(img =>
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
 
@@ -60,15 +61,8 @@ async function main() {
   jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
   //CONFIGURACIÓN DE ANIMACIÓN DE SPRITE
-  const spriteConfig = {
-    frameWidth: 200,      // Ancho de cada frame en el sprite.
-    frameHeight: 150,     // Alto de cada frame.
-    gapBetweenFrames: 10, // Espacio entre frames.
-    framesPerRow: 3,     // Frames por fila en el sprite sheet.
-    animationSpeed: 4    // Cambiar frame cada X frames del juego. (menor = más rápido)
-  };
 
-  //Estado del juego
+  //Dragón.
   const dragon = { 
     x: 50, 
     y: 150, 
@@ -81,12 +75,33 @@ async function main() {
     currentFrame: 0,
     frameCounter: 0,
     isAnimating: false,
-    animationDirection: 1  // 1 = adelante, -1 = atrás
+    animationDirection: 1,  // 1 = adelante, -1 = atrás
+    spriteConfig: {
+      frameWidth: 200,      // Ancho de cada frame en el sprite.
+      frameHeight: 150,     // Alto de cada frame.
+      gapBetweenFrames: 10, // Espacio entre frames.
+      framesPerRow: 3,     // Frames por fila en el sprite sheet.
+      animationSpeed: 4    // Cambiar frame cada X frames del juego. (menor = más rápido)
+    }
   };
 
+  //Moneda.
+  const coinConfig = {
+    spriteConfig: {
+      frameWidth: 200,      // Ancho de cada frame en el sprite.
+      frameHeight: 250,     // Alto de cada frame.
+      gapBetweenFrames: 0, // Espacio entre frames.
+      framesPerRow: 6,     // Frames por fila en el sprite sheet.
+      animationSpeed: 4    // Cambiar frame cada X frames del juego. (menor = más rápido)
+    }
+  };
+
+  //Estado del juego
   const pipes = [];
-  const pipeGap = 120;
-  const pipeSpeed = 2;
+  const coins = [];
+  const objectGap = 120;
+  const objectSpeed = 2;
+  const coinSpawnChance = 0.3;
   let frame = 0;
   let score = 0;
   let highScore = Number(localStorage.getItem('highScore') || 0);
@@ -102,6 +117,7 @@ async function main() {
     dragon.isAnimating = false;
     dragon.animationDirection = 1;
     pipes.length = 0;
+    coins.length = 0;
     score = 0;
     frame = 0;
     gameOver = false;
@@ -125,12 +141,12 @@ async function main() {
     }
   }
 
-  //Función para actualizar el frame de animación
+  //Función para actualizar el frame de animación del dragón.
   function updateDragonAnimation() {
     if (!dragon.isAnimating) return;
     
     dragon.frameCounter++;
-    if (dragon.frameCounter >= spriteConfig.animationSpeed) {
+    if (dragon.frameCounter >= dragon.spriteConfig.animationSpeed) {
       dragon.frameCounter = 0;
       
       // Actualizar frame según la dirección
@@ -150,22 +166,44 @@ async function main() {
     }
   }
 
+  //Función para actualizar el frame de animación del dragón.
+  function updateCoinAnimation(coin) {    
+    coin.frameCounter++;
+    if (coin.frameCounter >= coin.spriteConfig.animationSpeed) {
+      coin.frameCounter = 0;
+      
+      // Actualizar frame según la dirección
+      coin.currentFrame += coin.animationDirection;
+      
+      // Si llegamos al frame 5, cambiar dirección a reversa.
+      if (coin.currentFrame >= 5 && coin.animationDirection === 1) {
+        coin.animationDirection = -1;
+      }
+      
+      // Si volvimos al frame 1, terminar la animación.
+      if (coin.currentFrame <= 1 && coin.animationDirection === -1) {
+        coin.currentFrame = 0;
+        coin.animationDirection = 1;
+      }
+    }
+  }
+
   // Función para dibujar el dragón con el frame actual.
-  function drawDragon() {
-    if (!dragonImg.complete) return;
+  function drawFrame(entity, image) {
+    if (!image.complete) return;
     
     // Calcular la posición del frame en el sprite sheet.
-    const frameX = spriteConfig.gapBetweenFrames + (dragon.currentFrame * (spriteConfig.frameWidth + spriteConfig.gapBetweenFrames));
-    const frameY = Math.floor(dragon.currentFrame / spriteConfig.framesPerRow) * spriteConfig.frameHeight;
+    const frameX = entity.spriteConfig.gapBetweenFrames + (entity.currentFrame * (entity.spriteConfig.frameWidth + entity.spriteConfig.gapBetweenFrames));
+    const frameY = Math.floor(entity.currentFrame / entity.spriteConfig.framesPerRow) * entity.spriteConfig.frameHeight;
     
     // Dibujar el frame específico del sprite.
     ctx.drawImage(
-      dragonImg,
+      image,
       frameX, frameY,                           // Posición en el sprite sheet
-      spriteConfig.frameWidth,                   // Ancho del frame
-      spriteConfig.frameHeight,                  // Alto del frame
-      dragon.x, dragon.y,                        // Posición en el canvas
-      dragon.width, dragon.height                // Tamaño de dibujado
+      entity.spriteConfig.frameWidth,                   // Ancho del frame
+      entity.spriteConfig.frameHeight,                  // Alto del frame
+      entity.x, entity.y,                        // Posición en el canvas
+      entity.width, entity.height                // Tamaño de dibujado
     );
   }
 
@@ -209,6 +247,14 @@ async function main() {
     canvas.removeEventListener('touchstart', onTouchStart);
   }
 
+  function addOnePoint() {
+    score++;
+    try { plusPointSound.currentTime = 0; plusPointSound.play(); } catch (e) {}
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem('highScore', String(highScore));
+    }
+  }
   
   
   // Dibujo principal
@@ -240,56 +286,102 @@ async function main() {
       ctx.textAlign = 'center';
       ctx.fillText('Presiona cualquier tecla o click para comenzar', canvas.width / 2, canvas.height / 2 + 8);
       // Dibujar dragón estático.
-      drawDragon();
+      drawFrame(dragon, dragonImg);
       if (!gameOver) requestAnimationFrame(draw);
       return;
     }
 
-    // Física del pájaro.
+    // Física del dragón.
     dragon.velocity += dragon.gravity;
     dragon.y += dragon.velocity;
     
-    //Actualizar y dibujar animación del dragón
+    //Actualizar y dibujar animación del dragón.
     updateDragonAnimation();
-    drawDragon();
+    drawFrame(dragon, dragonImg);
 
-    //Generar pipes
+    //Generar pipes.
     if (frame % 90 === 0) {
-      const top = Math.random() * (canvas.height - pipeGap - 140) + 40;
-      pipes.push({ x: canvas.width, top, bottom: top + pipeGap, passed: false });
+      const top = Math.random() * (canvas.height - objectGap - 140) + 40;
+      pipes.push({ x: canvas.width, top, bottom: top + objectGap, passed: false });
+    }
+    
+    //Generar coins. (En el espacio entre tuberías)
+    if (frame % 90 === 0 && pipes.length > 0) {
+      if (Math.random() <= coinSpawnChance) {
+        // Usar la misma posición Y que el último pipe generado.
+        const lastPipe = pipes[pipes.length - 1];
+        // Colocar la moneda en el centro del gap.
+        const coinY = lastPipe.top + (objectGap / 2) - 15;
+        coins.push({
+          x: canvas.width + 12,
+          y: coinY,
+          top: 30,
+          bottom: 30,
+          width: 30,
+          height: 30,
+          currentFrame: 0,
+          frameCounter: 0,
+          animationDirection: 1,
+          spriteConfig: coinConfig.spriteConfig
+        });
+      }
     }
 
-    //Dibujar y actualizar pipes
+    //Dibujar y actualizar pipes.
     for (let i = pipes.length - 1; i >= 0; i--) {
       const p = pipes[i];
-      p.x -= pipeSpeed;
+      p.x -= objectSpeed;
 
       if (pipeTop.complete) ctx.drawImage(pipeTop, p.x, 0, 60, p.top);
       if (pipeBottom.complete) ctx.drawImage(pipeBottom, p.x, p.bottom, 60, canvas.height - p.bottom);
 
-      // Colisión.
+      // Colisión con tubería.
       if (
         dragon.x < p.x + 60 &&
         dragon.x + dragon.width > p.x &&
         (dragon.y < p.top || dragon.y + dragon.height > p.bottom)
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
+        
         gameOver = true;
         parallaxMoving = false; // Stop parallax on collision
       }
 
-      if (p.x + 60 < dragon.x && !p.passed) {
-        score++;
+      if ((p.x + 60 < dragon.x && !p.passed)) {
+        addOnePoint();
         p.passed = true;
-        try { plusPointSound.currentTime = 0; plusPointSound.play(); } catch (e) {}
-        if (score > highScore) {
-          highScore = score;
-          localStorage.setItem('highScore', String(highScore));
-        }
       }
 
       if (p.x + 60 < 0) {
         pipes.splice(i, 1);
+      }
+    }
+
+    //Dibujar y actualizar coins.
+    for (let i = coins.length - 1; i >= 0; i--) {
+      const coin = coins[i];
+
+      if (coinImg.complete) {
+        updateCoinAnimation(coin);
+        drawFrame(coin, coinImg);
+        coin.x -= objectSpeed;
+      }
+      
+      // Colisión con moneda.
+      if (
+        dragon.x < coin.x + 30 &&
+        dragon.x + dragon.width > coin.x &&
+        (
+          dragon.y < coin.top ||
+          dragon.y + dragon.height > coin.bottom
+        )
+      ) {
+        addOnePoint();
+        coins.splice(i, 1);
+      }
+
+      if (coin.x < 0) {
+        coins.splice(i, 1);
       }
     }
 
