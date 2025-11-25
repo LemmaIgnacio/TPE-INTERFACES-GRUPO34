@@ -71,6 +71,7 @@ async function main() {
     gravity: 0.5, 
     lift: -8, 
     velocity: 0,
+    pipeHitSensitivity: 5,
     // Propiedades para la animación.
     currentFrame: 0,
     frameCounter: 0,
@@ -337,9 +338,9 @@ async function main() {
 
       // Colisión con tubería.
       if (
-        dragon.x < p.x + 60 &&
-        dragon.x + dragon.width > p.x &&
-        (dragon.y < p.top || dragon.y + dragon.height > p.bottom)
+        (dragon.x + dragon.pipeHitSensitivity) < p.x + 60 &&
+        (dragon.x + dragon.width - dragon.pipeHitSensitivity) > p.x &&
+        ((dragon.y + dragon.pipeHitSensitivity) < p.top || (dragon.y + dragon.height - dragon.pipeHitSensitivity) > p.bottom)
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         
