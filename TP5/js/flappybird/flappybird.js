@@ -335,11 +335,11 @@ async function main() {
       if (pipeTop.complete) ctx.drawImage(pipeTop, p.x, 0, 60, p.top);
       if (pipeBottom.complete) ctx.drawImage(pipeBottom, p.x, p.bottom, 60, canvas.height - p.bottom);
 
-      // Colisión con tubería.
+      // Colisión con tubería (Agregar Explosión)
       if (
         dragon.x < p.x+ 60 &&
         dragon.x + dragon.width > (p.x+5) &&
-        (dragon.y < (p.top-1) || dragon.y + dragon.height > (p.bottom+4))
+        (dragon.y < (p.top-2) || dragon.y + dragon.height > (p.bottom+4))
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         
