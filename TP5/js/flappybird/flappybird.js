@@ -337,9 +337,9 @@ async function main() {
 
       // Colisión con tubería.
       if (
-        dragon.x < p.x + 60 &&
-        dragon.x + dragon.width > p.x &&
-        (dragon.y < p.top || dragon.y + dragon.height > p.bottom)
+        dragon.x < p.x+ 60 &&
+        dragon.x + dragon.width > (p.x+5) &&
+        (dragon.y < (p.top-1) || dragon.y + dragon.height > (p.bottom+4))
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         
