@@ -356,13 +356,13 @@ async function main() {
     drawFrame(dragon, dragonImg);
 
     //Generar pipes.
-    if (frame % 120 === 0) {
+    if (frame % 110 === 0) {
       const top = Math.random() * (canvas.height - objectGap - 140) + 40;
       pipes.push({ x: canvas.width, top, bottom: top + objectGap, passed: false });
     }
     
     //Generar coins. (En el espacio entre tuberías)
-    if (frame % 90 === 0 && pipes.length > 0) {
+    if (frame % 110 === 0 && pipes.length > 0) {
       if (Math.random() <= coinSpawnChance) {
         // Usar la misma posición Y que el último pipe generado.
         const lastPipe = pipes[pipes.length - 1];
