@@ -49,7 +49,7 @@ async function main() {
   const coinImg = new Image(); coinImg.src = '../media/flappybird/coin.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
   const pipeBottom = new Image(); pipeBottom.src = '../media/flappybird/pipe_bottom.png';
-  const explosionImg = new Image(); explosionImg.src = '../media/flappybird/explosion.png';
+  const explosionImg = new Image(); explosionImg.src = '../media/flappybird/explosions.png';
 
   const images = [dragonImg, coinImg, pipeTop, pipeBottom, explosionImg].map(img =>
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
@@ -76,6 +76,7 @@ async function main() {
     currentFrame: 0,
     frameCounter: 0,
     isAnimating: false,
+    // isExploding: false,
     animationDirection: 1,  // 1 = adelante, -1 = atrás
     spriteConfig: {
       frameWidth: 200,      // Ancho de cada frame en el sprite.
@@ -104,9 +105,9 @@ async function main() {
       frameHeight: 300,     // Alto de cada frame.
       gapBetweenFrames: 0, // Espacio entre frames.
       framesPerRow: 22,     // Frames por fila en el sprite sheet.
-      animationSpeed: 4,    // Cambiar frame cada X frames del juego. (menor = más rápido)
+      animationSpeed: 2,    // Cambiar frame cada X frames del juego. (menor = más rápido)
       frameX: 0,
-      frameY: 0,
+      frameY: 0
     }
   };
 
@@ -177,6 +178,7 @@ async function main() {
     parallaxMoving = false; // Reset parallax on game restart
   }
 
+  // Ver si cambiar esta función para adaptarla a futuros sprites.
   function flap() {
     if (!started) started = true;
     if (!gameOver) {
@@ -251,7 +253,7 @@ async function main() {
     const fw = cfg.frameWidth;
     const fh = cfg.frameHeight;
 
-    const sx = (frameIndex % framesPerRow) * (fw + gap);
+    const sx = gap + (frameIndex % framesPerRow) * (fw + gap);
     const sy = Math.floor(frameIndex / framesPerRow) * (fh + gap);
 
     ctx.drawImage(
@@ -399,7 +401,8 @@ async function main() {
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         // crear explosión centrada sobre el dragón
-        spawnExplosion(dragon.x + dragon.width / 2, dragon.y + dragon.height / 2);
+        spawnExplosion(dragon.x, dragon.y);
+        updateAndDrawExplosions();
         gameOver = true;
         parallaxMoving = false; // Stop parallax on collision
       }
@@ -445,9 +448,10 @@ async function main() {
     // Suelo / techo.
     if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
-      spawnExplosion(dragon.x + dragon.width / 2, dragon.y + dragon.height / 2);
-      gameOver = true;
-      parallaxMoving = false; // Stop parallax on ground/ceiling hit
+        spawnExplosion(dragon.x, dragon.y);
+        updateAndDrawExplosions();
+        gameOver = true;
+        parallaxMoving = false; // Stop parallax on collision
     }
 
     // UI: fondo del puntaje y texto.
@@ -460,6 +464,7 @@ async function main() {
     ctx.fillText('Máximo: ' + highScore, 20, 58);
 
     if (gameOver) {
+      setTimeout(null, 2000);
       ctx.fillStyle = 'rgba(0,0,0,0.6)';
       ctx.fillRect(0, canvas.height / 2 - 70, canvas.width, 140);
       ctx.fillStyle = 'red';
