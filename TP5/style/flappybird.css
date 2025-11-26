@@ -1,0 +1,147 @@
+ /* Estilos para Flappy Bird, siguiendo el formato de Blocka */
+#flappybird-menu {
+    min-height: 580px;
+    width: 1300px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--Background-Color-Dark);
+    background-image: url(../media/flappybird/bg.png);
+    background-size: 100% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0 0 1.5em 1.5em;
+    box-shadow: 0 4px 24px var(--Primary-Color-Dark, #2D8A81);
+    padding: 0;
+    margin: 0 auto;
+}
+
+.flappybird-menu__container {
+  background: #1a1536;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(132, 233, 221, 0.10);
+  padding: 40px 32px 32px 32px;
+  margin: 40px auto 24px auto;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.flappybird-menu__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 12px #84E9DD33;
+}
+
+.flappybird-menu__subtitle {
+  font-size: 1.2rem;
+  color: #cfcfff;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.btn-main.flappybird-menu__play {
+  background: linear-gradient(90deg, #84E9DD 0%, #8F6FE6 100%);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(132, 233, 221, 0.15);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-main.flappybird-menu__play:hover {
+  background: linear-gradient(90deg, #8F6FE6 0%, #84E9DD 100%);
+  transform: scale(1.05);
+}
+
+.flappybird-menu__options--row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.btn-secondary.flappybird-menu__howto {
+  background: #ff4fcf;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 32px;
+  box-shadow: 0 2px 8px #ff4fcf33;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-secondary.flappybird-menu__howto:hover {
+  background: #e03bb2;
+  transform: scale(1.05);
+}
+
+/* Modal How to Play */
+.flappybird-howto-modal {
+  display: block;
+  background: none;
+  margin-top: 32px;
+  width: 100%;
+}
+.flappybird-howto-modal__content {
+  background: #221a3a;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px #84E9DD22;
+  padding: 32px 24px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+.flappybird-howto-modal__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.flappybird-howto-modal__animation {
+  margin-bottom: 18px;
+}
+.flappybird-howto-modal__desc {
+  color: #cfcfff;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+.flappybird-howto-modal__close {
+  display: none;
+}
+
+/* Canvas */
+#flappybird-canvas {
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(132,233,221,0.10);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .flappybird-menu__container {
+    padding: 24px 8px;
+    max-width: 98vw;
+  }
+  .flappybird-howto-modal__content {
+    padding: 18px 4px;
+    max-width: 98vw;
+  }
+  #flappybird-canvas {
+    width: 98vw !important;
+    height: 60vw !important;
+  }
+}

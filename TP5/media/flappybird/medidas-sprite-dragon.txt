@@ -1,0 +1,8 @@
+Width: 640px
+Height: 150px
+
+Numero de sprites: 3
+
+Width dragon: 200px
+Height dragon: 120px
+Espacio entre sprites: 10px
