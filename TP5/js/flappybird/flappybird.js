@@ -126,6 +126,7 @@ async function main() {
     parallaxMoving = false; // Reset parallax on game restart
   }
 
+  // Ver si cambiar esta función para adaptarla a futuros sprites.
   function flap() {
     if (!started) started = true;
     if (!gameOver) {
@@ -190,7 +191,7 @@ async function main() {
   }
 
   // Función para dibujar el dragón con el frame actual.
-  function drawFrame(entity, image) {
+  function drawFrame(entity, image, yFrame=0) {
     if (!image.complete) return;
     
     // Calcular la posición del frame en el sprite sheet.
@@ -336,13 +337,14 @@ async function main() {
       if (pipeTop.complete) ctx.drawImage(pipeTop, p.x, 0, 60, p.top);
       if (pipeBottom.complete) ctx.drawImage(pipeBottom, p.x, p.bottom, 60, canvas.height - p.bottom);
 
-      // Colisión con tubería.
+      // Colisión con tubería (Agregar Explosión)
       if (
-        (dragon.x + dragon.pipeHitSensitivity) < p.x + 60 &&
-        (dragon.x + dragon.width - dragon.pipeHitSensitivity) > p.x &&
-        ((dragon.y + dragon.pipeHitSensitivity) < p.top || (dragon.y + dragon.height - dragon.pipeHitSensitivity) > p.bottom)
+        dragon.x < p.x+ 60 &&
+        dragon.x + dragon.width > (p.x+5) &&
+        (dragon.y < (p.top-2) || dragon.y + dragon.height > (p.bottom+4))
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
+        
         
         gameOver = true;
         parallaxMoving = false; // Stop parallax on collision
