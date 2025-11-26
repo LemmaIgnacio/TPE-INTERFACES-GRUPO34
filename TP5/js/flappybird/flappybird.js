@@ -11,7 +11,7 @@ async function main() {
   const gameMenu = document.getElementById('flappybird-menu');
   const gameContainer = document.getElementById('GameContainer');
 
-  canvas.width = canvas.width || 800;
+  canvas.width = canvas.width || 1000;
   canvas.height = canvas.height || 600;
   canvas.style.display = 'block';
 
@@ -49,8 +49,9 @@ async function main() {
   const coinImg = new Image(); coinImg.src = '../media/flappybird/coin.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
   const pipeBottom = new Image(); pipeBottom.src = '../media/flappybird/pipe_bottom.png';
+  const explosionImg = new Image(); explosionImg.src = '../media/flappybird/explosion.png';
 
-  const images = [dragonImg, coinImg, pipeTop, pipeBottom].map(img =>
+  const images = [dragonImg, coinImg, pipeTop, pipeBottom, explosionImg].map(img =>
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
 
@@ -71,7 +72,7 @@ async function main() {
     gravity: 0.5, 
     lift: -8, 
     velocity: 0,
-    // Propiedades para la animación.
+    //Propiedades para la animación.
     currentFrame: 0,
     frameCounter: 0,
     isAnimating: false,
@@ -96,10 +97,60 @@ async function main() {
     }
   };
 
+  //Explosión.
+  const explosionConfig = {
+    spriteConfig: {
+      frameWidth: 300,      // Ancho de cada frame en el sprite.
+      frameHeight: 300,     // Alto de cada frame.
+      gapBetweenFrames: 0, // Espacio entre frames.
+      framesPerRow: 22,     // Frames por fila en el sprite sheet.
+      animationSpeed: 4,    // Cambiar frame cada X frames del juego. (menor = más rápido)
+      frameX: 0,
+      frameY: 0,
+    }
+  };
+
+  //Explosiones (spritesheet)
+  const explosions = []; // array de explosiones activas
+
+  function spawnExplosion(cx, cy) {
+    // usar la configuración declarada en explosionConfig
+    const cfg = explosionConfig.spriteConfig;
+    const totalFrames = cfg.framesPerRow; // generador creó 1 fila de frames
+    const w = cfg.frameWidth;
+    const h = cfg.frameHeight;
+    explosions.push({
+      x: Math.round(cx - w / 2),
+      y: Math.round(cy - h / 2),
+      width: w,
+      height: h,
+      currentFrame: 0,
+      frameCounter: 0,
+      totalFrames: totalFrames,
+      spriteConfig: cfg
+    });
+  }
+
+  function updateAndDrawExplosions() {
+    for (let i = explosions.length - 1; i >= 0; i--) {
+      const ex = explosions[i];
+      ex.frameCounter++;
+      if (ex.frameCounter >= (ex.spriteConfig.animationSpeed || 4)) {
+        ex.frameCounter = 0;
+        ex.currentFrame++;
+      }
+      // dibujar frame actual si la imagen está lista
+      if (explosionImg.complete) drawFrame(ex, explosionImg);
+      if (ex.currentFrame >= ex.totalFrames) {
+        explosions.splice(i, 1);
+      }
+    }
+  }
+
   //Estado del juego
   const pipes = [];
   const coins = [];
-  const objectGap = 120;
+  const objectGap = 200;
   const objectSpeed = 2;
   const coinSpawnChance = 0.3;
   let frame = 0;
@@ -118,6 +169,7 @@ async function main() {
     dragon.animationDirection = 1;
     pipes.length = 0;
     coins.length = 0;
+    explosions.length = 0; // limpiar explosiones al reiniciar
     score = 0;
     frame = 0;
     gameOver = false;
@@ -188,22 +240,26 @@ async function main() {
     }
   }
 
-  // Función para dibujar el dragón con el frame actual.
+  // Reemplaza drawFrame con cálculo correcto de frameX/frameY para spritesheets multi-columna
   function drawFrame(entity, image) {
-    if (!image.complete) return;
-    
-    // Calcular la posición del frame en el sprite sheet.
-    const frameX = entity.spriteConfig.gapBetweenFrames + (entity.currentFrame * (entity.spriteConfig.frameWidth + entity.spriteConfig.gapBetweenFrames));
-    const frameY = Math.floor(entity.currentFrame / entity.spriteConfig.framesPerRow) * entity.spriteConfig.frameHeight;
-    
-    // Dibujar el frame específico del sprite.
+    if (!image || !image.complete) return;
+
+    const cfg = entity.spriteConfig;
+    const frameIndex = entity.currentFrame || 0;
+    const framesPerRow = cfg.framesPerRow || 1;
+    const gap = cfg.gapBetweenFrames || 0;
+    const fw = cfg.frameWidth;
+    const fh = cfg.frameHeight;
+
+    const sx = (frameIndex % framesPerRow) * (fw + gap);
+    const sy = Math.floor(frameIndex / framesPerRow) * (fh + gap);
+
     ctx.drawImage(
       image,
-      frameX, frameY,                           // Posición en el sprite sheet
-      entity.spriteConfig.frameWidth,                   // Ancho del frame
-      entity.spriteConfig.frameHeight,                  // Alto del frame
-      entity.x, entity.y,                        // Posición en el canvas
-      entity.width, entity.height                // Tamaño de dibujado
+      sx, sy,
+      fw, fh,
+      entity.x, entity.y,
+      entity.width, entity.height
     );
   }
 
@@ -256,7 +312,7 @@ async function main() {
     }
   }
   
-  
+  //--------------------------------------------------------------------------------
   // Dibujo principal
   function draw(timeStamp) {
     animating = true;
@@ -291,7 +347,7 @@ async function main() {
       return;
     }
 
-    // Física del dragón.
+    //Física del dragón.
     dragon.velocity += dragon.gravity;
     dragon.y += dragon.velocity;
     
@@ -300,7 +356,7 @@ async function main() {
     drawFrame(dragon, dragonImg);
 
     //Generar pipes.
-    if (frame % 90 === 0) {
+    if (frame % 120 === 0) {
       const top = Math.random() * (canvas.height - objectGap - 140) + 40;
       pipes.push({ x: canvas.width, top, bottom: top + objectGap, passed: false });
     }
@@ -342,7 +398,8 @@ async function main() {
         (dragon.y < (p.top-2) || dragon.y + dragon.height > (p.bottom+4))
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
-        
+        // crear explosión centrada sobre el dragón
+        spawnExplosion(dragon.x + dragon.width / 2, dragon.y + dragon.height / 2);
         gameOver = true;
         parallaxMoving = false; // Stop parallax on collision
       }
@@ -388,6 +445,7 @@ async function main() {
     // Suelo / techo.
     if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
+      spawnExplosion(dragon.x + dragon.width / 2, dragon.y + dragon.height / 2);
       gameOver = true;
       parallaxMoving = false; // Stop parallax on ground/ceiling hit
     }
@@ -413,6 +471,11 @@ async function main() {
       ctx.fillText('Presiona cualquier tecla o click para reiniciar', canvas.width / 2, canvas.height / 2 + 28);
       animating = false;
       return;
+    }
+
+    // Dibujar/explotar animaciones activas (incluso si gameOver)
+    if (explosions.length > 0) {
+      updateAndDrawExplosions();
     }
 
     frame++;
