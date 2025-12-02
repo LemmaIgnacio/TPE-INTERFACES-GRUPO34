@@ -11,14 +11,14 @@ async function main() {
   const gameMenu = document.getElementById('flappybird-menu');
   const gameContainer = document.getElementById('GameContainer');
 
-  canvas.width = canvas.width || 1000;
+  canvas.width = canvas.width || 600;
   canvas.height = canvas.height || 600;
   canvas.style.display = 'block';
 
   //Parallax
     ctx.imageSmoothingEnabled = false; //Para que el arte pixel no se vea mal
     // Parallax: cargamos las imágenes y creamos los objetos, pero no usamos
-    // un loop separado. Los dibujaremos desde la función `draw()` para que
+    // un loop separado. Los dibujamos desde la función `draw()` para que
     // siempre sean el fondo y se escalen al tamaño del canvas.
     const [layer1, layer2, layer3, layer4] = await Promise.all([
     loadSprite("../media/flappybird/parallax/1.png"),
@@ -109,7 +109,7 @@ async function main() {
       frameHeight: 300,     // Alto de cada frame.
       gapBetweenFrames: 0, // Espacio entre frames.
       framesPerRow: 22,     // Frames por fila en el sprite sheet.
-      animationSpeed: 2,    // Cambiar frame cada X frames del juego. (menor = más rápido)
+      animationSpeed: 4,    // Cambiar frame cada X frames del juego. (menor = más rápido)
       frameX: 0,
       frameY: 0
     }
@@ -118,9 +118,8 @@ async function main() {
   //Explosiones (spritesheet)
   const explosions = []; // array de explosiones activas
   function spawnExplosion(cx, cy) {
-    // usar la configuración declarada en explosionConfig
     const cfg = explosionConfig.spriteConfig;
-    const totalFrames = cfg.framesPerRow; // generador creó 1 fila de frames
+    const totalFrames = cfg.framesPerRow; 
     const w = cfg.frameWidth;
     const h = cfg.frameHeight;
     explosions.push({
@@ -141,13 +140,9 @@ async function main() {
       ex.frameCounter++;
       if (ex.frameCounter >= (ex.spriteConfig.animationSpeed || 4)) {
         ex.frameCounter = 0;
-        ex.currentFrame++;
       }
       //dibujar frame actual si la imagen está lista
       if (explosionImg.complete) drawFrame(ex, explosionImg);
-      if (ex.currentFrame >= ex.totalFrames) {
-        explosions.splice(i, 1);
-      }
     }
   }
 
@@ -342,8 +337,8 @@ async function main() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);//Limpiar canvas
 
-    // Dibujar parallax escalado al tamaño del canvas (fondo)
-    if (typeof layer1GameObj !== 'undefined') {
+    //Dibujar parallax escalado al tamaño del canvas (fondo)
+    if (typeof layer1GameObj !== 'undefined') {//Está quieto
       layer1GameObj.draw();
     }
     if (typeof layer2GameObj !== 'undefined') {
@@ -422,7 +417,7 @@ async function main() {
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         //crear explosión centrada sobre el dragón
-        spawnExplosion(dragon.x, dragon.y);
+        spawnExplosion(dragon.x + (dragon.width/2), dragon.y+(dragon.height/2));
         updateAndDrawExplosions();
         gameOver = true;
         parallaxMoving = false; // Stop parallax on collision
@@ -436,6 +431,15 @@ async function main() {
       if (p.x + 60 < 0) {
         pipes.splice(i, 1);
       }
+    }
+
+    //Colisión con suelo/techo
+    if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
+      try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
+        spawnExplosion(dragon.x + (dragon.width/2), dragon.y+(dragon.height/2));
+        updateAndDrawExplosions();
+        gameOver = true;
+        parallaxMoving = false; // Stop parallax on collision
     }
 
     //Dibujar y actualizar coins.
@@ -466,18 +470,10 @@ async function main() {
       }
     }
 
-    //Suelo / techo.
-    if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
-      try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
-        spawnExplosion(dragon.x, dragon.y);
-        updateAndDrawExplosions();
-        gameOver = true;
-        parallaxMoving = false; // Stop parallax on collision
-    }
 
     // UI: fondo del puntaje y texto.
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
-    ctx.fillRect(10, 10, 160, 60);
+    ctx.fillRect(10, 10, 120, 60);
     ctx.fillStyle = 'white';
     ctx.font = '20px Arial';
     ctx.textAlign = 'left';
@@ -540,5 +536,5 @@ async function main() {
 //---------------------------------------------------------------------------------------------------------
 // Ejecutar main al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
-  main().catch(err => console.error('FlappyBird init error:', err));
+  main().catch(err => console.error('FlappyDragon init error:', err));
 });
