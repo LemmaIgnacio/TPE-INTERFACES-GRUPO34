@@ -27,24 +27,26 @@ async function main() {
     loadSprite("../media/flappybird/parallax/4.png"),
     ]);
 
-    // Escalar cada layer para que su altura coincida con la altura del canvas
+    //Escalar cada layer para que su altura coincida con la altura del canvas
     const scale1 = canvas.height / layer1.height || 1;
     const scale2 = canvas.height / layer2.height || 1;
     const scale3 = canvas.height / layer3.height || 1;
     const scale4 = canvas.height / layer4.height || 1;
 
-    // Posicionar cada layer en y = 0 (se ajustan por su escala)
+    //Posicionar cada layer en y = 0 (se ajustan por su escala)
     const layer1GameObj = makeSprite(ctx, layer1, { x: 0, y: 0 }, scale1);
     const layer2GameObj = makeLayer(ctx, layer2, { x: 0, y: 0 }, scale2);
     const layer3GameObj = makeLayer(ctx, layer3, { x: 0, y: 0 }, scale3);
     const layer4GameObj = makeLayer(ctx, layer4, { x: 0, y: 0 }, scale4);
 
-    // Tiempo para parallax (se usa dentro de draw)
+    //Tiempo para parallax (se usa dentro de draw)
       let parallaxOldTime = 0;
-      let parallaxMoving = false; // parallax stays still until keydown in bindControls
+      let parallaxMoving = false; //parallax se queda quieto hasta que el jugador empiece a jugar
+  
 
-  // Cargar imágenes
-  //const bg = new Image(); bg.src = '../media/flappybird/bg.png';
+  //-------------------------------------------------------------------------
+  //CARGA DE RECURSOS
+  //Cargar imágenes al instanciar la imagen y depués esperar a que carguen.
   const dragonImg = new Image(); dragonImg.src = '../media/flappybird/dragon.png';
   const coinImg = new Image(); coinImg.src = '../media/flappybird/coin.png';
   const pipeTop = new Image(); pipeTop.src = '../media/flappybird/pipe_top.png';
@@ -55,14 +57,17 @@ async function main() {
     new Promise(res => { img.onload = () => res(); img.onerror = () => res(); })
   );
 
-  //Sonidos
+  //Sonidos, instamciar y manejar error de carga.
   const jumpSound = new Audio('../media/flappybird/jump.mp3');
   const hitSound = new Audio('../media/flappybird/hit.mp3');
   const plusPointSound = new Audio('../media/flappybird/point.mp3');
   jumpSound.onerror = () => {}; hitSound.onerror = () => {}; plusPointSound.onerror = () => {};
 
-  //CONFIGURACIÓN DE ANIMACIÓN DE SPRITE
 
+
+
+  //-------------------------------------------------------------------------
+  //CONFIGURACIÓN DE ANIMACIÓN DE SPRITE
   //Dragón.
   const dragon = { 
     x: 50, 
@@ -76,7 +81,6 @@ async function main() {
     currentFrame: 0,
     frameCounter: 0,
     isAnimating: false,
-    // isExploding: false,
     animationDirection: 1,  // 1 = adelante, -1 = atrás
     spriteConfig: {
       frameWidth: 200,      // Ancho de cada frame en el sprite.
@@ -113,7 +117,6 @@ async function main() {
 
   //Explosiones (spritesheet)
   const explosions = []; // array de explosiones activas
-
   function spawnExplosion(cx, cy) {
     // usar la configuración declarada en explosionConfig
     const cfg = explosionConfig.spriteConfig;
@@ -140,7 +143,7 @@ async function main() {
         ex.frameCounter = 0;
         ex.currentFrame++;
       }
-      // dibujar frame actual si la imagen está lista
+      //dibujar frame actual si la imagen está lista
       if (explosionImg.complete) drawFrame(ex, explosionImg);
       if (ex.currentFrame >= ex.totalFrames) {
         explosions.splice(i, 1);
@@ -154,6 +157,8 @@ async function main() {
   const objectGap = 200;
   const objectSpeed = 2;
   const coinSpawnChance = 0.3;
+
+  //Variables de control
   let frame = 0;
   let score = 0;
   let highScore = Number(localStorage.getItem('highScore') || 0);
@@ -170,25 +175,27 @@ async function main() {
     dragon.animationDirection = 1;
     pipes.length = 0;
     coins.length = 0;
-    explosions.length = 0; // limpiar explosiones al reiniciar
+    explosions.length = 0; //limpiar explosiones al reiniciar
     score = 0;
     frame = 0;
     gameOver = false;
     started = false;
-    parallaxMoving = false; // Reset parallax on game restart
+    parallaxMoving = false; //Resetear parallax
   }
 
-  // Ver si cambiar esta función para adaptarla a futuros sprites.
+  //Función para manejar el flap (salto) del dragón
   function flap() {
     if (!started) started = true;
     if (!gameOver) {
       dragon.velocity = dragon.lift;
-      // Iniciar la animación desde el frame 1
+      //Iniciar la animación desde el frame 1
       dragon.currentFrame = 0;
       dragon.isAnimating = true;
       dragon.animationDirection = 1;
       dragon.frameCounter = 0;
-      try { jumpSound.currentTime = 0; jumpSound.play(); } catch (e) {}
+      try { 
+        jumpSound.currentTime = 0; jumpSound.play();
+      } catch (e) {}
     } else {
       resetGame();
       if (!animating) requestAnimationFrame(draw);
@@ -203,15 +210,15 @@ async function main() {
     if (dragon.frameCounter >= dragon.spriteConfig.animationSpeed) {
       dragon.frameCounter = 0;
       
-      // Actualizar frame según la dirección
+      //Actualizar frame según la dirección
       dragon.currentFrame += dragon.animationDirection;
       
-      // Si llegamos al frame 3, cambiar dirección a reversa.
+      //Si llegamos al frame 3, cambiar dirección a reversa.
       if (dragon.currentFrame >= 2 && dragon.animationDirection === 1) {
         dragon.animationDirection = -1;
       }
       
-      // Si volvimos al frame 1, terminar la animación.
+      //Si volvimos al frame 1, terminar la animación.
       if (dragon.currentFrame <= 1 && dragon.animationDirection === -1) {
         dragon.currentFrame = 0;
         dragon.isAnimating = false;
@@ -242,7 +249,7 @@ async function main() {
     }
   }
 
-  // Reemplaza drawFrame con cálculo correcto de frameX/frameY para spritesheets multi-columna
+  //Reemplaza drawFrame con cálculo correcto de frameX/frameY para spritesheets multi-columna
   function drawFrame(entity, image) {
     if (!image || !image.complete) return;
 
@@ -298,42 +305,56 @@ async function main() {
     parallaxOldTime = performance.now();
     flap();
   }
+  //-------------------------------------------------------------------------
 
-  function unbindControls() {
-    document.removeEventListener('keydown', onKeydown);
-    canvas.removeEventListener('mousedown', onMouseDown);
-    canvas.removeEventListener('touchstart', onTouchStart);
-  }
 
+
+
+
+  //Puntaje
   function addOnePoint() {
     score++;
-    try { plusPointSound.currentTime = 0; plusPointSound.play(); } catch (e) {}
+    try { 
+      plusPointSound.currentTime = 0; plusPointSound.play(); 
+    } catch (e) {}
     if (score > highScore) {
       highScore = score;
       localStorage.setItem('highScore', String(highScore));
     }
   }
   
+
+
   //--------------------------------------------------------------------------------
   // Dibujo principal
   function draw(timeStamp) {
     animating = true;
 
-    // Calcular delta time para parallax. Solo avanzar si parallaxMoving=true.
-    if (typeof timeStamp === 'undefined') timeStamp = performance.now();
+    //Calcular delta time para parallax. Solo avanzar si parallaxMoving=true.
+    if (typeof timeStamp === 'undefined'){ 
+      timeStamp = performance.now();
+    }
     let pdt = 0;
     if (parallaxMoving) {
       if (parallaxOldTime) pdt = (timeStamp - parallaxOldTime) / 1000;
       parallaxOldTime = timeStamp;
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);//Limpiar canvas
 
     // Dibujar parallax escalado al tamaño del canvas (fondo)
-    if (typeof layer1GameObj !== 'undefined') layer1GameObj.draw();
-    if (typeof layer2GameObj !== 'undefined') makeInfiniteScroll(pdt, layer2GameObj, -50 * (scale2 || 1));
-    if (typeof layer3GameObj !== 'undefined') makeInfiniteScroll(pdt, layer3GameObj, -100 * (scale3 || 1));
-    if (typeof layer4GameObj !== 'undefined') makeInfiniteScroll(pdt, layer4GameObj, -150 * (scale4 || 1));
+    if (typeof layer1GameObj !== 'undefined') {
+      layer1GameObj.draw();
+    }
+    if (typeof layer2GameObj !== 'undefined') {
+      makeInfiniteScroll(pdt, layer2GameObj, -50 * (scale2 || 1));//mover más lento que los demás
+    }
+    if (typeof layer3GameObj !== 'undefined') {
+      makeInfiniteScroll(pdt, layer3GameObj, -100 * (scale3 || 1));
+    }
+    if (typeof layer4GameObj !== 'undefined') {
+      makeInfiniteScroll(pdt, layer4GameObj, -150 * (scale4 || 1));
+    }
 
 
     if (!started) {
@@ -343,13 +364,13 @@ async function main() {
       ctx.font = '28px Arial';
       ctx.textAlign = 'center';
       ctx.fillText('Presiona cualquier tecla o click para comenzar', canvas.width / 2, canvas.height / 2 + 8);
-      // Dibujar dragón estático.
+      //Dibujar dragón estático.
       drawFrame(dragon, dragonImg);
       if (!gameOver) requestAnimationFrame(draw);
       return;
     }
 
-    //Física del dragón.
+    //Física del dragón 
     dragon.velocity += dragon.gravity;
     dragon.y += dragon.velocity;
     
@@ -393,14 +414,14 @@ async function main() {
       if (pipeTop.complete) ctx.drawImage(pipeTop, p.x, 0, 60, p.top);
       if (pipeBottom.complete) ctx.drawImage(pipeBottom, p.x, p.bottom, 60, canvas.height - p.bottom);
 
-      // Colisión con tubería (Agregar Explosión)
+      //Colisión con tubería (Agregar Explosión)
       if (
         dragon.x < p.x+ 60 &&
         dragon.x + dragon.width > (p.x+5) &&
         (dragon.y < (p.top-2) || dragon.y + dragon.height > (p.bottom+4))
       ) {
         try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
-        // crear explosión centrada sobre el dragón
+        //crear explosión centrada sobre el dragón
         spawnExplosion(dragon.x, dragon.y);
         updateAndDrawExplosions();
         gameOver = true;
@@ -445,7 +466,7 @@ async function main() {
       }
     }
 
-    // Suelo / techo.
+    //Suelo / techo.
     if (dragon.y + dragon.height > canvas.height || dragon.y < 0) {
       try { hitSound.currentTime = 0; hitSound.play(); } catch (e) {}
         spawnExplosion(dragon.x, dragon.y);

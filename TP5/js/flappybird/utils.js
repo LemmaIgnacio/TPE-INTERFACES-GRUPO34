@@ -15,7 +15,7 @@ export function makeSprite(ctx, sprite, pos, scale = 1){
         pos,
         scale,
         draw(){
-            // Use integer pixel positions to avoid subpixel anti-aliasing seams
+            //Usar valores redondeados para evitar bordes borrosos
             const x = Math.round(this.pos.x);
             const y = Math.round(this.pos.y);
             const w = Math.round(this.width * this.scale);
@@ -37,16 +37,16 @@ export function makeInfiniteScroll(dt, layer, speed){
     const headWidth = Math.round(layer.head.width * layer.head.scale);
     const tailWidth = Math.round(layer.tail.width * layer.tail.scale);
     
-    // Move both layers
+    //Mover ambas partes del layer
     layer.head.pos.x += speed * dt;
     layer.tail.pos.x += speed * dt;
     
-    // Reposition when head goes off-screen, keeping exact alignment
+    //Reposicionar cuando head va fuera de pantalla, manteniendo alineación exacta
     if(layer.head.pos.x + headWidth < 0){
         layer.head.pos.x = layer.tail.pos.x + tailWidth;
     }
 
-    // Reposition when tail goes off-screen, keeping exact alignment
+    //Reposicionar cuando tail va fuera de pantalla, manteniendo alineación exacta
     if(layer.tail.pos.x + tailWidth < 0){
         layer.tail.pos.x = layer.head.pos.x + headWidth;
     }
